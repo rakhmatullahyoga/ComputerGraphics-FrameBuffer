@@ -1,4 +1,6 @@
 #include "FrameBuffer.h"
+#include <iostream>
+using namespace std;
 
 FrameBuffer::FrameBuffer() {
 	initFrameBuffer();
@@ -35,4 +37,9 @@ void FrameBuffer::initFrameBuffer() {
 		exit(4);
 	}
 	printf ("Framebuffer device was mapped to memory successfully.\n");
+}
+
+bool FrameBuffer::isBlack(int x, int y){
+	location = x * (vinfo.bits_per_pixel/8) + y * finfo.line_length;
+	return ((*(fbp+location) == 1) && (*(fbp+location+1) == 1) && (*(fbp+location+2) == 1));
 }

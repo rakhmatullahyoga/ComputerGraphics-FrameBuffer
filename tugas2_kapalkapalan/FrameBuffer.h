@@ -17,12 +17,14 @@ class FrameBuffer {
 		FrameBuffer();
 		~FrameBuffer();
 		void initFrameBuffer();
+		bool isBlack(int x, int y);
 		struct fb_var_screeninfo vinfo;
 		struct fb_fix_screeninfo finfo;
 		char* fbp;					/* pointer to framebuffer */
 	private:
 		long int screensize;
-		int fbfd;					/* frame buffer file descriptor */
+		int fbfd;
+		int location;					/* frame buffer file descriptor */
 };
 
 #endif

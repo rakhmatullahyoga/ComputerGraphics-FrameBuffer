@@ -68,3 +68,40 @@ void DrawingObject::animateRectangle(Point start_top_left_corner, int height, in
 		drawRectangle(top_left, height, width, warna, fBuff);
 	}
 }
+void DrawingObject::plotCircle (Point pusat, int r, RGBcolor warna, FrameBuffer fBuff){
+	int x, y, err, location;
+	x = -r; y = 0; err = 2-2*r; /* II. Quadrant */ 
+	   	do {
+	   	  /*   I. Quadrant */
+	   	  location = (pusat.GetAbsis()-x) * (fBuff.vinfo.bits_per_pixel/8) + (pusat.GetOrdinat()+y) * fBuff.finfo.line_length;
+	      if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+		    *(fBuff.fbp + location) = warna.getBlue(); 
+		    *(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
+		    *(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
+		  } 
+		  /*  II. Quadrant */
+	      location = (pusat.GetAbsis()-y) * (fBuff.vinfo.bits_per_pixel/8) + (pusat.GetOrdinat()-x) * fBuff.finfo.line_length;
+	      if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+		    *(fBuff.fbp + location) = warna.getBlue(); // Some blue 
+		    *(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
+		    *(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
+		  }
+		  /* III. Quadrant */
+	      location = (pusat.GetAbsis()+x) * (fBuff.vinfo.bits_per_pixel/8) + (pusat.GetOrdinat()-y) * fBuff.finfo.line_length;
+	      if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+		    *(fBuff.fbp + location) = warna.getBlue(); // Some blue 
+		    *(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
+		    *(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
+		  }
+	      /*  IV. Quadrant */
+	      location = (pusat.GetAbsis()+y) * (fBuff.vinfo.bits_per_pixel/8) + (pusat.GetOrdinat()+x) * fBuff.finfo.line_length;
+	      if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+		    *(fBuff.fbp + location) = warna.getBlue(); // Some blue 
+		    *(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
+		    *(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
+		  }
+	      r = err;
+	      if (r <= y) err += ++y*2+1;           /* e_xy+e_y < 0 */
+	      if (r > x || err > y) err += ++x*2+1; /* e_xy+e_x > 0 or no 2nd y-step */
+   		}while (x < 0);
+}
