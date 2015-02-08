@@ -32,7 +32,7 @@ void FrameBuffer::initFrameBuffer() {
 	/* map the device to memory */
 	fbp = (char*)mmap(0, finfo.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
 
-	if ((int)fbp == -1) {
+	if (atoi(fbp) == -1) {
 		printf ("Error: failed to map framebuffer device to memory.\n");
 		exit(4);
 	}

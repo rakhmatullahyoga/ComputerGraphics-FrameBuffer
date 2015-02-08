@@ -25,7 +25,7 @@ void DrawingObject::plotLine(Point awal, Point akhir, RGBcolor warna, FrameBuffe
 void DrawingObject::drawRectangle(Point top_left_corner, int height, int width, RGBcolor warna, FrameBuffer fBuff) {
 	Point start, finish;
 
-	system("clear");
+	//system("clear");
 
 	start = top_left_corner;
 	finish.SetAbsis(start.GetAbsis());

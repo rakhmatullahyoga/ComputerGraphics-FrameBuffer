@@ -2,43 +2,42 @@
 #include "DrawingObject.h"
 #include "RGBcolor.h"
 #include "Point.h"
+#include "Kapal.h"
+
+using namespace std;
 
 FrameBuffer frame;
 void Meledak (int xpusat, int ypusat);
 void antiLedak (int xpusat, int ypusat);
+void gerak (Kapal kapal, DrawingObject pesawat);
 int main(int argc, char const *argv[])
 {
-	RGBcolor color,hapus;
-	DrawingObject draw, Circle, pesawat;
-	Point start, finish;
-	int height = 50;
-	int width = 100;
-	hapus.setRed(0);
-	hapus.setGreen(0);
-	hapus.setBlue(0);
-	color.setRed(255);
-	color.setGreen(255);
-	color.setBlue(255);
-	start.SetAbsis(250);
-	start.SetOrdinat(10);
-	/*atribut Peluru*/
-	RGBcolor warnaPeluru;
-	Point peluruStart;
-	int radpeluru = 5;
-	warnaPeluru.setRed(255);
-	warnaPeluru.setGreen(255);
-	warnaPeluru.setBlue(0);
-	peluruStart.SetAbsis(300);
-	peluruStart.SetOrdinat(300);
+
+	Point kapalP, turretP;
+	kapalP.SetAbsis(100);
+	kapalP.SetOrdinat(500);
+	turretP.SetAbsis(140);
+	turretP.SetOrdinat(450);
+
+	Kapal kapal;
+	
+	FrameBuffer frame;
+	DrawingObject pesawat;
+
+	RGBcolor kapalCol;
+	kapalCol.setRed(234);
+	kapalCol.setGreen(34);
+	kapalCol.setBlue(74);
 
 	system("clear");
-	pesawat.drawRectangle(start,50,100,color,frame);
+	kapal = Kapal(kapalP,turretP,50,15,50,150,kapalCol,frame);
+	gerak(kapal,pesawat);
 	//draw.drawRectangle(start, height, width, color, frame);
 	//draw.animateRectangle(start, height, width, color, frame, 1, 0);
 
 	/*Objek Buatan*/
 
-
+	/*
 	bool meledak = false;
 	while((peluruStart.GetOrdinat()>10) && !meledak){
 		if(frame.isBlack(peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
@@ -52,8 +51,7 @@ int main(int argc, char const *argv[])
 			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
 			meledak = true;
 		}
-	}
-
+	} */
 
 	return 0;
 }
@@ -86,4 +84,76 @@ void antiLedak (int xpusat, int ypusat){
    		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
    		usleep(20000);
  	}
+}
+
+void gerak(Kapal kapal, DrawingObject pesawat) {
+	DrawingObject draw, Circle;
+	RGBcolor color,hapus;
+
+	Point start, finish;
+	int i =0;
+	int height = 50;
+	int width = 100;
+	hapus.setRed(0);
+	hapus.setGreen(0);
+	hapus.setBlue(0);
+	color.setRed(255);
+	color.setGreen(255);
+	color.setBlue(255);
+	/*atribut Peluru*/
+	RGBcolor warnaPeluru;
+	Point peluruStart;
+	int radpeluru = 5;
+	warnaPeluru.setRed(255);
+	warnaPeluru.setGreen(255);
+	warnaPeluru.setBlue(0);
+	peluruStart.SetAbsis(150);
+	peluruStart.SetOrdinat(450);
+
+	RGBcolor black;
+	black.setRed(0);
+	black.setBlue(0);
+	black.setGreen(0);
+
+	start.SetAbsis(500);
+	start.SetOrdinat(10);
+
+	RGBcolor fore;
+	fore.setRed(255);
+	fore.setGreen(255);
+	fore.setBlue(255);
+
+	bool meledak = false, end = false;
+
+	while(!end) {
+
+		// pesawat
+		pesawat.drawRectangle(start,50,100,black,frame);
+		start.SetAbsis(start.GetAbsis()-1);
+		pesawat.drawRectangle(start,50,100,fore,frame);
+
+		// kapal
+		kapal.setColor(black);
+		kapal.drawKapal();
+		kapal.setBodyPoint(kapal.getBodyPos().GetAbsis()+1, kapal.getBodyPos().GetOrdinat());
+		kapal.setTurretPoint(kapal.getTurretPos().GetAbsis()+1, kapal.getTurretPos().GetOrdinat());
+		kapal.setColor(fore);
+		kapal.drawKapal();
+
+		// peluru
+		if (i>=10 && !end) {
+			if (peluruStart.GetOrdinat() > 50 && !meledak) {
+				Circle.plotCircle(peluruStart,radpeluru,black,frame);
+				peluruStart.SetOrdinat(peluruStart.GetOrdinat()-1);
+				Circle.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
+			} else {
+				Meledak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
+				antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
+				meledak = true;
+				end = true;
+			}
+		}
+		i++;
+		usleep(10000);
+	}
 }
