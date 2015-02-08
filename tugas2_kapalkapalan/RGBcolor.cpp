@@ -13,6 +13,11 @@ void RGBcolor::setGreen(int new_green) {
 void RGBcolor::setBlue(int new_blue) {
 	blue = new_blue;
 }
+void RGBcolor::setRGB(int new_red,int new_green,int new_blue){
+	red = new_red;
+	green = new_green;
+	blue = new_blue;
+}
 int RGBcolor::getRed() {
 	return red;
 }

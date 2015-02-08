@@ -105,3 +105,9 @@ void DrawingObject::plotCircle (Point pusat, int r, RGBcolor warna, FrameBuffer 
 	      if (r > x || err > y) err += ++x*2+1; /* e_xy+e_x > 0 or no 2nd y-step */
    		}while (x < 0);
 }
+
+void DrawingObject::plotListOfPoint(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff){
+	for(int i=0; i<kumpulantitik.size()-1;i++){
+		plotLine(kumpulantitik.at(i),kumpulantitik.at(i+1), warna, fBuff);
+	}
+}

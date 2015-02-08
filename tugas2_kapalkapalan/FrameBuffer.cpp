@@ -32,7 +32,7 @@ void FrameBuffer::initFrameBuffer() {
 	/* map the device to memory */
 	fbp = (char*)mmap(0, finfo.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
 
-	if (atoi(fbp) == -1) {
+	if ((int)fbp == -1) {
 		printf ("Error: failed to map framebuffer device to memory.\n");
 		exit(4);
 	}
@@ -41,5 +41,11 @@ void FrameBuffer::initFrameBuffer() {
 
 bool FrameBuffer::isBlack(int x, int y){
 	location = x * (vinfo.bits_per_pixel/8) + y * finfo.line_length;
-	return ((*(fbp+location) == 1) && (*(fbp+location+1) == 1) && (*(fbp+location+2) == 1));
+	int R = *(fbp+location+2);
+	int G = *(fbp+location+1);
+	int B = *(fbp+location);
+	/*cout << "R=" << R << endl;
+	cout << "G=" << G << endl;
+	cout << "B=" << B << endl;*/
+	return (R == 0) && (G == 0) && (B == 0);
 }
