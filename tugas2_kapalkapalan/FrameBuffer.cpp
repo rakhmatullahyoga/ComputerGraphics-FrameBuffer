@@ -47,5 +47,5 @@ bool FrameBuffer::isBlack(int x, int y){
 	/*cout << "R=" << R << endl;
 	cout << "G=" << G << endl;
 	cout << "B=" << B << endl;*/
-	return (R == 0) && (G == 0) && (B == 0);
+	return ((R == 1) && (G == 1) && (B == 1)) || ((R == 0) && (G == 0) && (B == 0));
 }

@@ -16,11 +16,16 @@ class Pesawat{
 		void Geser(int x, int y);
 		void Draw();
 		void Hapus();
+		void Fill(RGBcolor warnaFill);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;
 		DrawingObject gambar;
 		FrameBuffer fBuff;
+		int x_kiri;
+		int x_kanan;
+		int y_atas;
+		int y_bawah;
 };
 
 #endif

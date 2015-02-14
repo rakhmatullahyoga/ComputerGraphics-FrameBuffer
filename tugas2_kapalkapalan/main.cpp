@@ -13,16 +13,18 @@ void antiLedak (int xpusat, int ypusat);
 void gerak (Kapal kapal, Pesawat pswt);
 int main(int argc, char const *argv[])
 {
-	DrawingObject Peluru;
+	DrawingObject Peluru, Peluru2;
 	RGBcolor black;
 	black.setRGB(0,0,0);
 	/*atribut Peluru*/
 	RGBcolor warnaPeluru;
-	Point peluruStart;
+	Point peluruStart,peluru2Start;
 	int radpeluru = 5;
 	warnaPeluru.setRGB(255,255,0);
 	peluruStart.SetAbsis(180);
 	peluruStart.SetOrdinat(350);
+	peluru2Start.SetAbsis(480);
+	peluru2Start.SetOrdinat(100);
 
 	/*Atribut Kapal*/
 	Point kapalP, turretP;
@@ -41,8 +43,11 @@ int main(int argc, char const *argv[])
 	bool meledak = false;
 	system("clear");
 	
+	pswt.Draw();
+	pswt.Fill(kapalCol);
+
 	/*Objek Buatan*/
-	for(int i=1;i<50;i++){
+	/*for(int i=1;i<50;i++){
 		pswt.Draw();
 		kapal.setColor(kapalCol);
 		kapal.drawKapal();
@@ -62,9 +67,12 @@ int main(int argc, char const *argv[])
 		kapal.drawKapal();
 		if(frame.isBlack(peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
 			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
+			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
 			usleep(10000);
 			Peluru.plotCircle(peluruStart,radpeluru,black,frame);
+			Peluru2.plotCircle(peluru2Start,radpeluru,black,frame);
 			peluruStart.SetOrdinat(peluruStart.GetOrdinat()-1);
+			peluru2Start.SetOrdinat(peluru2Start.GetOrdinat()+1);
 			pswt.Hapus();
 			kapal.setColor(black);
 			kapal.drawKapal();
@@ -78,7 +86,7 @@ int main(int argc, char const *argv[])
 			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
 			meledak = true;
 		}
-	}
+	}*/
 
 	return 0;
 }

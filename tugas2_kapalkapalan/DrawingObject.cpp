@@ -1,6 +1,8 @@
 #include "DrawingObject.h"
-
-DrawingObject::DrawingObject() {
+#include <iostream>
+using namespace std;
+DrawingObject::DrawingObject(){
+	
 }
 DrawingObject::~DrawingObject() {
 }
@@ -110,4 +112,101 @@ void DrawingObject::plotListOfPoint(vector<Point> kumpulantitik, RGBcolor warna,
 	for(int i=0; i<kumpulantitik.size()-1;i++){
 		plotLine(kumpulantitik.at(i),kumpulantitik.at(i+1), warna, fBuff);
 	}
+}
+void DrawingObject::RasterScan(int x_kiri, int x_kanan, int y_atas, int y_bawah, RGBcolor warna, FrameBuffer fBuff){
+	//cout << x_kiri << " " << x_kanan << " " << endl << y_atas <<" "<<y_bawah; //udah bener
+	int location;
+	int i,j;
+	bool pen_down;
+	i = y_bawah-y_atas+1;
+	j = x_kanan-x_kiri+1;
+	//cout << i << endl << j;
+	int** Matrix = new int*[i];
+	for(int a = 0; a < i; ++a){
+    	Matrix[a] = new int[j];
+	}
+	for(int a=0; a<i;a++){
+		for(int b=0;b<j;b++){
+			if(fBuff.isBlack(x_kiri+b,y_atas+a)){
+				Matrix[a][b] = 0;
+			}
+			else{
+				Matrix[a][b] = 1;	
+			}
+			//cout << Matrix[a][b];
+		}
+		//cout << endl;
+	}
+	for(int a=0; a<i;a++){
+		int b = 0;
+		bool ujungkanan = false;
+		bool singular;
+		pen_down = false;
+		do{
+			//cek singularitas
+			if(a<(i-1)){
+				//cek bawah
+				int m;
+				for(int n = 0;n<3;n++){
+					if(Matrix[a+1][b-1+n]){
+						m++;
+					}
+				}
+				if(m>=2){
+					singular=true;
+				}
+				else{singular=false;}
+			}
+			if((a>0) && (!singular)){
+				int m;
+				for(int n = 0;n<3;n++){
+					if(Matrix[a-1][b-1+n]){
+						m++;
+					}
+				}
+				if(m>=2){
+					singular=true;
+				}
+				else{singular=false;}	
+			}
+			//cek tebal
+			if(b==(j-1)){
+				ujungkanan = true;
+			}
+			if((Matrix[a][b] == 1)){
+				if(!ujungkanan){
+					if(Matrix[a][b+1]==0){
+						if(pen_down){
+							pen_down = false;
+							b++;
+						}
+						else{
+							pen_down = true;
+							b++;
+						}
+					}
+				}
+				else{
+					if(pen_down){
+						pen_down = false;
+						b++;
+					}
+					else{
+						pen_down = true;
+						b++;
+					}
+				}
+			}
+			if(pen_down){
+				location = (x_kiri+b) * (fBuff.vinfo.bits_per_pixel/8) + (y_atas+a) * fBuff.finfo.line_length;
+				if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+				   	*(fBuff.fbp + location) = warna.getBlue(); // biru 
+				   	*(fBuff.fbp + location + 1) = warna.getGreen(); // hijau 
+					*(fBuff.fbp + location + 2) = warna.getRed(); // merah
+				}
+			}
+			b++;
+		}while(b < j);
+	}
+	
 }

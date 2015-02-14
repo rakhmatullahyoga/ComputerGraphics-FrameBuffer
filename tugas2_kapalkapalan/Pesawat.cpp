@@ -22,6 +22,22 @@ Pesawat::Pesawat(){
   	}
 	else cout << "Unable to open file";
 	warna.setRGB(255,255,255);
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();	
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();	
+		}
+	}
 }
 Pesawat::~Pesawat(){
 
@@ -43,4 +59,7 @@ void Pesawat::Hapus(){
 	RGBcolor hitam;
 	hitam.setRGB(0,0,0);
 	gambar.plotListOfPoint(NTitik,hitam,fBuff);	
+}
+void Pesawat::Fill(RGBcolor warnaFill){
+	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
 }
