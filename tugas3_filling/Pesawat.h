@@ -16,7 +16,8 @@ class Pesawat{
 		void Geser(int x, int y);
 		void Draw();
 		void Hapus();
-		void Fill(RGBcolor warnaFill);
+		void RasterScanFill(RGBcolor warnaFill);
+		void FloodFill(RGBcolor warnaFill);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;

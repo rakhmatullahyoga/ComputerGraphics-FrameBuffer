@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
 	system("clear");
 	
 	pswt.Draw();
-	pswt.Fill(kapalCol);
+	pswt.FloodFill(kapalCol);
 
 	/*Objek Buatan*/
 	/*for(int i=1;i<50;i++){

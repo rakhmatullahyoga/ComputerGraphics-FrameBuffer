@@ -58,8 +58,13 @@ void Pesawat::Draw(){
 void Pesawat::Hapus(){
 	RGBcolor hitam;
 	hitam.setRGB(0,0,0);
-	gambar.plotListOfPoint(NTitik,hitam,fBuff);	
+	gambar.plotListOfPoint(NTitik,hitam,fBuff);
 }
-void Pesawat::Fill(RGBcolor warnaFill){
+void Pesawat::RasterScanFill(RGBcolor warnaFill){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
+}
+void Pesawat::FloodFill(RGBcolor warnaFill){
+	int x = x_kiri+10;
+	int y = 85;
+	gambar.FloodFill(x,y,warnaFill,fBuff);
 }
