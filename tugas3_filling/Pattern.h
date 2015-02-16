@@ -4,11 +4,13 @@
 #include "Point.h"
 #include "RGBcolor.h"
 #include "FrameBuffer.h"
+#include <string>
+using namespace std;
 
 class Pattern
 {
 public:
-	Pattern();
+	Pattern(string filename);
 	~Pattern();
 	void drawPattern(Point top_left, Point bottom_right, RGBcolor warna, FrameBuffer fBuff);
 private:

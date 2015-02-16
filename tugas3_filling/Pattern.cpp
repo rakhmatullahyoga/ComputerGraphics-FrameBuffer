@@ -3,9 +3,9 @@
 #include <fstream>
 using namespace std;
 
-Pattern::Pattern() {
+Pattern::Pattern(string filename) {
 	string input;
-	ifstream myfile ("burung.txt");
+	ifstream myfile (filename.c_str());
 	if (myfile.is_open()) {
 		for(int i=0; i<11; i++) {
 			for(int j=0; j<23; j++) {

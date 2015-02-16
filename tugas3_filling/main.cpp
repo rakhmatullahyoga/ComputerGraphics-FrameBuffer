@@ -44,14 +44,14 @@ int main(int argc, char const *argv[])
 
 	/*Objek Pesawat*/
 	Pesawat pswt;
-	Pattern Pattern;
+	Pattern pattern("burung.txt");
 
 	bool meledak = false;
 	system("clear");
 	
 	pswt.Draw();
 	pswt.FloodFill(kapalCol);
-	Pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
+	pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
 
 	/*Objek Buatan*/
 	/*for(int i=1;i<50;i++){
