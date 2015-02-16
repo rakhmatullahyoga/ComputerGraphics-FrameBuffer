@@ -4,6 +4,7 @@
 #include "Point.h"
 #include "Kapal.h"
 #include "Pesawat.h"
+#include "Ikan.h"
 
 using namespace std;
 
@@ -39,12 +40,14 @@ int main(int argc, char const *argv[])
 
 	/*Objek Pesawat*/
 	Pesawat pswt;
+	Ikan ikan;
 
 	bool meledak = false;
 	system("clear");
 	
 	pswt.Draw();
-	pswt.FloodFill(kapalCol);
+	ikan.drawPattern(465,82,kapalCol,frame);
+	//pswt.FloodFill(kapalCol);
 
 	/*Objek Buatan*/
 	/*for(int i=1;i<50;i++){
