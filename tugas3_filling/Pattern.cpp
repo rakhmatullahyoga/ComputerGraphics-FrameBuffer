@@ -1,11 +1,11 @@
-#include "Ikan.h"
+#include "Pattern.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-Ikan::Ikan() {
+Pattern::Pattern() {
 	string input;
-	ifstream myfile ("ikan.txt");
+	ifstream myfile ("burung.txt");
 	if (myfile.is_open()) {
 		for(int i=0; i<11; i++) {
 			for(int j=0; j<23; j++) {
@@ -18,26 +18,24 @@ Ikan::Ikan() {
 	else cout << "Unable to open file" << endl;
 }
 
-Ikan::~Ikan() {
+Pattern::~Pattern() {
 
 }
 
-void Ikan::drawPattern(int x, int y, RGBcolor warna, FrameBuffer fBuff) {
+void Pattern::drawPattern(Point top_left, Point bottom_right, RGBcolor warna, FrameBuffer fBuff) {
 	int location;
-	int absis;
-	int ordinat = y;
-	for(int i=0; i<11; i++) {
-		absis = x;
-		for(int j=0; j<23; j++) {
-			if(matriks[j][i]==1) {
-				location = absis * (fBuff.vinfo.bits_per_pixel/8) + ordinat * fBuff.finfo.line_length;
+	for(int i=top_left.GetOrdinat(); i<=bottom_right.GetOrdinat(); i++) {
+		//absis = x;
+		for(int j=top_left.GetAbsis(); j<bottom_right.GetAbsis(); j++) {
+			if((matriks[j%23][i%11]==1)&&(!fBuff.isBlack(j,i))) {
+				location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;
 				*(fBuff.fbp + location) = warna.getBlue(); // Some blue 
 				*(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
 				*(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
 				*(fBuff.fbp + location + 3) = 0; // No transparency
 			}
-			absis++;
+			//absis++;
 		}
-		ordinat++;
+		//ordinat++;
 	}
 }

@@ -4,7 +4,7 @@
 #include "Point.h"
 #include "Kapal.h"
 #include "Pesawat.h"
-#include "Ikan.h"
+#include "Pattern.h"
 
 using namespace std;
 
@@ -28,7 +28,11 @@ int main(int argc, char const *argv[])
 	peluru2Start.SetOrdinat(100);
 
 	/*Atribut Kapal*/
-	Point kapalP, turretP;
+	Point kapalP, turretP, pesawatP_top_left, pesawatP_bottom_right;
+	pesawatP_top_left.SetAbsis(400);
+	pesawatP_top_left.SetOrdinat(60);
+	pesawatP_bottom_right.SetAbsis(530);
+	pesawatP_bottom_right.SetOrdinat(115);
 	kapalP.SetAbsis(50);
 	kapalP.SetOrdinat(400);
 	turretP.SetAbsis(120);
@@ -40,14 +44,14 @@ int main(int argc, char const *argv[])
 
 	/*Objek Pesawat*/
 	Pesawat pswt;
-	Ikan ikan;
+	Pattern Pattern;
 
 	bool meledak = false;
 	system("clear");
 	
 	pswt.Draw();
-	ikan.drawPattern(465,78,kapalCol,frame);
-	//pswt.FloodFill(kapalCol);
+	pswt.FloodFill(kapalCol);
+	Pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
 
 	/*Objek Buatan*/
 	/*for(int i=1;i<50;i++){
