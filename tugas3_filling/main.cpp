@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
 	system("clear");
 	
 	pswt.Draw();
-	ikan.drawPattern(465,82,kapalCol,frame);
+	ikan.drawPattern(465,78,kapalCol,frame);
 	//pswt.FloodFill(kapalCol);
 
 	/*Objek Buatan*/

@@ -9,7 +9,7 @@ Ikan::Ikan() {
 	if (myfile.is_open()) {
 		for(int i=0; i<11; i++) {
 			for(int j=0; j<23; j++) {
-				myfile >> matriks[i][j];
+				myfile >> matriks[j][i];
 				//matriks[i][j] = atoi(input);
 			}
 		}
@@ -24,20 +24,20 @@ Ikan::~Ikan() {
 
 void Ikan::drawPattern(int x, int y, RGBcolor warna, FrameBuffer fBuff) {
 	int location;
-	int absis = x;
+	int absis;
 	int ordinat = y;
 	for(int i=0; i<11; i++) {
 		absis = x;
 		for(int j=0; j<23; j++) {
-			if(matriks[i][j]==1) {
+			if(matriks[j][i]==1) {
 				location = absis * (fBuff.vinfo.bits_per_pixel/8) + ordinat * fBuff.finfo.line_length;
 				*(fBuff.fbp + location) = warna.getBlue(); // Some blue 
 				*(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
 				*(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
 				*(fBuff.fbp + location + 3) = 0; // No transparency
 			}
-			absis+=5;
+			absis++;
 		}
-		ordinat+=5;
+		ordinat++;
 	}
 }
