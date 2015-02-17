@@ -72,3 +72,9 @@ void Kapal::drawKapal() {
 	draw.drawRectangle(getBodyPos(),getBodyHeight(),getBodyWidth(),getColor(),getFbuffer());
 	draw.drawRectangle(getTurretPos(),getTurretHeight(),getTurretWidth(),getColor(),getFbuffer());
 }
+
+void Kapal::FloodFill(RGBcolor warnaFill){
+	int x = x_kiri+10;
+	int y = 85;
+	gambar.FloodFill(x,y,warnaFill,fBuff);
+}

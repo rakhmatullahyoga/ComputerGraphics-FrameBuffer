@@ -1,5 +1,5 @@
-#ifndef PESAWAT_H
-#define PESAWAT_H
+#ifndef KAPAL_H
+#define KAPAL_H
 
 #include "FrameBuffer.h"
 #include "DrawingObject.h"
@@ -8,10 +8,10 @@
 #include <vector>
 using namespace std;
 
-class Pesawat{
+class Kapal{
 	public:
-		Pesawat();
-		~Pesawat();
+		Kapal();
+		~Kapal();
 		void SetWarna(int R, int G, int B);
 		void Geser(int x, int y);
 		void Draw(FrameBuffer fBuff);

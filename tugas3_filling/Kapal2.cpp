@@ -1,14 +1,14 @@
-#include "Pesawat.h"
+#include "Kapal2.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 using namespace std;
 
-Pesawat::Pesawat(){
+Kapal::Kapal(){
 	string line;
 	int a,b;
 	Point titik;
-  	ifstream myfile ("pesawat2.txt");
+  	ifstream myfile ("Kapal2.txt");
   	if (myfile.is_open()){
     	while ( getline (myfile,line) ){
 
@@ -39,30 +39,31 @@ Pesawat::Pesawat(){
 		}
 	}
 }
-Pesawat::~Pesawat(){
+Kapal::~Kapal(){
+
 }
-void Pesawat::SetWarna(int R, int G, int B){
+void Kapal::SetWarna(int R, int G, int B){
 	warna.setRGB(R,G,B);	
 }
-void Pesawat::Geser(int x, int y){
+void Kapal::Geser(int x, int y){
 	Point currentp;
 	for(int i=0; i<NTitik.size();i++){
 		NTitik.at(i).SetAbsis(NTitik.at(i).GetAbsis()+x);
 		NTitik.at(i).SetOrdinat(NTitik.at(i).GetOrdinat()+y);
 	}
 }
-void Pesawat::Draw(FrameBuffer fBuff){
+void Kapal::Draw(FrameBuffer fBuff){
 	gambar.plotListOfPoint(NTitik,warna,fBuff);
 }
-void Pesawat::Hapus(FrameBuffer fBuff){
+void Kapal::Hapus(FrameBuffer fBuff){
 	RGBcolor hitam;
 	hitam.setRGB(0,0,0);
 	gambar.plotListOfPoint(NTitik,hitam,fBuff);
 }
-void Pesawat::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
+void Kapal::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
 }
-void Pesawat::FloodFill(RGBcolor warnaFill, FrameBuffer fBuff){
+void Kapal::FloodFill(RGBcolor warnaFill,FrameBuffer fBuff){
 	int x = (x_kiri+x_kanan)/2;
 	int y = (y_bawah+y_atas)/2;
 	gambar.FloodFill(x,y,warnaFill,fBuff);

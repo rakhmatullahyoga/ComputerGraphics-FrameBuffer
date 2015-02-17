@@ -24,18 +24,21 @@ Pattern::~Pattern() {
 
 void Pattern::drawPattern(Point top_left, Point bottom_right, RGBcolor warna, FrameBuffer fBuff) {
 	int location;
+	int tla, tlo;
+	tla = 0;
+	tlo = 0;
 	for(int i=top_left.GetOrdinat(); i<=bottom_right.GetOrdinat(); i++) {
-		//absis = x;
+		tla = 0;
 		for(int j=top_left.GetAbsis(); j<bottom_right.GetAbsis(); j++) {
-			if((matriks[j%23][i%11]==1)&&(!fBuff.isBlack(j,i))) {
+			if((matriks[tla%23][tlo%11]==1)&&(!fBuff.isBlack(j,i))) {
 				location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;
 				*(fBuff.fbp + location) = warna.getBlue(); // Some blue 
 				*(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
 				*(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
 				*(fBuff.fbp + location + 3) = 0; // No transparency
 			}
-			//absis++;
+			tla++;
 		}
-		//ordinat++;
+		tlo++;
 	}
 }

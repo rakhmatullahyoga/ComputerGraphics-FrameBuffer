@@ -2,7 +2,7 @@
 #include "DrawingObject.h"
 #include "RGBcolor.h"
 #include "Point.h"
-#include "Kapal.h"
+#include "Kapal2.h"
 #include "Pesawat.h"
 #include "Pattern.h"
 
@@ -28,32 +28,55 @@ int main(int argc, char const *argv[])
 	peluru2Start.SetOrdinat(100);
 
 	/*Atribut Kapal*/
-	Point kapalP, turretP, pesawatP_top_left, pesawatP_bottom_right;
-	pesawatP_top_left.SetAbsis(400);
-	pesawatP_top_left.SetOrdinat(60);
-	pesawatP_bottom_right.SetAbsis(530);
-	pesawatP_bottom_right.SetOrdinat(115);
+	/*
 	kapalP.SetAbsis(50);
 	kapalP.SetOrdinat(400);
 	turretP.SetAbsis(120);
 	turretP.SetOrdinat(350);
-	RGBcolor kapalCol;
 	kapalCol.setRGB(234,34,74);
 	Kapal kapal;
 	kapal = Kapal(kapalP,turretP,50,15,50,150,kapalCol,frame);
+	*/
 
-	/*Objek Pesawat*/
-	Pesawat pswt;
-	Pattern pattern("burung.txt");
-
-	bool meledak = false;
 	system("clear");
+	bool meledak = false;
+	Point kapalP, turretP;
+	RGBcolor kapalCol;
+	kapalCol.setRGB(120,120,255);
+	/*Objek Pesawat*/
+	Point pesawatP_top_left, pesawatP_bottom_right;
+	pesawatP_top_left.SetAbsis(300);
+	pesawatP_top_left.SetOrdinat(30);
+	pesawatP_bottom_right.SetAbsis(560);
+	pesawatP_bottom_right.SetOrdinat(140);
 	
-	pswt.Draw();
-	pswt.FloodFill(kapalCol);
-	pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
+	 Pesawat pswt;
+	 Pattern pattern("burung.txt");
+	 pswt.Draw(frame);
+	 pswt.RasterScanFill(kapalCol,frame);
+	 pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
 
-	/*Objek Buatan*/
+	/*Objek Kapal*/
+	
+	
+	Point kapalP_top_left, kapalP_bottom_right;
+	kapalP_top_left.SetAbsis(370);
+	kapalP_top_left.SetOrdinat(650);
+	kapalP_bottom_right.SetAbsis(550);
+	kapalP_bottom_right.SetOrdinat(690);
+	RGBcolor kapal2Col;
+	kapal2Col.setRGB(0,0,200);
+	Kapal kapal; 	
+	Pattern pattern2("ikan.txt");
+	kapal.Draw(frame);
+	kapal.RasterScanFill(kapal2Col,frame);
+	pattern2.drawPattern(kapalP_top_left,kapalP_bottom_right,warnaPeluru,frame);
+
+
+
+
+
+/*Objek Buatan*/
 	/*for(int i=1;i<50;i++){
 		pswt.Draw();
 		kapal.setColor(kapalCol);
@@ -93,11 +116,12 @@ int main(int argc, char const *argv[])
 			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
 			meledak = true;
 		}
-	}*/
-
+	}
+	*/
 	return 0;
 }
 
+/*
 void Meledak (int xpusat, int ypusat){
 	DrawingObject Ledakan;
 	RGBcolor warnaLedakan;
@@ -128,11 +152,11 @@ void antiLedak (int xpusat, int ypusat){
  	}
 }
 
-/*void gerak(Kapal kapal, Pesawat pswt) {
+void gerak(Kapal kapal, Pesawat pswt) {
 	DrawingObject Circle;
 
 	int i =0;
-	/*atribut Peluru
+	//atribut Peluru
 	RGBcolor warnaPeluru;
 	Point peluruStart;
 	int radpeluru = 5;
@@ -186,4 +210,5 @@ void antiLedak (int xpusat, int ypusat){
 		i++;
 		usleep(10000);
 	}
-}*/
+}
+*/
