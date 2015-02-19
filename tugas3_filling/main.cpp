@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
 	 Pesawat pswt;
 	 Pattern pattern("burung.txt");
 	 pswt.Draw(frame);
-	 pswt.RasterScanFill(kapalCol,frame);
+	 pswt.FloodFill(kapalCol,frame);
 	 pattern.drawPattern(pesawatP_top_left,pesawatP_bottom_right,warnaPeluru,frame);
 
 	/*Objek Kapal*/
@@ -69,7 +69,7 @@ int main(int argc, char const *argv[])
 	Kapal kapal; 	
 	Pattern pattern2("ikan.txt");
 	kapal.Draw(frame);
-	kapal.RasterScanFill(kapal2Col,frame);
+	kapal.FloodFill(kapal2Col,frame);
 	pattern2.drawPattern(kapalP_top_left,kapalP_bottom_right,warnaPeluru,frame);
 
 
