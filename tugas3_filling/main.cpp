@@ -2,16 +2,15 @@
 #include "DrawingObject.h"
 #include "RGBcolor.h"
 #include "Point.h"
-#include "Kapal2.h"
-#include "Pesawat.h"
 #include "Pattern.h"
+#include "Object.h"
 
 using namespace std;
 
 FrameBuffer frame;
 void Meledak (int xpusat, int ypusat);
 void antiLedak (int xpusat, int ypusat);
-void gerak (Kapal kapal, Pesawat pswt);
+void gerak (Object kapal, Object pswt);
 int main(int argc, char const *argv[])
 {
 	DrawingObject Peluru, Peluru2;
@@ -50,7 +49,7 @@ int main(int argc, char const *argv[])
 	pesawatP_bottom_right.SetAbsis(560);
 	pesawatP_bottom_right.SetOrdinat(140);
 	
-	 Pesawat pswt;
+	 Object pswt("pesawat2.txt");
 	 Pattern pattern("burung.txt");
 	 pswt.Draw(frame);
 	 pswt.FloodFill(kapalCol,frame);
@@ -66,7 +65,7 @@ int main(int argc, char const *argv[])
 	kapalP_bottom_right.SetOrdinat(690);
 	RGBcolor kapal2Col;
 	kapal2Col.setRGB(0,0,200);
-	Kapal kapal; 	
+	Object kapal("Kapal2.txt"); 	
 	Pattern pattern2("ikan.txt");
 	kapal.Draw(frame);
 	kapal.FloodFill(kapal2Col,frame);

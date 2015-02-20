@@ -1,5 +1,5 @@
 all:
-	g++ -o kapal main.cpp Kapal2.cpp DrawingObject.cpp FrameBuffer.cpp Point.cpp RGBcolor.cpp Pesawat.cpp Pattern.cpp
+	g++ -o kapal main.cpp DrawingObject.cpp FrameBuffer.cpp Point.cpp RGBcolor.cpp Pattern.cpp Object.cpp
 	
 runkapal:
 	./kapal
