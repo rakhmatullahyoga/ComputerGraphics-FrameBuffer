@@ -43,11 +43,11 @@ int main(int argc, char const *argv[])
 	bool meledak = false;
 	system("clear");
 	
-	pswt.Draw();
-	pswt.Fill(kapalCol);
+	//pswt.Draw();
+	//pswt.Fill(kapalCol);
 
 	/*Objek Buatan*/
-	/*for(int i=1;i<50;i++){
+	for(int i=1;i<50;i++){
 		pswt.Draw();
 		kapal.setColor(kapalCol);
 		kapal.drawKapal();
@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
 			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
 			meledak = true;
 		}
-	}*/
+	}
 
 	return 0;
 }
