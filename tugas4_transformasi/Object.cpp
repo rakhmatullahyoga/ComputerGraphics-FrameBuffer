@@ -2,7 +2,9 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+
 using namespace std;
+
 #define PI 3.14159265
 
 Object::Object(string filename){
@@ -83,10 +85,10 @@ void Object::DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna) {
 
 	pola.drawPattern(object_top_left, object_bottom_right, warna, fBuff);
 }
-void Object::Putar(int drj, int xpusat, int ypusat){
-	int x,y;
-	double xbaru, ybaru;
-	double sinus, cosinus;
+void Object::Putar(float drj, int xpusat, int ypusat){
+	int x,y,xbaruInt,ybaruInt;
+	float xbaru, ybaru;
+	float sinus, cosinus;
 	for(int i=0; i<NTitik.size();i++){
 		x = NTitik.at(i).GetAbsis();
 		y = NTitik.at(i).GetOrdinat();
@@ -94,7 +96,15 @@ void Object::Putar(int drj, int xpusat, int ypusat){
 		cosinus = cos(drj*PI/180);
 		xbaru = (x-xpusat)*cosinus - (y-ypusat)*sinus + xpusat;
 		ybaru = (x-xpusat)*sinus + (y-ypusat)*cosinus + ypusat;
-		NTitik.at(i).SetAbsis((int)(xbaru+0.5));
-		NTitik.at(i).SetOrdinat((int)(ybaru+0.5));
+		if (xbaru>=0)
+			xbaruInt = (int)(xbaru+0.5);
+		else
+			xbaruInt = (int)(xbaru-0.5);
+		if (ybaru>=0)
+			ybaruInt = (int)(ybaru+0.5);
+		else
+			ybaruInt = (int)(ybaru-0.5);
+		NTitik.at(i).SetAbsis(xbaruInt);
+		NTitik.at(i).SetOrdinat(ybaruInt);
 	}
 }

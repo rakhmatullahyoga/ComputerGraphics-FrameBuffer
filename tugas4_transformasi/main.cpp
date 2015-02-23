@@ -4,6 +4,7 @@
 #include "Point.h"
 #include "Pattern.h"
 #include "Object.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,19 +14,22 @@ void antiLedak (int xpusat, int ypusat);
 
 int main(int argc, char const *argv[])
 {
-	DrawingObject Peluru, Peluru2;
-	RGBcolor black;
+	int x_center = 560;
+	int y_center = 130;
+	DrawingObject Peluru, Peluru2, Roda;
+	RGBcolor black, white;
 	black.setRGB(0,0,0);
+	white.setRGB(255,255,255);
 	/*atribut Peluru*/
 	RGBcolor warnaPeluru;
-	Point peluruStart,peluru2Start;
-	int radpeluru = 5;
+	Point peluruStart,peluru2Start,roda_fall;
+	int radpeluru = 5, rad_roda = 10;
 	warnaPeluru.setRGB(255,255,0);
 
-	peluruStart.SetAbsis(180);
+	peluruStart.SetAbsis(280);
 	peluruStart.SetOrdinat(650);
-	peluru2Start.SetAbsis(480);
-	peluru2Start.SetOrdinat(100);
+	peluru2Start.SetAbsis(400);
+	peluru2Start.SetOrdinat(195);
 
 	/*Atribut Kapal*/
 	Point kapalP, turretP;
@@ -53,6 +57,9 @@ int main(int argc, char const *argv[])
 	//pswt.FloodFill(kapalCol,frame);
 	//pswt.DrawPattern(pattern, frame, warnaPeluru);
 
+	/*Baling-baling*/
+	Object baling("baling2.txt");
+	baling.Draw(frame);
 	/*Objek Kapal*/
 	
 	Point kapalP_top_left, kapalP_bottom_right;
@@ -71,6 +78,7 @@ int main(int argc, char const *argv[])
 	/*Objek Buatan*/
 	for(int i=1;i<50;i++){
 		pswt.Draw(frame);
+		baling.Draw(frame);
 		//pswt.FloodFill(kapalCol,frame);
 		//pswt.DrawPattern(pattern, frame, warnaPeluru);
 		kapal.SetWarna(kapalCol);
@@ -80,15 +88,20 @@ int main(int argc, char const *argv[])
 		usleep(10000);
 		pswt.Hapus(frame);
 		kapal.Hapus(frame);
+		baling.Hapus(frame);
 		//kapal.drawKapal();
 		//kapal geser
 		kapal.Geser(3,0);
 		//kapal.setTurretPoint(kapal.getTurretPos().GetAbsis()+1, kapal.getTurretPos().GetOrdinat());
 		pswt.Geser(-1,0);
+		baling.Geser(-1,0);
+		x_center--;
+		baling.Putar(12,x_center,y_center);
 	}
 
 	while((peluruStart.GetOrdinat()>10) && !meledak){
 		pswt.Draw(frame);
+		baling.Draw(frame);
 		//pswt.FloodFill(kapalCol,frame);
 		//pswt.DrawPattern(pattern, frame, warnaPeluru);
 		kapal.SetWarna(kapalCol);
@@ -104,6 +117,7 @@ int main(int argc, char const *argv[])
 			peluruStart.SetOrdinat(peluruStart.GetOrdinat()-5);
 			peluru2Start.SetOrdinat(peluru2Start.GetOrdinat()+5);
 			pswt.Hapus(frame);
+			baling.Hapus(frame);
 			pswt.Geser(-1,0);
 			kapal.Hapus(frame);
 			//kapal.SetWarna(black);
@@ -112,14 +126,38 @@ int main(int argc, char const *argv[])
 			//kapal.setBodyPoint(kapal.getBodyPos().GetAbsis()+1, kapal.getBodyPos().GetOrdinat());
 			//kapal.setTurretPoint(kapal.getTurretPos().GetAbsis()+1, kapal.getTurretPos().GetOrdinat());
 			kapal.Geser(3,0);
+			baling.Geser(-1,0);
+			x_center--;
+			baling.Putar(12,x_center,y_center);
 		}
 		else{
 			Meledak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
 			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
+			roda_fall.SetAbsis(peluruStart.GetAbsis());
+			roda_fall.SetOrdinat(peluruStart.GetOrdinat()+rad_roda);
+			int t= 400, c = 1;
+			int y = roda_fall.GetOrdinat();
+			Point roda_bouncing = roda_fall;
+			int g = 15;
+			for (int x = roda_fall.GetAbsis()+1; x<roda_fall.GetAbsis()+63; x++) {
+				usleep(10000);
+				Roda.plotCircle(roda_bouncing, rad_roda, black, frame);
+				if(y >= roda_fall.GetOrdinat()+490) {
+					c = 0;
+					t -= 20;
+					g -= 5;
+				}
+				if (y <=roda_fall.GetOrdinat()+750-t) {
+					c=1;
+				}
+				y = y + (c?g: -g);
+				roda_bouncing.SetAbsis(x);
+				roda_bouncing.SetOrdinat(y);
+				Roda.plotCircle(roda_bouncing, rad_roda, white, frame);
+			}
 			meledak = true;
 		}
 	}
-	
 	return 0;
 }
 
