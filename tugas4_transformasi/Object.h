@@ -21,6 +21,7 @@ class Object{
 		void RasterScanFill(RGBcolor warnaFill,FrameBuffer fBuff);
 		void FloodFill(RGBcolor warnaFill,FrameBuffer fBuff);
 		void DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna);
+		void Putar(int drj, int xpusat, int ypusat);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;
