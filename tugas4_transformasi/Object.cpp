@@ -51,22 +51,10 @@ void Object::Geser(int x, int y){
 		NTitik.at(i).SetAbsis(NTitik.at(i).GetAbsis()+x);
 		NTitik.at(i).SetOrdinat(NTitik.at(i).GetOrdinat()+y);
 		/* Geser floodfill point */
-		x_kiri = x_kanan = NTitik.at(0).GetAbsis();
-		y_atas = y_bawah = NTitik.at(0).GetOrdinat();
-		for(int i=1; i<NTitik.size();i++){
-			if(x_kiri > NTitik.at(i).GetAbsis()){
-				x_kiri = NTitik.at(i).GetAbsis();
-			}
-			else if(x_kanan <NTitik.at(i).GetAbsis()){
-				x_kanan = NTitik.at(i).GetAbsis();	
-			}
-			if(y_atas > NTitik.at(i).GetOrdinat()){
-				y_atas = NTitik.at(i).GetOrdinat();
-			}
-			else if(y_bawah < NTitik.at(i).GetOrdinat()){
-				y_bawah = NTitik.at(i).GetOrdinat();	
-			}
-		}
+		x_kiri += x;
+		x_kanan += x;
+		y_atas += y;
+		y_bawah += y;
 	}
 }
 void Object::Draw(FrameBuffer fBuff){
