@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 using namespace std;
+#define PI 3.14159265
 
 Object::Object(string filename){
 	string line;
@@ -93,4 +94,19 @@ void Object::DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna) {
 	object_bottom_right.SetOrdinat(y_bawah);
 
 	pola.drawPattern(object_top_left, object_bottom_right, warna, fBuff);
+}
+void Object::Putar(int drj, int xpusat, int ypusat){
+	int x,y;
+	double xbaru, ybaru;
+	double sinus, cosinus;
+	for(int i=0; i<NTitik.size();i++){
+		x = NTitik.at(i).GetAbsis();
+		y = NTitik.at(i).GetOrdinat();
+		sinus = sin(drj*PI/180);
+		cosinus = cos(drj*PI/180);
+		xbaru = (x-xpusat)*cosinus - (y-ypusat)*sinus + xpusat;
+		ybaru = (x-xpusat)*sinus + (y-ypusat)*cosinus + ypusat;
+		NTitik.at(i).SetAbsis((int)(xbaru+0.5));
+		NTitik.at(i).SetOrdinat((int)(ybaru+0.5));
+	}
 }
