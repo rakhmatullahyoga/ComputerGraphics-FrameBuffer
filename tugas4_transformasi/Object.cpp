@@ -64,9 +64,21 @@ void Object::Draw(FrameBuffer fBuff){
 	gambar.plotListOfPoint(NTitik,warna,fBuff);
 }
 void Object::Hapus(FrameBuffer fBuff){
-	RGBcolor hitam;
+	// algo lama, cuma menghapus garis
+	/*RGBcolor hitam;
 	hitam.setRGB(0,0,0);
-	gambar.plotListOfPoint(NTitik,hitam,fBuff);
+	gambar.plotListOfPoint(NTitik,hitam,fBuff);*/
+	// algo baru, menghapus satu blok persegi
+	for(int i=y_atas; i<=y_bawah; i++) {
+		for(int j=x_kiri; j<=x_kanan; j++) {
+			int location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;
+			if ( fBuff.vinfo.bits_per_pixel == 32 ) {
+				*(fBuff.fbp + location) = 0;
+				*(fBuff.fbp + location + 1) = 0;
+				*(fBuff.fbp + location + 2) = 0;
+			}
+		}
+	}
 }
 void Object::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
@@ -106,5 +118,69 @@ void Object::Putar(float drj, int xpusat, int ypusat){
 			ybaruInt = (int)(ybaru-0.5);
 		NTitik.at(i).SetAbsis(xbaruInt);
 		NTitik.at(i).SetOrdinat(ybaruInt);
+	}
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();	
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();	
+		}
+	}
+}
+bool Object::IsVPoint(int x, int y) {
+	int i = 0;
+	bool found = false;
+	bool v_point = false;
+	while((i<NTitik.size())&&!found) {
+		if(x==NTitik.at(i).GetAbsis()&&y==NTitik.at(i).GetOrdinat()) {
+			if(((NTitik.at(i-1).GetOrdinat()<y)&&(NTitik.at(i+1).GetOrdinat()<y))||((NTitik.at(i-1).GetOrdinat()>y)&&(NTitik.at(i+1).GetOrdinat()>y))) {
+				v_point = true;
+			}
+			else {
+				if((NTitik.at(i-1).GetOrdinat()<y)&&(NTitik.at(i+1).GetOrdinat()==y))
+					v_point = (NTitik.at(i+2).GetOrdinat()<y);
+				else if((NTitik.at(i-1).GetOrdinat()>y)&&(NTitik.at(i+1).GetOrdinat()==y))
+					v_point = (NTitik.at(i+2).GetOrdinat()>y);
+				else if((NTitik.at(i-1).GetOrdinat()==y)&&(NTitik.at(i+1).GetOrdinat()>y))
+					v_point = (NTitik.at(i-2).GetOrdinat()>y);
+				else if((NTitik.at(i-1).GetOrdinat()==y)&&(NTitik.at(i+1).GetOrdinat()<y))
+					v_point = (NTitik.at(i-2).GetOrdinat()<y);
+			}
+			found = true;
+		}
+		else {
+			i++;
+		}
+	}
+	return v_point;
+}
+void Object::ScanLineFill(RGBcolor warna, FrameBuffer fBuff) {
+	bool filling;
+	for(int i=y_atas; i<=y_bawah; i++) {
+		filling = false;
+		for(int j=x_kiri; j<=x_kanan; j++) {
+			if(!fBuff.isBlack(j,i)) {
+				if(!IsVPoint(j,i)) {
+					filling = !filling;
+				}
+			}
+			else {
+				if(filling) {
+					int location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;
+					*(fBuff.fbp + location) = warna.getBlue();
+					*(fBuff.fbp + location + 1) = warna.getGreen();
+					*(fBuff.fbp + location + 2) = warna.getRed();
+				}
+			}
+		}
 	}
 }

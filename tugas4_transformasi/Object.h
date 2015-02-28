@@ -22,6 +22,8 @@ class Object{
 		void FloodFill(RGBcolor warnaFill,FrameBuffer fBuff);
 		void DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna);
 		void Putar(float drj, int xpusat, int ypusat);
+		bool IsVPoint(int x, int y);
+		void ScanLineFill(RGBcolor warna, FrameBuffer fBuff);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;

@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
 	Object pswt("pesawat2.txt");
 	Pattern pattern("burung.txt");
 	pswt.Draw(frame);
-	//pswt.FloodFill(kapalCol,frame);
+	pswt.ScanLineFill(kapalCol,frame);
 	//pswt.DrawPattern(pattern, frame, warnaPeluru);
 
 	/*Baling-baling*/
@@ -72,27 +72,25 @@ int main(int argc, char const *argv[])
 	Object kapal("Kapal2.txt"); 	
 	Pattern pattern2("ikan.txt");
 	kapal.Draw(frame);
-	//kapal.FloodFill(kapal2Col,frame);
+	kapal.ScanLineFill(kapal2Col,frame);
 	//kapal.DrawPattern(pattern2, frame, warnaPeluru);
 
 	/*Objek Buatan*/
 	for(int i=1;i<50;i++){
 		pswt.Draw(frame);
 		baling.Draw(frame);
-		//pswt.FloodFill(kapalCol,frame);
+		pswt.ScanLineFill(kapalCol,frame);
 		//pswt.DrawPattern(pattern, frame, warnaPeluru);
 		kapal.SetWarna(kapalCol);
 		kapal.Draw(frame);
-		//kapal.FloodFill(kapal2Col,frame);
+		kapal.ScanLineFill(kapal2Col,frame);
 		//kapal.DrawPattern(pattern2, frame, warnaPeluru);
-		usleep(10000);
+		//usleep(10000);
 		pswt.Hapus(frame);
 		kapal.Hapus(frame);
 		baling.Hapus(frame);
-		//kapal.drawKapal();
 		//kapal geser
 		kapal.Geser(3,0);
-		//kapal.setTurretPoint(kapal.getTurretPos().GetAbsis()+1, kapal.getTurretPos().GetOrdinat());
 		pswt.Geser(-1,0);
 		baling.Geser(-1,0);
 		x_center--;
@@ -102,15 +100,17 @@ int main(int argc, char const *argv[])
 	while((peluruStart.GetOrdinat()>10) && !meledak){
 		pswt.Draw(frame);
 		baling.Draw(frame);
-		//pswt.FloodFill(kapalCol,frame);
+		pswt.ScanLineFill(kapalCol,frame);
 		//pswt.DrawPattern(pattern, frame, warnaPeluru);
 		kapal.SetWarna(kapalCol);
 		kapal.Draw(frame);
-		//kapal.FloodFill(kapal2Col,frame);
+		kapal.ScanLineFill(kapal2Col,frame);
 		//kapal.DrawPattern(pattern2, frame, warnaPeluru);
 		if(frame.isBlack(peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
 			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
+			//Peluru.FloodFill(peluruStart.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
 			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
+			//Peluru2.FloodFill(peluru2Start.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
 			usleep(10000);
 			Peluru.plotCircle(peluruStart,radpeluru,black,frame);
 			Peluru2.plotCircle(peluru2Start,radpeluru,black,frame);

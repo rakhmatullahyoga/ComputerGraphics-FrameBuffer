@@ -215,7 +215,7 @@ void DrawingObject::FloodFill(int x, int y, RGBcolor fillColor, FrameBuffer fBuf
 	if (fBuff.isBlack(x,y)){
 		if ( fBuff.vinfo.bits_per_pixel == 32 ) {
 		    *(fBuff.fbp + location) = fillColor.getBlue();
-		    *(fBuff.fbp + location + 1) = fillColor.getGreen(); 
+		    *(fBuff.fbp + location + 1) = fillColor.getGreen();
 		    *(fBuff.fbp + location + 2) = fillColor.getRed();
 		}
 		FloodFill(x+1,y,fillColor, fBuff);
