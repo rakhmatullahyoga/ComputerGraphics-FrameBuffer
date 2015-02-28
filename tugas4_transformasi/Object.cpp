@@ -53,12 +53,12 @@ void Object::Geser(int x, int y){
 	for(int i=0; i<NTitik.size();i++){
 		NTitik.at(i).SetAbsis(NTitik.at(i).GetAbsis()+x);
 		NTitik.at(i).SetOrdinat(NTitik.at(i).GetOrdinat()+y);
-		/* Geser floodfill point */
-		x_kiri += x;
-		x_kanan += x;
-		y_atas += y;
-		y_bawah += y;
 	}
+	/* Geser floodfill point */
+	x_kiri += x;
+	x_kanan += x;
+	y_atas += y;
+	y_bawah += y;
 }
 void Object::Draw(FrameBuffer fBuff){
 	gambar.plotListOfPoint(NTitik,warna,fBuff);
