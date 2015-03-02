@@ -7,6 +7,9 @@ using namespace std;
 
 #define PI 3.14159265
 
+Object::Object() {
+
+}
 Object::Object(string filename){
 	string line;
 	int a,b;
@@ -202,6 +205,47 @@ void Object::Skala(float skalax, float skalay){
 		NTitik.at(i).SetOrdinat(ybaruInt);
 	}
 
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();	
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();	
+		}
+	}
+}
+void Object::CreateRectangle(Point top_left_corner, int height, int width) {
+	Point start, finish;
+
+	start = top_left_corner;
+	NTitik.push_back(start);
+	finish.SetAbsis(start.GetAbsis());
+	finish.SetOrdinat(start.GetOrdinat()+height);
+	NTitik.push_back(finish);
+
+	start = finish;
+	finish.SetAbsis(start.GetAbsis()+width);
+	finish.SetOrdinat(start.GetOrdinat());
+	NTitik.push_back(finish);
+
+	start = finish;
+	finish.SetAbsis(start.GetAbsis());
+	finish.SetOrdinat(start.GetOrdinat()-height);
+	NTitik.push_back(finish);
+
+	start = finish;
+	finish.SetAbsis(start.GetAbsis()-width);
+	finish.SetOrdinat(start.GetOrdinat());
+	NTitik.push_back(finish);
+	warna.setRGB(255,255,255);
 	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
 	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
 	for(int i=1; i<NTitik.size();i++){

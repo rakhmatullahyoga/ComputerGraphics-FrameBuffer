@@ -12,6 +12,7 @@ using namespace std;
 
 class Object{
 	public:
+		Object();
 		Object(string filename);
 		~Object();
 		void SetWarna(RGBcolor warna);
@@ -25,6 +26,7 @@ class Object{
 		void Skala(float skalax, float skalay);
 		bool IsVPoint(int x, int y);
 		void ScanLineFill(RGBcolor warna, FrameBuffer fBuff);
+		void CreateRectangle(Point top_left_corner, int height, int width);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;
