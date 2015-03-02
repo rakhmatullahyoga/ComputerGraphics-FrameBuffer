@@ -48,8 +48,9 @@ Object::~Object(){
 void Object::SetWarna(RGBcolor warna){
 	warna.setRGB(warna.getRed(), warna.getGreen(), warna.getBlue());	
 }
-void Object::Geser(int x, int y){
-	Point currentp;
+void Object::Geser(int x, int y, FrameBuffer fBuff){
+	//Point currentp;
+	Hapus(fBuff);
 	for(int i=0; i<NTitik.size();i++){
 		NTitik.at(i).SetAbsis(NTitik.at(i).GetAbsis()+x);
 		NTitik.at(i).SetOrdinat(NTitik.at(i).GetOrdinat()+y);
@@ -59,6 +60,7 @@ void Object::Geser(int x, int y){
 	x_kanan += x;
 	y_atas += y;
 	y_bawah += y;
+	Draw(fBuff);
 }
 void Object::Draw(FrameBuffer fBuff){
 	gambar.plotListOfPoint(NTitik,warna,fBuff);
@@ -181,6 +183,39 @@ void Object::ScanLineFill(RGBcolor warna, FrameBuffer fBuff) {
 					*(fBuff.fbp + location + 2) = warna.getRed();
 				}
 			}
+		}
+	}
+}
+void Object::Skala(float skalax, float skalay){
+	int xpusat = (x_kiri+x_kanan)/2;
+	int ypusat = (y_atas+y_bawah)/2;
+	float xbaru, ybaru;
+	int x,y, xbaruInt, ybaruInt;
+	for(int i=0; i<NTitik.size();i++){
+		x = NTitik.at(i).GetAbsis();
+		y = NTitik.at(i).GetOrdinat();
+		xbaru = xpusat + (x-xpusat)*skalax;
+		ybaru = ypusat + (y-ypusat)*skalay;
+		xbaruInt = (int)(xbaru+0.5);
+		ybaruInt = (int)(ybaru+0.5);
+		NTitik.at(i).SetAbsis(xbaruInt);
+		NTitik.at(i).SetOrdinat(ybaruInt);
+	}
+
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();	
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();	
 		}
 	}
 }

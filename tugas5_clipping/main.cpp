@@ -24,45 +24,62 @@ int _getch() {
 int main(int argc, char const *argv[]) {
 	FrameBuffer frame;
 	DrawingObject map_canvas, view_port, legend;
+	Object viewport("viewport.txt");
 	RGBcolor warna_border;
-	Point canvas_topleft(50,50);
-	Point view_topleft(200,200);
-	Point legend_topleft(1016,516);
+	warna_border.setRGB(255,255,255);
+	viewport.SetWarna(warna_border);
+	// Point canvas_topleft(50,50);
+	//Point view_topleft(200,200);
+	// Point legend_topleft(1016,516);
 
 	system("clear");
-	warna_border.setRGB(255,255,255);
-	map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
-	view_port.drawRectangle(view_topleft,200,200,warna_border,frame);
-	legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
+	viewport.Draw(frame);
+	// map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
+	//view_port.drawRectangle(view_topleft,200,200,warna_border,frame);
+	// legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 	while(true) {
 		int ch = _getch();
 		if(ch == 0x41) { // up-arrow key
-			if(view_port.GetPoint().GetOrdinat()>canvas_topleft.GetOrdinat()) {
-				view_port.moveRectangle(warna_border, frame, 0, -1);
-				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
-				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
-			}
+			// if(view_port.GetPoint().GetOrdinat()>canvas_topleft.GetOrdinat()) {
+				viewport.Geser(0,-1,frame);
+				//view_port.moveRectangle(warna_border, frame, 0, -1);
+				// map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
+				// legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
+			// }
 		}
 		else if(ch == 0x42) { // down-arrow key
-			if(view_port.GetPoint().GetOrdinat()+200<canvas_topleft.GetOrdinat()+666-1) {
-				view_port.moveRectangle(warna_border, frame, 0, 1);
-				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
-				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
-			}
+			// if(view_port.GetPoint().GetOrdinat()+200<canvas_topleft.GetOrdinat()+666-1) {
+				viewport.Geser(0,1,frame);
+				//view_port.moveRectangle(warna_border, frame, 0, 1);
+				// map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
+				// legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
+			// }
 		}
 		else if(ch == 0x43) { // right-arrow key
-			if(view_port.GetPoint().GetAbsis()+200<canvas_topleft.GetAbsis()+1266-1) {
-				view_port.moveRectangle(warna_border, frame, 1, 0);
-				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
-				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
-			}
+			// if(view_port.GetPoint().GetAbsis()+200<canvas_topleft.GetAbsis()+1266-1) {
+				viewport.Geser(1,0,frame);
+				//view_port.moveRectangle(warna_border, frame, 1, 0);
+				// map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
+				// legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
+			// }
 		}
 		else if(ch == 0x44) { // left-arrow key
-			if(view_port.GetPoint().GetAbsis()>canvas_topleft.GetAbsis()) {
-				view_port.moveRectangle(warna_border, frame, -1, 0);
-				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
-				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
-			}
+			// if(view_port.GetPoint().GetAbsis()>canvas_topleft.GetAbsis()) {
+				viewport.Geser(-1,0,frame);
+				//view_port.moveRectangle(warna_border, frame, -1, 0);
+				// map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
+				// legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
+			// }
+		}
+		else if(ch == 'z'){
+			viewport.Hapus(frame);
+			viewport.Skala(0.9,0.9);
+			viewport.Draw(frame);
+		}
+		else if(ch == 'c'){
+			viewport.Hapus(frame);
+			viewport.Skala(1.111,1.111);
+			viewport.Draw(frame);
 		}
 	}
 
