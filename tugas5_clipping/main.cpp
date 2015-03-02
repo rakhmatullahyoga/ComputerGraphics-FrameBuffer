@@ -96,14 +96,17 @@ int main(int argc, char const *argv[]) {
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 			}
 		}
-		else if(ch == 'z'){
+		else if(ch == 'z') { // zoom-in legend
 			viewport.Hapus(frame);
 			viewport.Skala(0.9,0.9);
 			viewport.Draw(frame);
 		}
-		else if(ch == 'c'){
+		else if(ch == 'c') { // zoom-out legend
 			viewport.Hapus(frame);
 			viewport.Skala(1.111,1.111);
+			if(!((viewport.GetKiri()>canvas_topleft.GetAbsis())&&(viewport.GetKanan()<canvas_topleft.GetAbsis()+1266-1)&&(viewport.GetBawah()<canvas_topleft.GetOrdinat()+666-1)&&(viewport.GetAtas()>canvas_topleft.GetOrdinat()))) {
+				viewport.Skala(0.9,0.9);
+			}
 			viewport.Draw(frame);
 		}
 	}
