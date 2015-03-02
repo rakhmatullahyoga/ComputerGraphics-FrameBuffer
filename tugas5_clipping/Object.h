@@ -27,6 +27,10 @@ class Object{
 		bool IsVPoint(int x, int y);
 		void ScanLineFill(RGBcolor warna, FrameBuffer fBuff);
 		void CreateRectangle(Point top_left_corner, int height, int width);
+		int GetKiri();
+		int GetKanan();
+		int GetAtas();
+		int GetBawah();
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;

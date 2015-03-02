@@ -263,3 +263,15 @@ void Object::CreateRectangle(Point top_left_corner, int height, int width) {
 		}
 	}
 }
+int Object::GetKiri() {
+	return x_kiri;
+}
+int Object::GetKanan() {
+	return x_kanan;
+}
+int Object::GetAtas() {
+	return y_atas;
+}
+int Object::GetBawah() {
+	return y_bawah;
+}
