@@ -10,7 +10,7 @@ Map::Map() {
 	jawa = new Object("maps/jawa.txt");
 	kalimantan = new Object("maps/kalimantan.txt");
 	sulawesi = new Object("maps/sulawesi.txt");
-	//papua = new Object("maps/papua.txt");
+	papua = new Object("maps/papua.txt");
 	maluku = new Object("maps/maluku.txt");
 	maluku2 = new Object("maps/maluku2.txt");
 	maluku3 = new Object("maps/maluku3.txt");
@@ -24,7 +24,7 @@ Map::~Map(){
 	delete jawa;
 	delete kalimantan;
 	delete sulawesi;
-	//delete papua;
+	delete papua;
 	delete maluku;
 	delete maluku2;
 	delete maluku3;
@@ -39,7 +39,7 @@ void Map::Draw(FrameBuffer frame){
 	jawa->Draw(frame);
 	kalimantan->Draw(frame);
 	sulawesi->Draw(frame);
-	//papua.Draw(frame);
+	papua->Draw(frame);
 	maluku->Draw(frame);
 	maluku2->Draw(frame);
 	maluku3->Draw(frame);
