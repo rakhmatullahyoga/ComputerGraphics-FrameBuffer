@@ -195,6 +195,7 @@ int main(int argc, char const *argv[]) {
 		}
 
 		kalimantan2.Skala(0.5, 0.5);
+		//kalimantan2.Geser(100, 100, frame);
 		kalimantan2.Draw(frame);
 		//usleep(500);
 	}
