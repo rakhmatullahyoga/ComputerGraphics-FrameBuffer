@@ -27,13 +27,18 @@ class Object{
 		bool IsVPoint(int x, int y);
 		void ScanLineFill(RGBcolor warna, FrameBuffer fBuff);
 		void CreateRectangle(Point top_left_corner, int height, int width);
+		vector<Point> GetNTitik();
+		Point GetKiriAtas();
 		int GetKiri();
 		int GetKanan();
 		int GetAtas();
 		int GetBawah();
-		void Reset();
-		void AddPoint(int x, int y);
-		vector<Point> GetNTitik();
+		int findRegion(int x, int y);
+		void DrawLegend(FrameBuffer fBuff);
+		void HapusLegend(FrameBuffer fBuff);
+		void SkalaLegend(float skalax, float skalay);
+		void clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void CreateClip(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;
@@ -42,6 +47,11 @@ class Object{
 		int x_kanan;
 		int y_atas;
 		int y_bawah;
+		int point1_x;
+		int point1_y;
+		int point2_x;
+		int point2_y;
+		vector<Point> TitikLegend;
 };
 
 #endif

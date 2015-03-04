@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ Map::Map() {
 	ntb = new Object("maps/ntb.txt");
 	ntt = new Object("maps/ntt.txt");
 }
+
 Map::~Map(){
 	delete sumatra;
 	delete jawa;
@@ -47,31 +49,47 @@ void Map::Draw(FrameBuffer frame){
 	lombok->Draw(frame);
 	ntb->Draw(frame);
 	ntt->Draw(frame);
+
+
 }
 
-Object Map::GetObject(string nama){
-	if(nama == "sumatra")
-		return *sumatra;
-	if(nama == "jawa")
-		return *jawa;
-	if(nama == "kalimantan")
-		return *kalimantan;
-	if(nama == "sulawesi")
-		return *sulawesi;
-	if(nama == "papua")
-		return *papua;
-	if(nama == "maluku")
-		return *maluku;
-	if(nama == "maluku2")
-		return *maluku2;
-	if(nama == "maluku3")
-		return *maluku3;
-	if(nama == "bali")
-		return *bali;
-	if(nama == "lombok")
-		return *lombok;
-	if(nama == "ntt")
-		return *ntt;
-	if(nama == "ntb")
-		return *ntb;
+vector<Point> Map::getTitik() {
+	vector<Point> titik = sumatra->GetNTitik();
+	vector<Point> a,b,c,d,e,f,g,h,i,j,k,l;
+	a = jawa->GetNTitik();
+	b = kalimantan->GetNTitik();
+	c = sulawesi->GetNTitik();
+	d = papua->GetNTitik();
+	e = maluku->GetNTitik();
+	f = maluku2->GetNTitik();
+	g = maluku3->GetNTitik();
+	h = bali->GetNTitik();
+	i = lombok->GetNTitik();
+	j = ntb->GetNTitik();
+	k = ntt->GetNTitik();
+	
+	titik.reserve(titik.size() + a.size() 
+		+ b.size() + c.size() + d.size() + e.size()
+		+ f.size()
+		+ g.size()
+		+ h.size()
+		+ i.size()
+		+ j.size()
+		+ k.size()
+		);
+
+	titik.insert(titik.end(), a.begin(), a.end());
+	titik.insert(titik.end(), b.begin(), b.end());
+	titik.insert(titik.end(), c.begin(), c.end());
+	titik.insert(titik.end(), d.begin(), d.end());
+	titik.insert(titik.end(), e.begin(), e.end());
+	titik.insert(titik.end(), f.begin(), f.end());
+	titik.insert(titik.end(), g.begin(), g.end());
+	titik.insert(titik.end(), h.begin(), h.end());
+	titik.insert(titik.end(), i.begin(), i.end());
+	titik.insert(titik.end(), j.begin(), j.end());
+	titik.insert(titik.end(), k.begin(), k.end());
+
+	return titik;
 }
+
