@@ -9,6 +9,7 @@
 #include "Object.h"
 #include <string>
 #include <vector>
+#include <string>
 using namespace std;
 
 class Map{
@@ -16,6 +17,7 @@ class Map{
 		Map();
 		~Map();
 		void Draw(FrameBuffer frame);
+		Object GetObject(string nama);
 	private:
 		Object *sumatra;
 		Object *jawa;

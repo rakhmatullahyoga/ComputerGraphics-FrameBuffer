@@ -31,6 +31,9 @@ class Object{
 		int GetKanan();
 		int GetAtas();
 		int GetBawah();
+		void Reset();
+		void AddPoint(int x, int y);
+		vector<Point> GetNTitik();
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;

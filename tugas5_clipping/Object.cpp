@@ -275,3 +275,20 @@ int Object::GetAtas() {
 int Object::GetBawah() {
 	return y_bawah;
 }
+
+void Object::Reset() {
+	NTitik.clear();
+	x_kiri = 1400;
+	x_kanan = 0;
+	y_atas = 800;
+	y_bawah = 0;
+}
+
+void Object::AddPoint(int x, int y) {
+	Point P(x, y);
+	NTitik.push_back(P);
+}
+
+vector<Point> Object::GetNTitik() {
+	return NTitik;
+}

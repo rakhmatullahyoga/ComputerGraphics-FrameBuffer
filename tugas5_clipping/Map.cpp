@@ -49,3 +49,29 @@ void Map::Draw(FrameBuffer frame){
 	ntt->Draw(frame);
 }
 
+Object Map::GetObject(string nama){
+	if(nama == "sumatra")
+		return *sumatra;
+	if(nama == "jawa")
+		return *jawa;
+	if(nama == "kalimantan")
+		return *kalimantan;
+	if(nama == "sulawesi")
+		return *sulawesi;
+	if(nama == "papua")
+		return *papua;
+	if(nama == "maluku")
+		return *maluku;
+	if(nama == "maluku2")
+		return *maluku2;
+	if(nama == "maluku3")
+		return *maluku3;
+	if(nama == "bali")
+		return *bali;
+	if(nama == "lombok")
+		return *lombok;
+	if(nama == "ntt")
+		return *ntt;
+	if(nama == "ntb")
+		return *ntb;
+}
