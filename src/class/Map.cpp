@@ -53,8 +53,8 @@ void Map::Draw(FrameBuffer frame){
 
 }
 
-vector<Point> Map::getTitik() {
-	vector<Point> titik = sumatra->GetNTitik();
+vector<Object> Map::getPulau() {
+	/*vector<Point> titik = sumatra->GetNTitik();
 	vector<Point> a,b,c,d,e,f,g,h,i,j,k,l;
 	a = jawa->GetNTitik();
 	b = kalimantan->GetNTitik();
@@ -88,8 +88,21 @@ vector<Point> Map::getTitik() {
 	titik.insert(titik.end(), h.begin(), h.end());
 	titik.insert(titik.end(), i.begin(), i.end());
 	titik.insert(titik.end(), j.begin(), j.end());
-	titik.insert(titik.end(), k.begin(), k.end());
+	titik.insert(titik.end(), k.begin(), k.end());*/
 
-	return titik;
+	vector<Object> pulau;
+	pulau.push_back(*sumatra);
+	pulau.push_back(*jawa);
+	pulau.push_back(*kalimantan);
+	pulau.push_back(*sulawesi);
+	pulau.push_back(*papua);
+	pulau.push_back(*maluku);
+	pulau.push_back(*maluku2);
+	pulau.push_back(*maluku3);
+	pulau.push_back(*bali);
+	pulau.push_back(*lombok);
+	pulau.push_back(*ntb);
+	pulau.push_back(*ntt);
+	return pulau;
 }
 

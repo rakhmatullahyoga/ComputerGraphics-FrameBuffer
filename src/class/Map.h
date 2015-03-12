@@ -1,11 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "FrameBuffer.h"
-#include "DrawingObject.h"
-#include "RGBcolor.h"
-#include "Point.h"
-#include "Pattern.h"
 #include "Object.h"
 #include <string>
 #include <vector>
@@ -16,9 +11,8 @@ class Map{
 		Map();
 		~Map();
 		void Draw(FrameBuffer frame);
-		vector<Point> getTitik();
+		vector<Object> getPulau();
 	private:
-		vector<Point> titik;
 		Object *sumatra;
 		Object *jawa;
 		Object *kalimantan;

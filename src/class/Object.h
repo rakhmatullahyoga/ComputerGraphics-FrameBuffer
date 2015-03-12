@@ -38,7 +38,7 @@ class Object{
 		void HapusLegend(FrameBuffer fBuff);
 		void SkalaLegend(float skalax, float skalay);
 		void clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
-		void CreateClip(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
 	private:
 		RGBcolor warna;
 		vector<Point> NTitik;

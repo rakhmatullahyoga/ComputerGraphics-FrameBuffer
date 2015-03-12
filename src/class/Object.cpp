@@ -360,9 +360,12 @@ void Object::clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff, Poi
       	TitikLegend.push_back(legendclip2);
     }
 }
-void Object::CreateClip(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft) {
-	for(int i=0; i<kumpulantitik.size()-1; i++) {
-		clipLine(kumpulantitik.at(i),kumpulantitik.at(i+1),warna,fBuff,view_topleft,legend_topleft);
+void Object::CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft) {
+	for(int i=0; i<kumpulanobject.size(); i++) {
+		for(int j=0; j<kumpulanobject.at(i).GetNTitik().size()-1; j++) {
+			clipLine(kumpulanobject.at(i).GetNTitik().at(j),kumpulanobject.at(i).GetNTitik().at(j+1),warna,fBuff,view_topleft,legend_topleft);
+		}
+		//clipLine(kumpulantitik.at(i),kumpulantitik.at(i+1),warna,fBuff,view_topleft,legend_topleft);
 	}
 }
 void Object::DrawLegend(FrameBuffer fBuff){
