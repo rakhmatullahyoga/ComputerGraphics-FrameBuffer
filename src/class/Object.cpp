@@ -13,7 +13,7 @@ Object::Object() {
 Object::Object(string filename){
 	point1_x=point1_y=point2_x=point2_y=0;
 	string line;
-	string dir = "../assets/";
+	string dir = "../src/assets/";
 	int a,b;
 	Point titik;
 

@@ -5,7 +5,7 @@ using namespace std;
 
 Pattern::Pattern(string filename) {
 	string input;
-	string dir = "../assets/";
+	string dir = "../src/assets/";
 
 	dir.append(filename);
 	ifstream myfile (dir.c_str());
