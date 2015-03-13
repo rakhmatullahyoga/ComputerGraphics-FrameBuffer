@@ -73,11 +73,6 @@ void Object::Draw(FrameBuffer fBuff){
 	gambar.plotListOfPoint(NTitik,warnaGaris,fBuff);
 }
 void Object::Hapus(FrameBuffer fBuff){
-	// algo lama, cuma menghapus garis
-	/*RGBcolor hitam;
-	hitam.setRGB(0,0,0);
-	gambar.plotListOfPoint(NTitik,hitam,fBuff);*/
-	// algo baru, menghapus satu blok persegi
 	for(int i=y_atas; i<=y_bawah; i++) {
 		for(int j=x_kiri; j<=x_kanan; j++) {
 			int location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;

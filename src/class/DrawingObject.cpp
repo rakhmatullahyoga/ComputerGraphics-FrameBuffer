@@ -119,8 +119,10 @@ void DrawingObject::plotCircle (Point pusat, int r, RGBcolor warna, FrameBuffer 
 }
 
 void DrawingObject::plotListOfPoint(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff){
-	for(int i=0; i<kumpulantitik.size()-1;i++){
-		plotLine(kumpulantitik.at(i),kumpulantitik.at(i+1), warna, fBuff);
+	if(!kumpulantitik.empty()) {
+		for(int i=0; i<kumpulantitik.size()-1;i++){
+			plotLine(kumpulantitik.at(i),kumpulantitik.at(i+1), warna, fBuff);
+		}
 	}
 }
 void DrawingObject::RasterScan(int x_kiri, int x_kanan, int y_atas, int y_bawah, RGBcolor warna, FrameBuffer fBuff){

@@ -80,6 +80,7 @@ int main(int argc, char const *argv[]) {
 		else if(ch == 0x44) { // left-arrow key
 			if(viewport.GetKiri()>canvas_topleft.GetAbsis()) {
 				viewport.HapusLegend(frame);
+				frame.clear();
 				viewport.Geser(-5,0,frame);
 				viewport.CreateClip(Indonesia.getPulau(),warna_border,frame,viewport.GetKiriAtas(),legend_topleft);
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
