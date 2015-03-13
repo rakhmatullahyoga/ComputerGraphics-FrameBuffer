@@ -37,7 +37,7 @@ int main(int argc, char const *argv[]) {
 	viewport.CreateRectangle(view_topleft, 200, 300);
 	viewport.Draw(frame);
 	viewport.CreateClip(Indonesia.getPulau(),warna_border,frame,viewport.GetKiriAtas(),legend_topleft);
-	viewport.DrawLegend(frame);
+	//viewport.DrawLegend(frame);
 	map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 	legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 	Indonesia.Draw(frame);
