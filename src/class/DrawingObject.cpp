@@ -220,17 +220,17 @@ void DrawingObject::RasterScan(int x_kiri, int x_kanan, int y_atas, int y_bawah,
 	}
 	
 }
-void DrawingObject::FloodFill(int x, int y, RGBcolor fillColor, FrameBuffer fBuff){
+void DrawingObject::FloodFill(int x, int y, RGBcolor oldColor, RGBcolor newColor, FrameBuffer fBuff){
 	int location = x * (fBuff.vinfo.bits_per_pixel/8) + y * fBuff.finfo.line_length;
-	if (fBuff.isBlack(x,y)){
+	if (fBuff.isSameColor(oldColor,x,y)){
 		if ( fBuff.vinfo.bits_per_pixel == 32 ) {
-		    *(fBuff.fbp + location) = fillColor.getBlue();
-		    *(fBuff.fbp + location + 1) = fillColor.getGreen();
-		    *(fBuff.fbp + location + 2) = fillColor.getRed();
+		    *(fBuff.fbp + location) = newColor.getBlue();
+		    *(fBuff.fbp + location + 1) = newColor.getGreen();
+		    *(fBuff.fbp + location + 2) = newColor.getRed();
 		}
-		FloodFill(x+1,y,fillColor, fBuff);
-		FloodFill(x-1,y,fillColor, fBuff);
-		FloodFill(x,y+1,fillColor, fBuff);
-		FloodFill(x,y-1,fillColor, fBuff);
+		FloodFill(x+1,y,oldColor, newColor, fBuff);
+		FloodFill(x-1,y,oldColor, newColor, fBuff);
+		FloodFill(x,y+1,oldColor, newColor, fBuff);
+		FloodFill(x,y-1,oldColor, newColor, fBuff);
 	}
 }

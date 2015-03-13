@@ -96,7 +96,7 @@ void Object::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 void Object::FloodFill(RGBcolor warnaFill,FrameBuffer fBuff){
 	int x = (x_kiri+x_kanan)/2;
 	int y = (y_bawah+y_atas)/2;
-	gambar.FloodFill(x,y,warnaFill,fBuff);
+	gambar.FloodFill(x,y,fillColor, warnaFill,fBuff);
 	fillColor.setRGB(warnaFill.getRed(), warnaFill.getGreen(), warnaFill.getBlue());
 }
 void Object::DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna) {

@@ -17,7 +17,7 @@ class DrawingObject {
 		void moveRectangle(RGBcolor warna, FrameBuffer fBuff, int x_move, int y_move);
 		void plotListOfPoint(vector<Point> kumpulantitik, RGBcolor warna, FrameBuffer fBuff);
 		void RasterScan(int x_kiri, int x_kanan, int y_atas, int y_bawah, RGBcolor warna, FrameBuffer fBuff);
-		void FloodFill(int x, int y, RGBcolor fillColor,  FrameBuffer fBuff);
+		void FloodFill(int x, int y, RGBcolor oldColor, RGBcolor newColor, FrameBuffer fBuff);
 		Point GetPoint();
 	private:
 		Point topLeftRectangle;
