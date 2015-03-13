@@ -30,7 +30,8 @@ Object::Object(string filename){
     	myfile.close();
   	}
 	else cout << "Unable to open file: " << dir << endl;
-	warna.setRGB(255,255,255);
+	warnaGaris.setRGB(255,255,255);
+	fillColor.setRGB(0,0,0);
 	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
 	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
 	for(int i=1; i<NTitik.size();i++){
@@ -52,7 +53,7 @@ Object::~Object(){
 
 }
 void Object::SetWarna(RGBcolor warna){
-	warna.setRGB(warna.getRed(), warna.getGreen(), warna.getBlue());	
+	warnaGaris.setRGB(warna.getRed(), warna.getGreen(), warna.getBlue());
 }
 void Object::Geser(int x, int y, FrameBuffer fBuff){
 	//Point currentp;
@@ -69,7 +70,7 @@ void Object::Geser(int x, int y, FrameBuffer fBuff){
 	Draw(fBuff);
 }
 void Object::Draw(FrameBuffer fBuff){
-	gambar.plotListOfPoint(NTitik,warna,fBuff);
+	gambar.plotListOfPoint(NTitik,warnaGaris,fBuff);
 }
 void Object::Hapus(FrameBuffer fBuff){
 	// algo lama, cuma menghapus garis
@@ -90,11 +91,13 @@ void Object::Hapus(FrameBuffer fBuff){
 }
 void Object::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
+	fillColor.setRGB(warnaFill.getRed(), warnaFill.getGreen(), warnaFill.getBlue());
 }
 void Object::FloodFill(RGBcolor warnaFill,FrameBuffer fBuff){
 	int x = (x_kiri+x_kanan)/2;
 	int y = (y_bawah+y_atas)/2;
 	gambar.FloodFill(x,y,warnaFill,fBuff);
+	fillColor.setRGB(warnaFill.getRed(), warnaFill.getGreen(), warnaFill.getBlue());
 }
 void Object::DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna) {
 	Point object_top_left, object_bottom_right;
@@ -193,6 +196,7 @@ void Object::ScanLineFill(RGBcolor warna, FrameBuffer fBuff) {
 			}
 		}
 	}
+	fillColor.setRGB(warna.getRed(), warna.getGreen(), warna.getBlue());
 }
 void Object::Skala(float skalax, float skalay){
 	int xpusat = (x_kiri+x_kanan)/2;
@@ -250,7 +254,7 @@ void Object::CreateRectangle(Point top_left_corner, int height, int width) {
 	finish.SetAbsis(start.GetAbsis()-width);
 	finish.SetOrdinat(start.GetOrdinat());
 	NTitik.push_back(finish);
-	warna.setRGB(255,255,255);
+	warnaGaris.setRGB(255,255,255);
 	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
 	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
 	for(int i=1; i<NTitik.size();i++){
@@ -365,11 +369,10 @@ void Object::CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuff
 		for(int j=0; j<kumpulanobject.at(i).GetNTitik().size()-1; j++) {
 			clipLine(kumpulanobject.at(i).GetNTitik().at(j),kumpulanobject.at(i).GetNTitik().at(j+1),warna,fBuff,view_topleft,legend_topleft);
 		}
-		//clipLine(kumpulantitik.at(i),kumpulantitik.at(i+1),warna,fBuff,view_topleft,legend_topleft);
 	}
 }
 void Object::DrawLegend(FrameBuffer fBuff){
-	gambar.plotListOfPoint(TitikLegend,warna,fBuff);
+	gambar.plotListOfPoint(TitikLegend,warnaGaris,fBuff);
 }
 void Object::HapusLegend(FrameBuffer fBuff){
 	RGBcolor hitam;

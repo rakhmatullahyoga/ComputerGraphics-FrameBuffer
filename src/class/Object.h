@@ -40,7 +40,8 @@ class Object{
 		void clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
 		void CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
 	private:
-		RGBcolor warna;
+		RGBcolor warnaGaris;
+		RGBcolor fillColor;
 		vector<Point> NTitik;
 		DrawingObject gambar;
 		int x_kiri;
