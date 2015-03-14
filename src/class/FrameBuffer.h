@@ -13,17 +13,22 @@
 #include <math.h>
 #include "Point.h"
 #include "RGBcolor.h"
+#include <termios.h>
 
 class FrameBuffer {
 	public:
+
 		FrameBuffer();
 		~FrameBuffer();
+		int _getch();
 		void initFrameBuffer();
 		void putPixel(Point P, RGBcolor warna);
 		void clear();
-		void drawColorPicker();
+		RGBcolor drawColorPicker();
+		void drawColorPelangi();
 		bool isSameColor(RGBcolor oldCol, int x, int y);
 		bool isBlack(int x, int y);
+		int plus255 (int z);
 		struct fb_var_screeninfo vinfo;
 		struct fb_fix_screeninfo finfo;
 		char* fbp;					/* pointer to framebuffer */
