@@ -112,23 +112,62 @@ void FrameBuffer::drawColorPelangi(){
 	    }
 	}
 }
-
-RGBcolor FrameBuffer::drawColorPicker(){
+void FrameBuffer::drawColorPelangiPicker(int koord_x){
 	int x,y;
-	drawColorPelangi();
-	/*tes gradasi*/
-	int inputx, inputy;
-	int R, G, B;
-	printf("Masukan koordinat gradasi pelangi (skala 0-383): ");scanf("%d",&inputx);
-
-	for ( y = 0; y < 255; y++ ){
+	for ( y = 0; y < 30; y++ ){
+	    for ( x = 0; x < 3; x++ ) { 
+	        location = (x+29+koord_x) * (vinfo.bits_per_pixel/8) + (y+10) * finfo.line_length;
+	        if ( vinfo.bits_per_pixel == 32 ) {
+	        	if((x!=1) || ((x==1) && (y==0) || (y==29))){
+	            *(fbp + location) = 255; // Some blue 
+	            *(fbp + location + 1) = 255; // A little green 
+	            *(fbp + location + 2) = 255; // A lot of red
+	            }
+	        }
+	    }
+	}
+	for ( y = 0; y < 6; y++ ){
+		location = (30+koord_x) * (vinfo.bits_per_pixel/8) + (y+40) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ) {
+	        *(fbp + location) = 255; // Some blue 
+	        *(fbp + location + 1) = 255; // A little green 
+	        *(fbp + location + 2) = 255; // A lot of red
+	    }
+	}
+}
+void FrameBuffer::hapusColorPelangiPicker(int koord_x){
+	int x,y;
+	for ( y = 0; y < 30; y++ ){
+	    for ( x = 0; x < 3; x++ ) { 
+	        location = (x+29+koord_x) * (vinfo.bits_per_pixel/8) + (y+10) * finfo.line_length;
+	        if ( vinfo.bits_per_pixel == 32 ) {
+	        	if((x!=1) || ((x==1) && (y==0) || (y==29))){
+	            *(fbp + location) = 0; // Some blue 
+	            *(fbp + location + 1) = 0; // A little green 
+	            *(fbp + location + 2) = 0; // A lot of red
+	            }
+	        }
+	    }
+	}
+	for ( y = 0; y < 6; y++ ){
+		location = (30+koord_x) * (vinfo.bits_per_pixel/8) + (y+40) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ) {
+	        *(fbp + location) = 0; // Some blue 
+	        *(fbp + location + 1) = 0; // A little green 
+	        *(fbp + location + 2) = 0; // A lot of red
+	    }
+	}
+}
+void FrameBuffer::drawColorGradien(int inputx){
+	int x,y;
+	for ( y = 0; y < 256; y++ ){
 	    for ( x = 0; x < 256; x++ ) { 
-		  location = x * (vinfo.bits_per_pixel/8) + (y+50) * finfo.line_length;
+		  location = (x+30) * (vinfo.bits_per_pixel/8) + (y+50) * finfo.line_length;
 		  
-		  int colmode = (inputx+1)/64;
-		  int persen = (inputx+1)% 64;
+		  int colmode = (inputx) / 64;
+		  int persen = ((inputx) % 64) * 4;
 		  int ia, ib, z;
-		  double tmp;
+		  double temp;
 		  
 		  int b = 0;
 		  int g = 0;
@@ -142,48 +181,48 @@ RGBcolor FrameBuffer::drawColorPicker(){
 		  
 		  // fungsi naik atau turun
 		  if (colmode % 2 == 0){
-		      tmp = (ia * (255-persen))/255;	// warna yang sedang naik
+		      temp = (ia * (255-persen))/255;	// warna yang sedang naik
 		  }else{
-		      tmp = (ia * (persen))/255;		// warna yang sedang turun
+		      temp = (ia * (persen))/255;		// warna yang sedang turun
 		  }
 		  
-		  tmp = sqrt(tmp*tmp + ib*ib);
-		  if (tmp > 255) tmp = 255;
+		  temp = sqrt(temp*temp + ib*ib);
+		  if (temp > 255) temp = 255;
 		  
 		  
 		  switch (colmode){	// switch berdasarkan posisi warna pelangi (untuk menentukan warna mana yang naik dan turun)
 		   case 0:
 		   	b = 255 - z;
-		    g = 255 - tmp; 
+		    g = 255 - temp; 
 		    r = 255 - (y % 256); 
 		    break;  
 		      
 		   case 1:
 		    b = 255 - z;
 		    g = 255 - (y % 256); 
-		    r = 255 - tmp; 
+		    r = 255 - temp; 
 		    break; 
 		      
 		   case 2:
-		    b = 255 - tmp;
+		    b = 255 - temp;
 		    g = 255 - (y % 256); 
 		    r = 255 - z; 
 		    break;
 		   	
 		   case 3:
 		    b = 255 - (y % 256);
-		    g = 255 - tmp; 
+		    g = 255 - temp; 
 		    r = 255 - z; 
 		    break;
 		   
 		   case 4:
 		    b = 255 - (y % 256);
 		    g = 255 - z; 
-		    r = 255 - tmp; 
+		    r = 255 - temp; 
 		    break;
 		      
 		   case 5: 
-		    b = 255 - tmp;
+		    b = 255 - temp;
 		    g = 255 - z; 
 		    r = 255 - (y % 256); 
 		    break;
@@ -192,38 +231,172 @@ RGBcolor FrameBuffer::drawColorPicker(){
 		  if ( vinfo.bits_per_pixel == 32 ) { 
 			*(fbp + location) = 	b; 
 			*(fbp + location + 1) = g; 
-			*(fbp + location + 2) = r; 
+			*(fbp + location + 2) = r;
 			*(fbp + location + 3) = 0; 
 		    }
 	    }
 	}
-	/*input user*/
-	printf("\n");
-	printf("Masukan koordinat x (0-255): ");scanf("%d",&inputx);
-	printf("Masukan koordinat y (0-255): ");scanf("%d",&inputy);
-	location = inputx * (vinfo.bits_per_pixel/8) + (inputy+50) * finfo.line_length;
-
-	B = *(fbp + location);
-	G = *(fbp + location + 1); 
-	R = *(fbp + location + 2);
-	
-	R = plus255(R);
-	G = plus255(G);
-	B = plus255(B);
-
-	RGBcolor RGBterpilih;
-	RGBterpilih.setRGB(R,G,B);
-	for ( y = 0; y < 25; y++ ){
-	    for ( x = 0; x < 25; x++ ) { 
-	        location = x * (vinfo.bits_per_pixel/8) + (y+315) * finfo.line_length;
+}
+void FrameBuffer::drawColorGradienPicker(int inputx, int inputy){
+	int x,y;
+	for ( y = 0; y < 3; y++ ){
+	    for ( x = 0; x < 3; x++ ) { 
+	        location = (x+29+inputx) * (vinfo.bits_per_pixel/8) + (y+49+inputy) * finfo.line_length;
 	        if ( vinfo.bits_per_pixel == 32 ) {
-	            *(fbp + location) = B; // Some blue 
-	            *(fbp + location + 1) = G; // A little green 
-	            *(fbp + location + 2) = R; // A lot of red
+	        	if((x!=1) || ((x==1) && (y==0) || (y==2))){
+	            *(fbp + location) = 255; // Some blue 
+	            *(fbp + location + 1) = 255; // A little green 
+	            *(fbp + location + 2) = 255; // A lot of red
+	            }
 	        }
 	    }
 	}
+	for ( x = 0; x < 6; x++ ){
+		location = (x+290) * (vinfo.bits_per_pixel/8) + (50+inputy) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ) {
+	            *(fbp + location) = 255; // Some blue 
+	            *(fbp + location + 1) = 255; // A little green 
+	            *(fbp + location + 2) = 255; // A lot of red
+	    }
+	}
+	for ( y = 0; y < 6; y++ ){
+		location = (30+inputx) * (vinfo.bits_per_pixel/8) + (y+310) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ) {
+	        *(fbp + location) = 255; // Some blue 
+	        *(fbp + location + 1) = 255; // A little green 
+	        *(fbp + location + 2) = 255; // A lot of red
+	    }
+	}
+}
+
+void FrameBuffer::hapusColorGradienPicker(int inputx, int inputy){
+	int x,y;
+	for ( y = 0; y < 3; y++ ){
+	    for ( x = 0; x < 3; x++ ) { 
+	        location = (x+29+inputx) * (vinfo.bits_per_pixel/8) + (y+49+inputy) * finfo.line_length;
+	        if ( vinfo.bits_per_pixel == 32 ) {
+	        	if((x!=1) || ((x==1) && (y==0) || (y==2))){
+	            *(fbp + location) = 0; // Some blue 
+	            *(fbp + location + 1) = 0; // A little green 
+	            *(fbp + location + 2) = 0; // A lot of red
+	            }
+	        }
+	    }
+	}
+	for ( x = 0; x < 6; x++ ){
+		location = (x+290) * (vinfo.bits_per_pixel/8) + (50+inputy) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ){
+	        *(fbp + location) = 0; // Some blue 
+	        *(fbp + location + 1) = 0; // A little green 
+	        *(fbp + location + 2) = 0; // A lot of red
+	    }
+	}
+	for ( y = 0; y < 6; y++ ){
+		location = (30+inputx) * (vinfo.bits_per_pixel/8) + (y+310) * finfo.line_length;
+	    if ( vinfo.bits_per_pixel == 32 ) {
+	        *(fbp + location) = 0; // Some blue 
+	        *(fbp + location + 1) = 0; // A little green 
+	        *(fbp + location + 2) = 0; // A lot of red
+	    }
+	}
+}
+
+RGBcolor FrameBuffer::drawColorPicker(){
+	int x,y;
+	int koord_x=0;
+	int ch;
+	drawColorPelangi();
+	drawColorPelangiPicker(koord_x);
+	drawColorGradien(koord_x);
+	while(ch!='s'){
+		ch = _getch();
+		if((ch == 0x43)&&(koord_x<383))/*geser kanan*/{
+			hapusColorPelangiPicker(koord_x);
+			drawColorPelangi();
+			koord_x++;
+			drawColorPelangiPicker(koord_x);
+			drawColorGradien(koord_x);
+		}
+		else if((ch == 0x44)&&(koord_x>0))/*geser kiri*/{
+			hapusColorPelangiPicker(koord_x);
+			drawColorPelangi();
+			koord_x--;
+			drawColorPelangiPicker(koord_x);
+			drawColorGradien(koord_x);
+		}
+	}
+	/*tes gradasi*/
+	int inputx=255;
+	int inputy=0;
+	int R, G, B;
+	ch = 0;
+	//printf("Masukan koordinat gradasi pelangi (skala 0-383): ");scanf("%d",&inputx);
+	drawColorGradienPicker(inputx,inputy);
+	drawPointedColor(&R, &G, &B, inputx, inputy);
+	while(ch!='s'){
+		ch = _getch();
+		if((ch == 0x41)&&(inputy>0))/*geser atas*/{
+			hapusColorGradienPicker(inputx,inputy);
+			drawColorGradien(koord_x);
+			inputy--;
+			drawColorGradienPicker(inputx,inputy);
+			drawPointedColor(&R, &G, &B, inputx, inputy);
+		}
+		else if((ch == 0x42)&&(inputy<255))/*geser bawah*/{
+			hapusColorGradienPicker(inputx,inputy);
+			drawColorGradien(koord_x);
+			inputy++;
+			drawColorGradienPicker(inputx,inputy);
+			drawPointedColor(&R, &G, &B, inputx, inputy);
+		}
+		if((ch == 0x43)&&(inputx<255))/*geser kanan*/{
+			hapusColorGradienPicker(inputx,inputy);
+			drawColorGradien(koord_x);
+			inputx++;
+			drawColorGradienPicker(inputx,inputy);
+			drawPointedColor(&R, &G, &B, inputx, inputy);
+		}
+		if((ch == 0x44)&&(inputx>0))/*geser kiri*/{
+			hapusColorGradienPicker(inputx,inputy);
+			drawColorGradien(koord_x);
+			inputx--;
+			drawColorGradienPicker(inputx,inputy);
+			drawPointedColor(&R, &G, &B, inputx, inputy);
+		}
+	}
+	
+	RGBcolor RGBterpilih;
+	RGBterpilih.setRGB(R,G,B);
 	return RGBterpilih;
+}
+void FrameBuffer::drawPointedColor(int *R, int *G, int *B, int inputx, int inputy){
+	location = (inputx+30) * (vinfo.bits_per_pixel/8) + (inputy+50) * finfo.line_length;
+	*B = *(fbp + location);
+	*G = *(fbp + location + 1); 
+	*R = *(fbp + location + 2);
+	
+	*R = plus255(*R);
+	*G = plus255(*G);
+	*B = plus255(*B);
+
+	int x,y;
+	for ( y = 0; y <27; y++ ){
+	    for ( x = 0; x < 27; x++ ) { 
+	        location = (x+310) * (vinfo.bits_per_pixel/8) + (y+50) * finfo.line_length;
+	        if ( vinfo.bits_per_pixel == 32 ) {
+	        	if((x==0)||(x==26)||(y==0)||(y==26)){
+	        		*(fbp + location) = 255-*B; // Some blue 
+		            *(fbp + location + 1) = 255-*G; // A little green 
+		            *(fbp + location + 2) = 255-*R; // A lot of red
+	        	}
+	        	else{
+		            *(fbp + location) = *B; // Some blue 
+		            *(fbp + location + 1) = *G; // A little green 
+		            *(fbp + location + 2) = *R; // A lot of red
+		        }
+	        }
+	    }
+	}
 }
 
 int FrameBuffer::_getch() {

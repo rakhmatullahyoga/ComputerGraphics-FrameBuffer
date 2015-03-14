@@ -26,6 +26,8 @@ class FrameBuffer {
 		void clear();
 		RGBcolor drawColorPicker();
 		void drawColorPelangi();
+		void drawColorGradien(int inputx);
+		void drawPointedColor(int *R, int *G, int *B, int inputx, int inputy);
 		bool isSameColor(RGBcolor oldCol, int x, int y);
 		bool isBlack(int x, int y);
 		int plus255 (int z);
@@ -36,6 +38,10 @@ class FrameBuffer {
 		long int screensize;
 		int fbfd;
 		int location;					/* frame buffer file descriptor */
+		void drawColorPelangiPicker(int koord_x);
+		void hapusColorPelangiPicker(int koord_x);
+		void drawColorGradienPicker(int inputx, int inputy);
+		void hapusColorGradienPicker(int inputx, int inputy);
 };
 
 #endif
