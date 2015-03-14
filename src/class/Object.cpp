@@ -31,7 +31,7 @@ Object::Object(string filename){
   	}
 	else cout << "Unable to open file: " << dir << endl;
 	warnaGaris.setRGB(255,255,255);
-	fillColor.setRGB(0,0,0);
+	fillColor.setRGB(1,1,1);
 	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
 	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
 	for(int i=1; i<NTitik.size();i++){
@@ -39,13 +39,13 @@ Object::Object(string filename){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -83,6 +83,7 @@ void Object::Hapus(FrameBuffer fBuff){
 			}
 		}
 	}
+	fillColor.setRGB(0,0,0);
 }
 void Object::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
@@ -93,6 +94,7 @@ void Object::FloodFill(RGBcolor warnaFill,FrameBuffer fBuff){
 	int y = (y_bawah+y_atas)/2;
 	gambar.FloodFill(x,y,fillColor, warnaFill,fBuff);
 	fillColor.setRGB(warnaFill.getRed(), warnaFill.getGreen(), warnaFill.getBlue());
+	//cout << "R: " << fillColor.getRed() << ", G: " << fillColor.getGreen() << ", B: " << fillColor.getBlue() << endl;
 }
 void Object::DrawPattern(Pattern pola, FrameBuffer fBuff, RGBcolor warna) {
 	Point object_top_left, object_bottom_right;
@@ -133,13 +135,13 @@ void Object::Putar(float drj, int xpusat, int ypusat, FrameBuffer fBuff){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 	Draw(fBuff);
@@ -216,13 +218,13 @@ void Object::Skala(float skalax, float skalay){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -257,13 +259,13 @@ void Object::CreateRectangle(Point top_left_corner, int height, int width) {
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -282,6 +284,9 @@ int Object::GetAtas() {
 }
 int Object::GetBawah() {
 	return y_bawah;
+}
+RGBcolor Object::GetWarna() {
+    return warnaGaris;
 }
 vector<Point> Object::GetNTitik(){
 	return NTitik;

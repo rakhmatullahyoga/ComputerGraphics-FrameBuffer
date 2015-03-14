@@ -20,29 +20,25 @@ int main(int argc, char const *argv[])
 	RGBcolor black, white;
 	black.setRGB(0,0,0);
 	white.setRGB(255,255,255);
+
 	/*atribut Peluru*/
 	RGBcolor warnaPeluru;
 	Point peluruStart,peluru2Start,roda_fall;
 	int radpeluru = 5, rad_roda = 10;
 	warnaPeluru.setRGB(255,255,0);
-
 	peluruStart.SetAbsis(280);
 	peluruStart.SetOrdinat(650);
 	peluru2Start.SetAbsis(400);
 	peluru2Start.SetOrdinat(195);
 
 	/*Atribut Kapal*/
-	Point kapalP, turretP;
+	Point kapalP;
 	kapalP.SetAbsis(50);
 	kapalP.SetOrdinat(400);
-	turretP.SetAbsis(120);
-	turretP.SetOrdinat(350);
 	RGBcolor kapalCol;
 	kapalCol.setRGB(234,34,74);
-	//Kapal kapal;
-	//kapal = Kapal(kapalP,turretP,50,15,50,150,kapalCol,frame);
-	
-	frame.clear();
+
+	system("clear");
 	bool meledak = false;
 	/*Objek Pesawat*/
 	Point pesawatP_top_left, pesawatP_bottom_right;
@@ -50,18 +46,18 @@ int main(int argc, char const *argv[])
 	pesawatP_top_left.SetOrdinat(30);
 	pesawatP_bottom_right.SetAbsis(560);
 	pesawatP_bottom_right.SetOrdinat(140);
-	
+
 	Object pswt("objects/pesawat2.txt");
 	Pattern pattern("pattern/burung.txt");
 	pswt.Draw(frame);
-	//pswt.ScanLineFill(kapalCol,frame);
-	//pswt.DrawPattern(pattern, frame, warnaPeluru);
+	pswt.FloodFill(kapalCol,frame);
+	pswt.DrawPattern(pattern, frame, warnaPeluru);
 
 	/*Baling-baling*/
 	Object baling("objects/baling2.txt");
 	baling.Draw(frame);
 	/*Objek Kapal*/
-	
+
 	Point kapalP_top_left, kapalP_bottom_right;
 	kapalP_top_left.SetAbsis(370);
 	kapalP_top_left.SetOrdinat(650);
@@ -69,29 +65,21 @@ int main(int argc, char const *argv[])
 	kapalP_bottom_right.SetOrdinat(690);
 	RGBcolor kapal2Col;
 	kapal2Col.setRGB(0,0,200);
-	Object kapal("objects/Kapal2.txt"); 	
+	Object kapal("objects/Kapal2.txt");
 	Pattern pattern2("pattern/ikan.txt");
 	kapal.Draw(frame);
-	//kapal.ScanLineFill(kapal2Col,frame);
-	//kapal.DrawPattern(pattern2, frame, warnaPeluru);
+	kapal.FloodFill(kapal2Col,frame);
+	kapal.DrawPattern(pattern2, frame, warnaPeluru);
 
 	/*Objek Buatan*/
 	for(int i=1;i<50;i++){
-		//pswt.Draw(frame);
-		//baling.Draw(frame);
-		//pswt.ScanLineFill(kapalCol,frame);
-		//pswt.DrawPattern(pattern, frame, warnaPeluru);
-		//kapal.SetWarna(kapalCol);
-		//kapal.Draw(frame);
-		//kapal.ScanLineFill(kapal2Col,frame);
-		//kapal.DrawPattern(pattern2, frame, warnaPeluru);
 		usleep(10000);
-		//pswt.Hapus(frame);
-		//kapal.Hapus(frame);
-		//baling.Hapus(frame);
-		//kapal geser
 		kapal.Geser(3,0,frame);
+		kapal.FloodFill(kapal2Col,frame);
+		kapal.DrawPattern(pattern2, frame, warnaPeluru);
 		pswt.Geser(-1,0,frame);
+		pswt.FloodFill(kapalCol,frame);
+		pswt.DrawPattern(pattern, frame, warnaPeluru);
 		baling.Geser(-1,0,frame);
 		x_center--;
 		baling.Putar(12,x_center,y_center,frame);
@@ -100,13 +88,9 @@ int main(int argc, char const *argv[])
 	while((peluruStart.GetOrdinat()>10) && !meledak){
 		pswt.Draw(frame);
 		baling.Draw(frame);
-		//pswt.ScanLineFill(kapalCol,frame);
-		//pswt.DrawPattern(pattern, frame, warnaPeluru);
 		kapal.SetWarna(kapalCol);
 		kapal.Draw(frame);
-		//kapal.ScanLineFill(kapal2Col,frame);
-		//kapal.DrawPattern(pattern2, frame, warnaPeluru);
-		if(frame.isBlack(peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
+		if(frame.isSameColor(kapal.GetWarna(),peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
 			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
 			//Peluru.FloodFill(peluruStart.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
 			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
@@ -116,16 +100,13 @@ int main(int argc, char const *argv[])
 			Peluru2.plotCircle(peluru2Start,radpeluru,black,frame);
 			peluruStart.SetOrdinat(peluruStart.GetOrdinat()-5);
 			peluru2Start.SetOrdinat(peluru2Start.GetOrdinat()+5);
-			//pswt.Hapus(frame);
-			//baling.Hapus(frame);
 			pswt.Geser(-1,0,frame);
-			//kapal.Hapus(frame);
-			//kapal.SetWarna(black);
-			//kapal.drawKapal();
-			//kapal geser
-			//kapal.setBodyPoint(kapal.getBodyPos().GetAbsis()+1, kapal.getBodyPos().GetOrdinat());
-			//kapal.setTurretPoint(kapal.getTurretPos().GetAbsis()+1, kapal.getTurretPos().GetOrdinat());
+			pswt.FloodFill(kapalCol,frame);
+			pswt.DrawPattern(pattern, frame, warnaPeluru);
 			kapal.Geser(3,0,frame);
+			kapal.FloodFill(kapal2Col,frame);
+			kapal.DrawPattern(pattern2, frame, warnaPeluru);
+
 			baling.Geser(-1,0,frame);
 			x_center--;
 			baling.Putar(12,x_center,y_center,frame);
