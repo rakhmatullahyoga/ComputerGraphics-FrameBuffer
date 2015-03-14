@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
 	kapalP.SetOrdinat(400);
 	RGBcolor kapalCol;
 	kapalCol.setRGB(234,34,74);
-	
+
 	system("clear");
 	bool meledak = false;
 	/*Objek Pesawat*/
@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
 	pesawatP_top_left.SetOrdinat(30);
 	pesawatP_bottom_right.SetAbsis(560);
 	pesawatP_bottom_right.SetOrdinat(140);
-	
+
 	Object pswt("objects/pesawat2.txt");
 	Pattern pattern("pattern/burung.txt");
 	pswt.Draw(frame);
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
 	Object baling("objects/baling2.txt");
 	baling.Draw(frame);
 	/*Objek Kapal*/
-	
+
 	Point kapalP_top_left, kapalP_bottom_right;
 	kapalP_top_left.SetAbsis(370);
 	kapalP_top_left.SetOrdinat(650);
@@ -65,7 +65,7 @@ int main(int argc, char const *argv[])
 	kapalP_bottom_right.SetOrdinat(690);
 	RGBcolor kapal2Col;
 	kapal2Col.setRGB(0,0,200);
-	Object kapal("objects/Kapal2.txt"); 	
+	Object kapal("objects/Kapal2.txt");
 	Pattern pattern2("pattern/ikan.txt");
 	kapal.Draw(frame);
 	kapal.FloodFill(kapal2Col,frame);
@@ -90,7 +90,7 @@ int main(int argc, char const *argv[])
 		baling.Draw(frame);
 		kapal.SetWarna(kapalCol);
 		kapal.Draw(frame);
-		if(frame.isBlack(peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
+		if(frame.isSameColor(kapal.GetWarna(),peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
 			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
 			//Peluru.FloodFill(peluruStart.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
 			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
@@ -138,7 +138,7 @@ int main(int argc, char const *argv[])
 			}
 			meledak = true;
 		}
-	}	
+	}
 	return 0;
 }
 

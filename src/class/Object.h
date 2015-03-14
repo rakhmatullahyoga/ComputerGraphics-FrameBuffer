@@ -33,6 +33,7 @@ class Object{
 		int GetKanan();
 		int GetAtas();
 		int GetBawah();
+		RGBcolor GetWarna();
 		int findRegion(int x, int y);
 		void DrawLegend(FrameBuffer fBuff);
 		void HapusLegend(FrameBuffer fBuff);

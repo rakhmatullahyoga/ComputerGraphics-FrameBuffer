@@ -39,13 +39,13 @@ Object::Object(string filename){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -135,13 +135,13 @@ void Object::Putar(float drj, int xpusat, int ypusat, FrameBuffer fBuff){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 	Draw(fBuff);
@@ -218,13 +218,13 @@ void Object::Skala(float skalax, float skalay){
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -259,13 +259,13 @@ void Object::CreateRectangle(Point top_left_corner, int height, int width) {
 			x_kiri = NTitik.at(i).GetAbsis();
 		}
 		else if(x_kanan <NTitik.at(i).GetAbsis()){
-			x_kanan = NTitik.at(i).GetAbsis();	
+			x_kanan = NTitik.at(i).GetAbsis();
 		}
 		if(y_atas > NTitik.at(i).GetOrdinat()){
 			y_atas = NTitik.at(i).GetOrdinat();
 		}
 		else if(y_bawah < NTitik.at(i).GetOrdinat()){
-			y_bawah = NTitik.at(i).GetOrdinat();	
+			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
 }
@@ -284,6 +284,9 @@ int Object::GetAtas() {
 }
 int Object::GetBawah() {
 	return y_bawah;
+}
+RGBcolor Object::GetWarna() {
+    return warnaGaris;
 }
 vector<Point> Object::GetNTitik(){
 	return NTitik;
