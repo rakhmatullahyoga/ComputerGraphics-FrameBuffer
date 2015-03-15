@@ -77,13 +77,13 @@ void Object::Hapus(FrameBuffer fBuff){
 		for(int j=x_kiri; j<=x_kanan; j++) {
 			int location = j * (fBuff.vinfo.bits_per_pixel/8) + i * fBuff.finfo.line_length;
 			if ( fBuff.vinfo.bits_per_pixel == 32 ) {
-				*(fBuff.fbp + location) = 0;
-				*(fBuff.fbp + location + 1) = 0;
-				*(fBuff.fbp + location + 2) = 0;
+				*(fBuff.fbp + location) = 1;
+				*(fBuff.fbp + location + 1) = 1;
+				*(fBuff.fbp + location + 2) = 1;
 			}
 		}
 	}
-	fillColor.setRGB(0,0,0);
+	fillColor.setRGB(1,1,1);
 }
 void Object::RasterScanFill(RGBcolor warnaFill, FrameBuffer fBuff){
 	gambar.RasterScan(x_kiri, x_kanan, y_atas, y_bawah,warnaFill,fBuff);
