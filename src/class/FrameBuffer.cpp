@@ -308,6 +308,8 @@ RGBcolor FrameBuffer::drawColorPicker(){
 	drawColorPelangi();
 	drawColorPelangiPicker(koord_x);
 	drawColorGradien(koord_x);
+	clear();
+	cout << "press 's' button to select" << endl;
 	while(ch!='s'){
 		ch = _getch();
 		if((ch == 0x43)&&(koord_x<383))/*geser kanan*/{

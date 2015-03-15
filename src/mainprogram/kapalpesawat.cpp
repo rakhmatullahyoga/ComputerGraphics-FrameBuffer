@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
 	int y_center = 130;
 	DrawingObject Peluru, Peluru2, Roda;
 	RGBcolor black, white;
-	black.setRGB(0,0,0);
+	black.setRGB(1,1,1);
 	white.setRGB(255,255,255);
 
 	/*atribut Peluru*/
@@ -67,6 +67,7 @@ int main(int argc, char const *argv[])
 	kapal2Col.setRGB(0,0,200);
 	Object kapal("objects/Kapal2.txt");
 	Pattern pattern2("pattern/ikan.txt");
+	kapal.SetWarna(kapalCol);
 	kapal.Draw(frame);
 	kapal.FloodFill(kapal2Col,frame);
 	kapal.DrawPattern(pattern2, frame, warnaPeluru);
@@ -90,7 +91,7 @@ int main(int argc, char const *argv[])
 		baling.Draw(frame);
 		kapal.SetWarna(kapalCol);
 		kapal.Draw(frame);
-		if(frame.isSameColor(kapal.GetWarna(),peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
+		if(frame.isSameColor(black,peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
 			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
 			//Peluru.FloodFill(peluruStart.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
 			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
