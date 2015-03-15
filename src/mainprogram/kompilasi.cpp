@@ -1,0 +1,196 @@
+#include "FrameBuffer.h"
+#include "DrawingObject.h"
+#include "RGBcolor.h"
+#include "Point.h"
+#include "Pattern.h"
+#include "Object.h"
+#include <iostream>
+
+using namespace std;
+
+FrameBuffer frame;
+void Meledak (int xpusat, int ypusat);
+void antiLedak (int xpusat, int ypusat);
+
+int main(int argc, char const *argv[])
+{
+	int inputkey;
+	/*atribut Peluru, Roda*/
+	int x_center = 560;
+	int y_center = 130;
+	DrawingObject Peluru, Peluru2, Roda;
+	RGBcolor black, white;
+	black.setRGB(1,1,1);
+	white.setRGB(255,255,255);
+
+	/*atribut Peluru*/
+	RGBcolor warnaPeluru;
+	Point peluruStart,peluru2Start,roda_fall;
+	int radpeluru = 5, rad_roda = 10;
+	warnaPeluru.setRGB(255,255,0);
+	peluruStart.SetAbsis(280);
+	peluruStart.SetOrdinat(650);
+	peluru2Start.SetAbsis(400);
+	peluru2Start.SetOrdinat(195);
+	bool meledak = false;
+
+	/*Objek Pesawat*/
+	Point pesawatP_top_left, pesawatP_bottom_right;
+	pesawatP_top_left.SetAbsis(300);
+	pesawatP_top_left.SetOrdinat(30);
+	pesawatP_bottom_right.SetAbsis(560);
+	pesawatP_bottom_right.SetOrdinat(140);
+	Object pswt("objects/pesawat2.txt");
+	Pattern pattern("pattern/burung.txt");
+	RGBcolor pswtCol;
+	//pswtCol.setRGB(234,34,74);
+	
+	/*Baling-baling*/
+	Object baling("objects/baling2.txt");
+	
+	/*Objek Kapal*/
+	Point kapalP_top_left, kapalP_bottom_right;
+	kapalP_top_left.SetAbsis(370);
+	kapalP_top_left.SetOrdinat(650);
+	kapalP_bottom_right.SetAbsis(550);
+	kapalP_bottom_right.SetOrdinat(690);
+	Object kapal("objects/Kapal2.txt");
+	Pattern pattern2("pattern/ikan.txt");
+	kapal.SetWarna(white);
+	RGBcolor kapal2Col;
+	//kapal2Col.setRGB(0,0,200);
+
+	/*Pilih warna kapal dan pesawat*/
+	frame.clear();
+	cout << "Silahkan pilih warna dasar kapal" << endl;
+	kapal2Col = frame.drawColorPicker();
+	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "R=" << kapal2Col.getRed();
+	cout << ", G=" << kapal2Col.getGreen();
+	cout << ", B=" << kapal2Col.getBlue() << endl;
+	cout << "Tekan apapun" << endl;
+	inputkey = frame._getch();
+	
+	frame.clear();
+	cout << "Silahkan pilih warna dasar pesawat" << endl;
+	pswtCol = frame.drawColorPicker();
+	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "R=" << pswtCol.getRed();
+	cout << ", G=" << pswtCol.getGreen();
+	cout << ", B=" << pswtCol.getBlue() << endl;
+	cout << "Tekan apapun" << endl;
+	inputkey = frame._getch();
+
+	/*Draw semua Object*/
+	system("clear");
+	pswt.Draw(frame);
+	pswt.FloodFill(pswtCol,frame);
+	pswt.DrawPattern(pattern, frame, warnaPeluru);
+
+	baling.Draw(frame);
+
+	kapal.Draw(frame);
+	kapal.FloodFill(kapal2Col,frame);
+	kapal.DrawPattern(pattern2, frame, warnaPeluru);
+
+	/*Pesawat dan Kapal maju duluan*/
+	for(int i=1;i<50;i++){
+		usleep(10000);
+		kapal.Geser(3,0,frame);
+		kapal.FloodFill(kapal2Col,frame);
+		kapal.DrawPattern(pattern2, frame, warnaPeluru);
+		pswt.Geser(-1,0,frame);
+		pswt.FloodFill(pswtCol,frame);
+		pswt.DrawPattern(pattern, frame, warnaPeluru);
+		baling.Geser(-1,0,frame);
+		x_center--;
+		baling.Putar(12,x_center,y_center,frame);
+	}
+
+	while((peluruStart.GetOrdinat()>10) && !meledak){
+		pswt.Draw(frame);
+		baling.Draw(frame);
+		kapal.SetWarna(white);
+		kapal.Draw(frame);
+		if(frame.isSameColor(black,peluruStart.GetAbsis(),peluruStart.GetOrdinat()-radpeluru)){
+			Peluru.plotCircle(peluruStart,radpeluru,warnaPeluru,frame);
+			//Peluru.FloodFill(peluruStart.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
+			Peluru2.plotCircle(peluru2Start,radpeluru,warnaPeluru,frame);
+			//Peluru2.FloodFill(peluru2Start.GetAbsis(), peluruStart.GetOrdinat(), warnaPeluru, frame);
+			usleep(10000);
+			Peluru.plotCircle(peluruStart,radpeluru,black,frame);
+			Peluru2.plotCircle(peluru2Start,radpeluru,black,frame);
+			peluruStart.SetOrdinat(peluruStart.GetOrdinat()-5);
+			peluru2Start.SetOrdinat(peluru2Start.GetOrdinat()+5);
+			pswt.Geser(-1,0,frame);
+			pswt.FloodFill(pswtCol,frame);
+			pswt.DrawPattern(pattern, frame, warnaPeluru);
+			kapal.Geser(3,0,frame);
+			kapal.FloodFill(kapal2Col,frame);
+			kapal.DrawPattern(pattern2, frame, warnaPeluru);
+
+			baling.Geser(-1,0,frame);
+			x_center--;
+			baling.Putar(12,x_center,y_center,frame);
+		}
+		else{
+			Meledak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
+			antiLedak(peluruStart.GetAbsis(),peluruStart.GetOrdinat());
+			roda_fall.SetAbsis(peluruStart.GetAbsis());
+			roda_fall.SetOrdinat(peluruStart.GetOrdinat()+rad_roda);
+			int t= 400, c = 1;
+			int y = roda_fall.GetOrdinat();
+			Point roda_bouncing = roda_fall;
+			int g = 15;
+			for (int x = roda_fall.GetAbsis()+1; x<roda_fall.GetAbsis()+63; x++) {
+				usleep(10000);
+				Roda.plotCircle(roda_bouncing, rad_roda, black, frame);
+				if(y >= roda_fall.GetOrdinat()+490) {
+					c = 0;
+					t -= 20;
+					g -= 5;
+				}
+				if (y <=roda_fall.GetOrdinat()+750-t) {
+					c=1;
+				}
+				y = y + (c?g: -g);
+				roda_bouncing.SetAbsis(x);
+				roda_bouncing.SetOrdinat(y);
+				Roda.plotCircle(roda_bouncing, rad_roda, white, frame);
+			}
+			meledak = true;
+		}
+	}
+	return 0;
+}
+
+
+void Meledak (int xpusat, int ypusat){
+	DrawingObject Ledakan;
+	RGBcolor warnaLedakan;
+	warnaLedakan.setRed(255);
+	warnaLedakan.setBlue(0);
+	Point titikLedak;
+	titikLedak.SetAbsis(xpusat);
+	titikLedak.SetOrdinat(ypusat);
+ 	for(int radLedak=1; radLedak<=50; radLedak++){
+ 		warnaLedakan.setGreen(256-radLedak*4.48);
+   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
+   		usleep(10000);
+ 	}
+}
+
+void antiLedak (int xpusat, int ypusat){
+	DrawingObject Ledakan;
+	RGBcolor warnaLedakan;
+	warnaLedakan.setRed(0);
+	warnaLedakan.setGreen(0);
+	warnaLedakan.setBlue(0);
+	Point titikLedak;
+	titikLedak.SetAbsis(xpusat);
+	titikLedak.SetOrdinat(ypusat);
+ 	for(int radLedak=1; radLedak<=50; radLedak++){
+   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
+   		usleep(20000);
+ 	}
+}

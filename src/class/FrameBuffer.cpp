@@ -308,7 +308,7 @@ RGBcolor FrameBuffer::drawColorPicker(){
 	drawColorPelangi();
 	drawColorPelangiPicker(koord_x);
 	drawColorGradien(koord_x);
-	clear();
+	//clear();
 	cout << "press 's' button to select" << endl;
 	while(ch!='s'){
 		ch = _getch();
