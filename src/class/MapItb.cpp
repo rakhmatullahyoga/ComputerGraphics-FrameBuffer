@@ -46,19 +46,33 @@ MapItb::~MapItb()
 void MapItb::Draw(FrameBuffer frame)
 {
     pau->Draw(frame);
+    pau->Make3D(frame);
     perpus->Draw(frame);
+    perpus->Make3D(frame);
     oktagon->Draw(frame);
+    oktagon->Make3D(frame);
     comlabs->Draw(frame);
+    comlabs->Make3D(frame);
     tvst->Draw(frame);
+    tvst->Make3D(frame);
     pln->Draw(frame);
+    pln->Make3D(frame);
     lab6->Draw(frame);
+    lab6->Make3D(frame);
     lab7->Draw(frame);
+    lab7->Make3D(frame);
     lab5->Draw(frame);
+    lab5->Make3D(frame);
     lab8->Draw(frame);
+    lab8->Make3D(frame);
     ccbar->Draw(frame);
+    ccbar->Make3D(frame);
     cctim->Draw(frame);
+    cctim->Make3D(frame);
     albar->Draw(frame);
+    albar->Make3D(frame);
     altim->Draw(frame);
+    altim->Make3D(frame);
 }
 
 vector<Object> MapItb::getGedung()

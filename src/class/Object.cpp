@@ -471,7 +471,7 @@ void Object::Make3D(FrameBuffer fBuff) {
 	Point P;
 	for(int i=0; i<NTitik.size()-2; i++) {
 		if(!(NTitik.at(i).GetAbsis()==x_kiri&&NTitik.at(i).GetOrdinat()==y_bawah)) {
-			P.SetAbsis(NTitik.at(i).GetAbsis()+30);
+			P.SetAbsis(NTitik.at(i).GetAbsis()+10);
 			P.SetOrdinat(NTitik.at(i).GetOrdinat()-30);
 			gambar.plotLine(NTitik.at(i),P,warnaGaris,fBuff);
 			projection3D.push_back(P);
@@ -486,7 +486,7 @@ void Object::Hapus3D(FrameBuffer fBuff) {
 	Point P;
 	for(int i=0; i<NTitik.size()-2; i++) {
 		if(!(NTitik.at(i).GetAbsis()==x_kiri&&NTitik.at(i).GetOrdinat()==y_bawah)) {
-			P.SetAbsis(NTitik.at(i).GetAbsis()+30);
+			P.SetAbsis(NTitik.at(i).GetAbsis()+10);
 			P.SetOrdinat(NTitik.at(i).GetOrdinat()-30);
 			gambar.plotLine(NTitik.at(i),P,black,fBuff);
 			projection3D.push_back(P);
