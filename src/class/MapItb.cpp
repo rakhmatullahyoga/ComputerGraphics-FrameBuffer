@@ -45,34 +45,37 @@ MapItb::~MapItb()
 
 void MapItb::Draw(FrameBuffer frame)
 {
-    pau->Draw(frame);
+    //cout << "cek1" << endl;
     pau->Make3D(frame);
-    perpus->Draw(frame);
+    //cout << "cek2" << endl;
+    pau->CreateAntiClip(getGedung(),frame);
+    //cout << "cek3" << endl;
     perpus->Make3D(frame);
-    oktagon->Draw(frame);
+    perpus->CreateAntiClip(getGedung(),frame);
     oktagon->Make3D(frame);
-    comlabs->Draw(frame);
+    oktagon->CreateAntiClip(getGedung(),frame);
     comlabs->Make3D(frame);
-    tvst->Draw(frame);
+    comlabs->CreateAntiClip(getGedung(),frame);
     tvst->Make3D(frame);
-    pln->Draw(frame);
+    tvst->CreateAntiClip(getGedung(),frame);
     pln->Make3D(frame);
-    lab6->Draw(frame);
+    pln->CreateAntiClip(getGedung(),frame);
     lab6->Make3D(frame);
-    lab7->Draw(frame);
+    lab6->CreateAntiClip(getGedung(),frame);
     lab7->Make3D(frame);
-    lab5->Draw(frame);
+    lab7->CreateAntiClip(getGedung(),frame);
     lab5->Make3D(frame);
-    lab8->Draw(frame);
+    lab5->CreateAntiClip(getGedung(),frame);
     lab8->Make3D(frame);
-    ccbar->Draw(frame);
+    lab8->CreateAntiClip(getGedung(),frame);
     ccbar->Make3D(frame);
-    cctim->Draw(frame);
+    ccbar->CreateAntiClip(getGedung(),frame);
     cctim->Make3D(frame);
-    albar->Draw(frame);
+    cctim->CreateAntiClip(getGedung(),frame);
     albar->Make3D(frame);
-    altim->Draw(frame);
+    albar->CreateAntiClip(getGedung(),frame);
     altim->Make3D(frame);
+    altim->CreateAntiClip(getGedung(),frame);
 }
 
 vector<Object> MapItb::getGedung()

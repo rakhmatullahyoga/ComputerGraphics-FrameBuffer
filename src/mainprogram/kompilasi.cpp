@@ -82,9 +82,9 @@ int main(int argc, char const *argv[])
 
 	/*Pilih warna kapal dan pesawat*/
 	frame.clear();
-	cout << "Silahkan pilih warna dasar kapal" << endl;
+	cout << "Pilih warna dasar kapal perangmu!" << endl;
 	kapal2Col = frame.drawColorPicker();
-	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "Warna yang kamu pilih:" << endl;
 	cout << "R=" << kapal2Col.getRed();
 	cout << ", G=" << kapal2Col.getGreen();
 	cout << ", B=" << kapal2Col.getBlue() << endl;
@@ -92,14 +92,30 @@ int main(int argc, char const *argv[])
 	inputkey = frame._getch();
 	
 	frame.clear();
-	cout << "Silahkan pilih warna dasar pesawat" << endl;
+	cout << "Pilih warna dasar pesawat musuh." << endl;
 	pswtCol = frame.drawColorPicker();
-	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "Warna yang kamu pilih:" << endl;
 	cout << "R=" << pswtCol.getRed();
 	cout << ", G=" << pswtCol.getGreen();
 	cout << ", B=" << pswtCol.getBlue() << endl;
 	cout << "Tekan apapun" << endl;
 	inputkey = frame._getch();
+
+	// text
+	string s1;
+	s1 = "Kapal perang Indonesia pun berperang melawan pesawat penjajah.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s1.length(); i++) {
+		cout << s1[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
 
 	/*Draw semua Object*/
 	system("clear");
@@ -184,7 +200,7 @@ int main(int argc, char const *argv[])
 	
 	// text
 	string s;
-	s = "Ngezoom ke peta Indonesia (TEMPLET ganti aja ama story)";
+	s = "Pesawat musuh berhasil dihancurkan! Kini Indonesia bebas dari ancaman penjajah.";
 	system("clear");
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\t\t\t\t\t";
@@ -316,6 +332,24 @@ int main(int argc, char const *argv[])
 			break;
 		}
 	}
+
+
+	// text
+	string s2;
+	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia, dibangunlah sebuah institut teknologi.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s2.length(); i++) {
+		cout << s2[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
 
 	// buat 3D
 
