@@ -147,23 +147,26 @@ void Object::Putar(float drj, int xpusat, int ypusat, FrameBuffer fBuff){
 	Draw(fBuff);
 }
 bool Object::IsVPoint(int x, int y) {
-	int i = 0;
+	Point temp = NTitik.back();
+	NTitik.pop_back();
+
+	int i = 0, size=(int) NTitik.size();
 	bool found = false;
 	bool v_point = false;
 	while((i<NTitik.size())&&!found) {
 		if(x==NTitik.at(i).GetAbsis()&&y==NTitik.at(i).GetOrdinat()) {
-			if(((NTitik.at(i-1).GetOrdinat()<y)&&(NTitik.at(i+1).GetOrdinat()<y))||((NTitik.at(i-1).GetOrdinat()>y)&&(NTitik.at(i+1).GetOrdinat()>y))) {
+			if(((NTitik.at((i-1+size)%size).GetOrdinat()<y)&&(NTitik.at((i+1+size)%size).GetOrdinat()<y))||((NTitik.at((i-1+size)%size).GetOrdinat()>y)&&(NTitik.at((i+1+size)%size).GetOrdinat()>y))) {
 				v_point = true;
 			}
 			else {
-				if((NTitik.at(i-1).GetOrdinat()<y)&&(NTitik.at(i+1).GetOrdinat()==y))
-					v_point = (NTitik.at(i+2).GetOrdinat()<y);
-				else if((NTitik.at(i-1).GetOrdinat()>y)&&(NTitik.at(i+1).GetOrdinat()==y))
-					v_point = (NTitik.at(i+2).GetOrdinat()>y);
-				else if((NTitik.at(i-1).GetOrdinat()==y)&&(NTitik.at(i+1).GetOrdinat()>y))
-					v_point = (NTitik.at(i-2).GetOrdinat()>y);
-				else if((NTitik.at(i-1).GetOrdinat()==y)&&(NTitik.at(i+1).GetOrdinat()<y))
-					v_point = (NTitik.at(i-2).GetOrdinat()<y);
+				if((NTitik.at((i-1+size)%size).GetOrdinat()<y)&&(NTitik.at((i+1+size)%size).GetOrdinat()==y))
+					v_point = (NTitik.at((i+2+size)%size).GetOrdinat()<y);
+				else if((NTitik.at((i-1+size)%size).GetOrdinat()>y)&&(NTitik.at((i+1+size)%size).GetOrdinat()==y))
+					v_point = (NTitik.at((i+2+size)%size).GetOrdinat()>y);
+				else if((NTitik.at((i-1+size)%size).GetOrdinat()==y)&&(NTitik.at((i+1+size)%size).GetOrdinat()>y))
+					v_point = (NTitik.at((i-2+size)%size).GetOrdinat()>y);
+				else if((NTitik.at((i-1+size)%size).GetOrdinat()==y)&&(NTitik.at((i+1+size)%size).GetOrdinat()<y))
+					v_point = (NTitik.at((i-2+size)%size).GetOrdinat()<y);
 			}
 			found = true;
 		}
@@ -171,6 +174,7 @@ bool Object::IsVPoint(int x, int y) {
 			i++;
 		}
 	}
+	NTitik.push_back(temp);
 	return v_point;
 }
 void Object::ScanLineFill(RGBcolor warna, FrameBuffer fBuff) {
