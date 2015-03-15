@@ -358,8 +358,8 @@ void Object::clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff, Poi
     	point2_y= y2-view_topleft.GetOrdinat()+legend_topleft.GetOrdinat();
     	Point legendclip1(point1_x,point1_y);
     	Point legendclip2(point2_x,point2_y);
-        gambar.plotLine(clip1, clip2, warna, fBuff);
-        gambar.plotLine(legendclip1, legendclip2, warna, fBuff);
+        //gambar.plotLine(clip1, clip2, warna, fBuff);
+        //gambar.plotLine(legendclip1, legendclip2, warna, fBuff);
       	TitikLegend.push_back(legendclip1);
       	TitikLegend.push_back(legendclip2);
     }
@@ -372,7 +372,9 @@ void Object::CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuff
 	}
 }
 void Object::DrawLegend(FrameBuffer fBuff){
-	gambar.plotListOfPoint(TitikLegend,warnaGaris,fBuff);
+	for(int i=0; i<TitikLegend.size(); i+=2) {
+		gambar.plotLine(TitikLegend.at(i),TitikLegend.at(i+1),warnaGaris,fBuff);
+	}
 }
 void Object::HapusLegend(FrameBuffer fBuff){
 	RGBcolor hitam;
