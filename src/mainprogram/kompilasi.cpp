@@ -16,11 +16,89 @@ using namespace std;
 FrameBuffer frame;
 void Meledak (int xpusat, int ypusat);
 void antiLedak (int xpusat, int ypusat);
+void Perang2an();
+void Judul();
+void PetaIndonesia();
 int _getch();
 
 int main(int argc, char const *argv[])
 {
 	system("clear");
+	Judul();
+	Perang2an();
+	
+	// text
+	string s;
+	s = "Pesawat musuh berhasil dihancurkan! Kini Indonesia bebas dari ancaman penjajah.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s.length(); i++) {
+		cout << s[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
+	/*------------ PETA INDONESIA ------------*/
+	PetaIndonesia();
+
+
+	// text
+	string s2;
+	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia,\n\t\t\t\t\tdibangunlah sebuah institut teknologi.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s2.length(); i++) {
+		cout << s2[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
+
+	// buat 3D
+
+	return 0;
+}
+
+void Meledak (int xpusat, int ypusat){
+	DrawingObject Ledakan;
+	RGBcolor warnaLedakan;
+	warnaLedakan.setRed(255);
+	warnaLedakan.setBlue(0);
+	Point titikLedak;
+	titikLedak.SetAbsis(xpusat);
+	titikLedak.SetOrdinat(ypusat);
+ 	for(int radLedak=1; radLedak<=50; radLedak++){
+ 		warnaLedakan.setGreen(256-radLedak*4.48);
+   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
+   		usleep(10000);
+ 	}
+}
+
+void antiLedak (int xpusat, int ypusat){
+	DrawingObject Ledakan;
+	RGBcolor warnaLedakan;
+	warnaLedakan.setRed(0);
+	warnaLedakan.setGreen(0);
+	warnaLedakan.setBlue(0);
+	Point titikLedak;
+	titikLedak.SetAbsis(xpusat);
+	titikLedak.SetOrdinat(ypusat);
+ 	for(int radLedak=1; radLedak<=50; radLedak++){
+   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
+   		usleep(20000);
+ 	}
+}
+void Judul(){
 	// SPLASHIE
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t\t\t\t"; cout << " __          ____          _______ " << endl;
@@ -33,7 +111,9 @@ int main(int argc, char const *argv[])
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 	while (!(cin.get() == '\n')) {}
+}
 
+void Perang2an(){
 	int inputkey;
 	/*atribut Peluru, Roda*/
 	int x_center = 560;
@@ -82,7 +162,8 @@ int main(int argc, char const *argv[])
 
 	/*Pilih warna kapal dan pesawat*/
 	system("clear");
-	frame.clear();
+	//frame.clear();
+	printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	cout << "Pilih warna dasar kapal perangmu!" << endl;
 	kapal2Col = frame.drawColorPicker();
 	cout << "Warna yang kamu pilih:" << endl;
@@ -93,7 +174,8 @@ int main(int argc, char const *argv[])
 	inputkey = frame._getch();
 	
 	system("clear");
-	frame.clear();
+	//frame.clear();
+	printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	cout << "Pilih warna dasar pesawat musuh." << endl;
 	pswtCol = frame.drawColorPicker();
 	cout << "Warna yang kamu pilih:" << endl;
@@ -120,7 +202,6 @@ int main(int argc, char const *argv[])
 	system("clear");
 
 	/*Draw semua Object*/
-	system("clear");
 	pswt.Draw(frame);
 	pswt.FloodFill(pswtCol,frame);
 	pswt.DrawPattern(pattern, frame, warnaPeluru);
@@ -199,25 +280,10 @@ int main(int argc, char const *argv[])
 			meledak = true;
 		}
 	}
-	
-	// text
-	string s;
-	s = "Pesawat musuh berhasil dihancurkan! Kini Indonesia bebas dari ancaman penjajah.";
-	system("clear");
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	cout << "\t\t\t\t\t";
-	for (int i=0; i<s.length(); i++) {
-		cout << s[i];
-		cout.flush();
-		usleep(30000);
-	}
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	sleep(1);
+}
 
-	system("clear");
-
-	/*------------------------------------------------------------ PETA INDONESIA */
-	FrameBuffer frame;
+void PetaIndonesia(){
+	//FrameBuffer frame;
 	DrawingObject map_canvas, view_port, legend, petunjuk;
 	Object viewport;
 	RGBcolor warna_border;
@@ -230,7 +296,7 @@ int main(int argc, char const *argv[])
 	Map Indonesia;
 	float legend_zoom = 1.00;
 
-	system("clear");
+	//system("clear");
 	viewport.CreateRectangle(view_topleft, 200, 300);
 	viewport.Draw(frame);
 	viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
@@ -249,7 +315,7 @@ int main(int argc, char const *argv[])
 	Indonesia.Draw(frame);
 
 	while(true) {
-		int ch = _getch();
+		int ch = frame._getch();
 		if(ch == 0x41) { // up-arrow key
 			if(viewport.GetAtas()>canvas_topleft.GetOrdinat()) {
 				viewport.HapusLegend(frame);
@@ -334,69 +400,4 @@ int main(int argc, char const *argv[])
 			break;
 		}
 	}
-
-
-	// text
-	string s2;
-	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia,\n\t\t\t\t\tdibangunlah sebuah institut teknologi.";
-	system("clear");
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	cout << "\t\t\t\t\t";
-	for (int i=0; i<s2.length(); i++) {
-		cout << s2[i];
-		cout.flush();
-		usleep(30000);
-	}
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	sleep(1);
-
-	system("clear");
-
-
-	// buat 3D
-
-	return 0;
-}
-
-void Meledak (int xpusat, int ypusat){
-	DrawingObject Ledakan;
-	RGBcolor warnaLedakan;
-	warnaLedakan.setRed(255);
-	warnaLedakan.setBlue(0);
-	Point titikLedak;
-	titikLedak.SetAbsis(xpusat);
-	titikLedak.SetOrdinat(ypusat);
- 	for(int radLedak=1; radLedak<=50; radLedak++){
- 		warnaLedakan.setGreen(256-radLedak*4.48);
-   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
-   		usleep(10000);
- 	}
-}
-
-void antiLedak (int xpusat, int ypusat){
-	DrawingObject Ledakan;
-	RGBcolor warnaLedakan;
-	warnaLedakan.setRed(0);
-	warnaLedakan.setGreen(0);
-	warnaLedakan.setBlue(0);
-	Point titikLedak;
-	titikLedak.SetAbsis(xpusat);
-	titikLedak.SetOrdinat(ypusat);
- 	for(int radLedak=1; radLedak<=50; radLedak++){
-   		Ledakan.plotCircle(titikLedak,radLedak,warnaLedakan,frame);
-   		usleep(20000);
- 	}
-}
-
-// buat peta indonesia
-int _getch() {
-	struct termios oldt, newt;
-	int ch;
-	tcgetattr( STDIN_FILENO, &oldt );
-	newt = oldt;
-	newt.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr( STDIN_FILENO, TCSANOW, &newt );
-	ch = getchar();
-	tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-	return ch;
 }
