@@ -233,23 +233,23 @@ void Object::CreateRectangle(Point top_left_corner, int height, int width) {
 
 	start = top_left_corner;
 	NTitik.push_back(start);
-	finish.SetAbsis(start.GetAbsis());
-	finish.SetOrdinat(start.GetOrdinat()+height);
-	NTitik.push_back(finish);
-
-	start = finish;
 	finish.SetAbsis(start.GetAbsis()+width);
 	finish.SetOrdinat(start.GetOrdinat());
 	NTitik.push_back(finish);
 
 	start = finish;
 	finish.SetAbsis(start.GetAbsis());
-	finish.SetOrdinat(start.GetOrdinat()-height);
+	finish.SetOrdinat(start.GetOrdinat()+height);
 	NTitik.push_back(finish);
 
 	start = finish;
 	finish.SetAbsis(start.GetAbsis()-width);
 	finish.SetOrdinat(start.GetOrdinat());
+	NTitik.push_back(finish);
+
+	start = finish;
+	finish.SetAbsis(start.GetAbsis());
+	finish.SetOrdinat(start.GetOrdinat()-height);
 	NTitik.push_back(finish);
 	warnaGaris.setRGB(255,255,255);
 	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
@@ -303,7 +303,7 @@ int Object::findRegion(int x, int y) {
 		code |= 8; //left
 	return(code);
 }
-void Object::clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff, Point view_topleft, Point legend_topleft) {
+void Object::clipLine(Point P1, Point P2, FrameBuffer fBuff, Point view_topleft, Point legend_topleft) {
 	int x1, x2, y1, y2;
     int code1, code2, codeout;
     bool accept = 0, done=0;
@@ -358,16 +358,84 @@ void Object::clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff, Poi
     	point2_y= y2-view_topleft.GetOrdinat()+legend_topleft.GetOrdinat();
     	Point legendclip1(point1_x,point1_y);
     	Point legendclip2(point2_x,point2_y);
-        //gambar.plotLine(clip1, clip2, warna, fBuff);
-        //gambar.plotLine(legendclip1, legendclip2, warna, fBuff);
+        TitikLegend.push_back(legendclip1);
+      	TitikLegend.push_back(legendclip2);
+    }
+}
+void Object::antiClip(Point P1, Point P2, FrameBuffer fBuff, Point view_topleft, Point legend_topleft) {
+	int x1, x2, y1, y2;
+    int code1, code2, codeout;
+    bool accept = 0, done=0;
+    RGBcolor black;
+
+    black.setRGB(1,1,1);
+	x1 = P1.GetAbsis();
+    y1 = P1.GetOrdinat();
+    x2 = P2.GetAbsis();
+    y2 = P2.GetOrdinat();
+    code1 = findRegion(x1, y1); //the region outcodes for the endpoints
+    code2 = findRegion(x2, y2);
+    do  //In theory, this can never end up in an infinite loop, it'll always come in one of the trivial cases eventually
+    {
+        if(!(code1 | code2)) accept = done = 1;  //accept because both endpoints are in screen or on the border, trivial accept
+        else if(code1 & code2) done = 1; //the line isn't visible on screen, trivial reject
+        else {  //if no trivial reject or accept, continue the loop
+            int x, y;
+            codeout = code1 ? code1 : code2;
+            if(codeout & 1) { //top
+                x = x1 + (x2 - x1) * (y_bawah - y1) / (y2 - y1);
+                y = y_bawah - 1;
+            }
+            else if(codeout & 2) { //bottom
+                x = x1 + (x2 - x1) * (y_atas-y1) / (y2 - y1);
+                y = y_atas;
+            }
+            else if(codeout & 4) { //right
+                y = y1 + (y2 - y1) * (x_kanan - x1) / (x2 - x1);
+                x = x_kanan - 1;
+            }
+            else { //left
+                y = y1 + (y2 - y1) * (x_kiri-x1) / (x2 - x1);
+                x = x_kiri;
+            }
+
+	        if(codeout == code1) { //first endpoint was clipped
+	            x1 = x; y1 = y;
+	            code1 = findRegion(x1, y1);
+	        }
+	        else { //second endpoint was clipped
+	            x2 = x; y2 = y;
+	            code2 = findRegion(x2, y2);
+	        }
+        }
+    } while(done == 0);
+
+    if(accept) {
+    	Point clip1(x1,y1);
+    	Point clip2(x2,y2);
+    	point1_x= x1-view_topleft.GetAbsis()+legend_topleft.GetAbsis();
+    	point1_y= y1-view_topleft.GetOrdinat()+legend_topleft.GetOrdinat();
+    	point2_x= x2-view_topleft.GetAbsis()+legend_topleft.GetAbsis();
+    	point2_y= y2-view_topleft.GetOrdinat()+legend_topleft.GetOrdinat();
+    	Point legendclip1(point1_x,point1_y);
+    	Point legendclip2(point2_x,point2_y);
+        gambar.plotLine(clip1, clip2, black, fBuff);
+        gambar.plotLine(legendclip1, legendclip2, black, fBuff);
       	TitikLegend.push_back(legendclip1);
       	TitikLegend.push_back(legendclip2);
     }
 }
-void Object::CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft) {
+void Object::CreateClip(vector<Object> kumpulanobject, FrameBuffer fBuff,Point view_topleft, Point legend_topleft) {
 	for(int i=0; i<kumpulanobject.size(); i++) {
 		for(int j=0; j<kumpulanobject.at(i).GetNTitik().size()-1; j++) {
-			clipLine(kumpulanobject.at(i).GetNTitik().at(j),kumpulanobject.at(i).GetNTitik().at(j+1),warna,fBuff,view_topleft,legend_topleft);
+			clipLine(kumpulanobject.at(i).GetNTitik().at(j),kumpulanobject.at(i).GetNTitik().at(j+1),fBuff,view_topleft,legend_topleft);
+		}
+	}
+}
+void Object::CreateAntiClip(vector<Object> kumpulanobject, FrameBuffer fBuff,Point view_topleft, Point legend_topleft) {
+	for(int i=0; i<kumpulanobject.size(); i++) {
+		for(int j=0; j<kumpulanobject.at(i).GetNTitik().size()-1; j++) {
+			antiClip(kumpulanobject.at(i).GetNTitik().at(j),kumpulanobject.at(i).GetNTitik().at(j+1),fBuff,view_topleft,legend_topleft);
 		}
 	}
 }
@@ -397,4 +465,33 @@ void Object::SkalaLegend(float skalax, float skalay){
 		TitikLegend.at(i).SetAbsis(xbaruInt);
 		TitikLegend.at(i).SetOrdinat(ybaruInt);
 	}
+}
+void Object::Make3D(FrameBuffer fBuff) {
+	vector<Point> projection3D;
+	Point P;
+	for(int i=0; i<NTitik.size()-2; i++) {
+		if(!(NTitik.at(i).GetAbsis()==x_kiri&&NTitik.at(i).GetOrdinat()==y_bawah)) {
+			P.SetAbsis(NTitik.at(i).GetAbsis()+30);
+			P.SetOrdinat(NTitik.at(i).GetOrdinat()-30);
+			gambar.plotLine(NTitik.at(i),P,warnaGaris,fBuff);
+			projection3D.push_back(P);
+		}
+	}
+	gambar.plotListOfPoint(projection3D,warnaGaris,fBuff);
+}
+void Object::Hapus3D(FrameBuffer fBuff) {
+	RGBcolor black;
+	black.setRGB(1,1,1);
+	vector<Point> projection3D;
+	Point P;
+	for(int i=0; i<NTitik.size()-2; i++) {
+		if(!(NTitik.at(i).GetAbsis()==x_kiri&&NTitik.at(i).GetOrdinat()==y_bawah)) {
+			P.SetAbsis(NTitik.at(i).GetAbsis()+30);
+			P.SetOrdinat(NTitik.at(i).GetOrdinat()-30);
+			gambar.plotLine(NTitik.at(i),P,black,fBuff);
+			projection3D.push_back(P);
+		}
+	}
+	gambar.plotListOfPoint(projection3D,black,fBuff);
+	projection3D.clear();
 }

@@ -38,8 +38,12 @@ class Object{
 		void DrawLegend(FrameBuffer fBuff);
 		void HapusLegend(FrameBuffer fBuff);
 		void SkalaLegend(float skalax, float skalay);
-		void clipLine(Point P1, Point P2, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
-		void CreateClip(vector<Object> kumpulanobject, RGBcolor warna, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void clipLine(Point P1, Point P2, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void antiClip(Point P1, Point P2, FrameBuffer fBuff, Point view_topleft, Point legend_topleft);
+		void CreateClip(vector<Object> kumpulanobject, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void CreateAntiClip(vector<Object> kumpulanobject, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
+		void Make3D(FrameBuffer fBuff);
+		void Hapus3D(FrameBuffer fBuff);
 	private:
 		RGBcolor warnaGaris;
 		RGBcolor fillColor;

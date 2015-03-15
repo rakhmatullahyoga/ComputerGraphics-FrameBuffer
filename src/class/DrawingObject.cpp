@@ -13,7 +13,7 @@ void DrawingObject::plotLine(Point awal, Point akhir, RGBcolor warna, FrameBuffe
 	int location;
 
 	for(;;){  /* loop */
-		location = awal.GetAbsis() * (fBuff.vinfo.bits_per_pixel/8) + awal.GetOrdinat() * fBuff.finfo.line_length;
+		location = (awal.GetAbsis()%1366) * (fBuff.vinfo.bits_per_pixel/8) + (awal.GetOrdinat()%766) * fBuff.finfo.line_length;
 		*(fBuff.fbp + location) = warna.getBlue(); // Some blue 
 		*(fBuff.fbp + location + 1) = warna.getGreen(); // A little green 
 		*(fBuff.fbp + location + 2) = warna.getRed(); // A lot of red
