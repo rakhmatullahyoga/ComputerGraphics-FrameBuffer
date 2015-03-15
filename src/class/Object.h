@@ -37,7 +37,7 @@ class Object{
 		int findRegion(int x, int y);
 		void DrawLegend(FrameBuffer fBuff);
 		void HapusLegend(FrameBuffer fBuff);
-		void SkalaLegend(float skalax, float skalay);
+		void SkalaLegend(float skalax, float skalay, Point legend_topleft, int sizex, int sizey);
 		void clipLine(Point P1, Point P2, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);
 		void antiClip(Point P1, Point P2, FrameBuffer fBuff, Point view_topleft, Point legend_topleft);
 		void CreateClip(vector<Object> kumpulanobject, FrameBuffer fBuff,Point view_topleft, Point legend_topleft);

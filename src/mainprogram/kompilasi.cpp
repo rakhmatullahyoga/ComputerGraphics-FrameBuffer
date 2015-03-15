@@ -21,14 +21,14 @@ int _getch();
 int main(int argc, char const *argv[])
 {
 
-	/* SPLASHIE */
+	// SPLASHIE
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t\t\t\t"; cout << " __          ____          _______ " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << " \\ \\        / /\\ \\        / / ____|" << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "  \\ \\  /\\  / /  \\ \\  /\\  / /| |__  " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "   \\ \\/  \\/ /    \\ \\/  \\/ / |___ \\ " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "    \\  /\\  /      \\  /\\  /   ___) |" << endl;
-		cout << "\t\t\t\t\t\t\t\t"; cout << "     \\/  \\/        \\/  \\/   |____/ " << endl;
+		cout << "\t\t\t\t\t\t\t\t"; cout << "     \\/  \\/        \\/  \\/   |____/ " << endl << endl;
 		cout << "\t\t\t\t\t\t\t\t\t"; cout << "Press <ENTER> to continue" << endl;
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
@@ -184,7 +184,7 @@ int main(int argc, char const *argv[])
 	
 	// text
 	string s;
-	s = "Ngezoom ke peta Indonesia...";
+	s = "Ngezoom ke peta Indonesia (TEMPLET ganti aja ama story)";
 	system("clear");
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\t\t\t\t\t";
@@ -200,21 +200,32 @@ int main(int argc, char const *argv[])
 
 	/*------------------------------------------------------------ PETA INDONESIA */
 	FrameBuffer frame;
-	DrawingObject map_canvas, view_port, legend;
+	DrawingObject map_canvas, view_port, legend, petunjuk;
 	Object viewport;
 	RGBcolor warna_border;
 	warna_border.setRGB(255,255,255);
 	viewport.SetWarna(warna_border);
 	Point canvas_topleft(50,50);
+	Point petunjuk_topleft(70,600);
 	Point view_topleft(200,200);
 	Point legend_topleft(1016,516);
 	Map Indonesia;
+	float legend_zoom = 1.00;
 
 	system("clear");
 	viewport.CreateRectangle(view_topleft, 200, 300);
 	viewport.Draw(frame);
 	viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 	viewport.DrawLegend(frame);
+
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t  "; cout << "---- Petunjuk ---- " << endl;
+	cout << "\t  "; cout << "Gerakin viewport: tombol arrow" << endl;
+	cout << "\t  "; cout << "Zoom in: z" << endl;
+	cout << "\t  "; cout << "Zoom out: c" << endl;
+
+	petunjuk.drawRectangle(petunjuk_topleft,100,300,warna_border,frame);
+
 	map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 	legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 	Indonesia.Draw(frame);
@@ -229,6 +240,7 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
+				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
@@ -240,6 +252,7 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
+				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
@@ -251,42 +264,49 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
+				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
 		else if(ch == 0x44) { // left-arrow key
 			if(viewport.GetKiri()>canvas_topleft.GetAbsis()) {
 				viewport.HapusLegend(frame);
-				frame.clear();
+				// frame.clear();
 				viewport.Geser(-5,0,frame);
 				viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
+				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
-		else if(ch == 'z') { // zoom-in legend
+		else if((ch == 'z') && (legend_zoom<= pow(1.0*10/9, 10))) { // zoom-in legend
 			viewport.Hapus(frame);
-			viewport.Skala(0.9,0.9);
+			viewport.Skala(1.0*9/10,1.0*9/10);
 			viewport.Draw(frame);
 			viewport.HapusLegend(frame);
 			viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 			// viewport.SkalaLegend((viewport.GetKanan()-viewport.GetKiri())/200,(viewport.GetBawah()-viewport.GetAtas())/300);
-			// viewport.SkalaLegend(1.111,1.111);
+			legend_zoom = legend_zoom*10/9;
+			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 			viewport.DrawLegend(frame);
 			Indonesia.Draw(frame);
 		}
 		else if(ch == 'c') { // zoom-out legend
 			viewport.Hapus(frame);
-			viewport.Skala(1.111,1.111);
+			viewport.Skala(1.0*10/9,1.0*10/9);
 			if(!((viewport.GetKiri()>canvas_topleft.GetAbsis())&&(viewport.GetKanan()<canvas_topleft.GetAbsis()+1266-1)&&(viewport.GetBawah()<canvas_topleft.GetOrdinat()+666-1)&&(viewport.GetAtas()>canvas_topleft.GetOrdinat()))) {
-				viewport.Skala(0.9,0.9);
+				viewport.Skala(1.0*9/10,1.0*9/10);
+			}
+			else{
+				legend_zoom = legend_zoom*9/10;	
 			}
 			viewport.Draw(frame);
 			viewport.HapusLegend(frame);
 			viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 			Indonesia.Draw(frame);
+			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 			viewport.DrawLegend(frame);
 		}
 		else if(ch == 'q') {
@@ -299,7 +319,6 @@ int main(int argc, char const *argv[])
 
 	return 0;
 }
-
 
 void Meledak (int xpusat, int ypusat){
 	DrawingObject Ledakan;
