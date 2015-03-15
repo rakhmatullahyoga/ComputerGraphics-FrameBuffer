@@ -21,14 +21,14 @@ int _getch();
 int main(int argc, char const *argv[])
 {
 
-	/* SPLASHIE */
+	// SPLASHIE
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t\t\t\t"; cout << " __          ____          _______ " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << " \\ \\        / /\\ \\        / / ____|" << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "  \\ \\  /\\  / /  \\ \\  /\\  / /| |__  " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "   \\ \\/  \\/ /    \\ \\/  \\/ / |___ \\ " << endl;
 		cout << "\t\t\t\t\t\t\t\t"; cout << "    \\  /\\  /      \\  /\\  /   ___) |" << endl;
-		cout << "\t\t\t\t\t\t\t\t"; cout << "     \\/  \\/        \\/  \\/   |____/ " << endl;
+		cout << "\t\t\t\t\t\t\t\t"; cout << "     \\/  \\/        \\/  \\/   |____/ " << endl << endl;
 		cout << "\t\t\t\t\t\t\t\t\t"; cout << "Press <ENTER> to continue" << endl;
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
@@ -184,7 +184,7 @@ int main(int argc, char const *argv[])
 	
 	// text
 	string s;
-	s = "Ngezoom ke peta Indonesia...";
+	s = "Ngezoom ke peta Indonesia (TEMPLET ganti aja ama story)";
 	system("clear");
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\t\t\t\t\t";
@@ -200,12 +200,13 @@ int main(int argc, char const *argv[])
 
 	/*------------------------------------------------------------ PETA INDONESIA */
 	FrameBuffer frame;
-	DrawingObject map_canvas, view_port, legend;
+	DrawingObject map_canvas, view_port, legend, petunjuk;
 	Object viewport;
 	RGBcolor warna_border;
 	warna_border.setRGB(255,255,255);
 	viewport.SetWarna(warna_border);
 	Point canvas_topleft(50,50);
+	Point petunjuk_topleft(70,600);
 	Point view_topleft(200,200);
 	Point legend_topleft(1016,516);
 	Map Indonesia;
@@ -215,6 +216,15 @@ int main(int argc, char const *argv[])
 	viewport.Draw(frame);
 	viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 	viewport.DrawLegend(frame);
+
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t  "; cout << "---- Petunjuk ---- " << endl;
+	cout << "\t  "; cout << "Gerakin viewport: tombol arrow" << endl;
+	cout << "\t  "; cout << "Zoom in: z" << endl;
+	cout << "\t  "; cout << "Zoom out: c" << endl;
+
+	petunjuk.drawRectangle(petunjuk_topleft,100,300,warna_border,frame);
+
 	map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 	legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 	Indonesia.Draw(frame);
@@ -257,7 +267,7 @@ int main(int argc, char const *argv[])
 		else if(ch == 0x44) { // left-arrow key
 			if(viewport.GetKiri()>canvas_topleft.GetAbsis()) {
 				viewport.HapusLegend(frame);
-				frame.clear();
+				// frame.clear();
 				viewport.Geser(-5,0,frame);
 				viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
@@ -299,7 +309,6 @@ int main(int argc, char const *argv[])
 
 	return 0;
 }
-
 
 void Meledak (int xpusat, int ypusat){
 	DrawingObject Ledakan;
