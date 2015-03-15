@@ -50,7 +50,7 @@ int main(int argc, char const *argv[])
 	Object pswt("objects/pesawat2.txt");
 	Pattern pattern("pattern/burung.txt");
 	pswt.Draw(frame);
-	pswt.ScanLineFill(kapalCol,frame);
+	pswt.FloodFill(kapalCol,frame);
 	pswt.DrawPattern(pattern, frame, warnaPeluru);
 
 	/*Baling-baling*/
@@ -69,17 +69,17 @@ int main(int argc, char const *argv[])
 	Pattern pattern2("pattern/ikan.txt");
 	kapal.SetWarna(kapalCol);
 	kapal.Draw(frame);
-	kapal.ScanLineFill(kapal2Col,frame);
+	kapal.FloodFill(kapal2Col,frame);
 	kapal.DrawPattern(pattern2, frame, warnaPeluru);
 
 	/*Objek Buatan*/
 	for(int i=1;i<50;i++){
 		usleep(10000);
 		kapal.Geser(3,0,frame);
-		kapal.ScanLineFill(kapal2Col,frame);
+		kapal.FloodFill(kapal2Col,frame);
 		kapal.DrawPattern(pattern2, frame, warnaPeluru);
 		pswt.Geser(-1,0,frame);
-		pswt.ScanLineFill(kapalCol,frame);
+		pswt.FloodFill(kapalCol,frame);
 		pswt.DrawPattern(pattern, frame, warnaPeluru);
 		baling.Geser(-1,0,frame);
 		x_center--;
@@ -102,10 +102,10 @@ int main(int argc, char const *argv[])
 			peluruStart.SetOrdinat(peluruStart.GetOrdinat()-5);
 			peluru2Start.SetOrdinat(peluru2Start.GetOrdinat()+5);
 			pswt.Geser(-1,0,frame);
-			pswt.ScanLineFill(kapalCol,frame);
+			pswt.FloodFill(kapalCol,frame);
 			pswt.DrawPattern(pattern, frame, warnaPeluru);
 			kapal.Geser(3,0,frame);
-			kapal.ScanLineFill(kapal2Col,frame);
+			kapal.FloodFill(kapal2Col,frame);
 			kapal.DrawPattern(pattern2, frame, warnaPeluru);
 
 			baling.Geser(-1,0,frame);
