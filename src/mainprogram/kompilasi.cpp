@@ -81,6 +81,7 @@ int main(int argc, char const *argv[])
 	//kapal2Col.setRGB(0,0,200);
 
 	/*Pilih warna kapal dan pesawat*/
+	system("clear");
 	frame.clear();
 	cout << "Pilih warna dasar kapal perangmu!" << endl;
 	kapal2Col = frame.drawColorPicker();
@@ -91,6 +92,7 @@ int main(int argc, char const *argv[])
 	cout << "Tekan apapun" << endl;
 	inputkey = frame._getch();
 	
+	system("clear");
 	frame.clear();
 	cout << "Pilih warna dasar pesawat musuh." << endl;
 	pswtCol = frame.drawColorPicker();
