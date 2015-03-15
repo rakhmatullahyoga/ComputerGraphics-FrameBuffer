@@ -112,6 +112,10 @@ int main(int argc, char const *argv[]) {
 			Indonesia.Draw(frame);
 			// viewport.DrawLegend(frame);
 		}
+		else if(ch == 'q') {
+			system("clear");
+			break;
+		}
 	}
 
 	return 0;
