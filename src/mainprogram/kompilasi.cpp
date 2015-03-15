@@ -20,7 +20,7 @@ int _getch();
 
 int main(int argc, char const *argv[])
 {
-	system("clear");
+
 	// SPLASHIE
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t\t\t\t"; cout << " __          ____          _______ " << endl;
@@ -33,6 +33,23 @@ int main(int argc, char const *argv[])
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 	while (!(cin.get() == '\n')) {}
+	
+	// text
+	string ss;
+	ss = "Berpuluh tahun yang lalu, terjadi perang dunia antara Indonesia dengan penjajah.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<ss.length(); i++) {
+		cout << ss[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
 
 	int inputkey;
 	/*atribut Peluru, Roda*/
@@ -82,9 +99,9 @@ int main(int argc, char const *argv[])
 
 	/*Pilih warna kapal dan pesawat*/
 	frame.clear();
-	cout << "Silahkan pilih warna dasar kapal" << endl;
+	cout << "Pilih warna dasar kapal perangmu!" << endl;
 	kapal2Col = frame.drawColorPicker();
-	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "Warna yang kamu pilih:" << endl;
 	cout << "R=" << kapal2Col.getRed();
 	cout << ", G=" << kapal2Col.getGreen();
 	cout << ", B=" << kapal2Col.getBlue() << endl;
@@ -92,14 +109,32 @@ int main(int argc, char const *argv[])
 	inputkey = frame._getch();
 	
 	frame.clear();
-	cout << "Silahkan pilih warna dasar pesawat" << endl;
+	cout << "Pilih warna dasar pesawat musuh." << endl;
 	pswtCol = frame.drawColorPicker();
-	cout << "Warna pesawat yang dipilih" << endl;
+	cout << "Warna yang kamu pilih:" << endl;
 	cout << "R=" << pswtCol.getRed();
 	cout << ", G=" << pswtCol.getGreen();
 	cout << ", B=" << pswtCol.getBlue() << endl;
 	cout << "Tekan apapun" << endl;
 	inputkey = frame._getch();
+	
+	// text
+	string s1;
+	s1 = "Kapal perang Indonesia pun berperang melawan pesawat penjajah.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s1.length(); i++) {
+		cout << s1[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
+
 
 	/*Draw semua Object*/
 	system("clear");
@@ -184,7 +219,7 @@ int main(int argc, char const *argv[])
 	
 	// text
 	string s;
-	s = "Ngezoom ke peta Indonesia (TEMPLET ganti aja ama story)";
+	s = "Pesawat musuh berhasil dihancurkan! Kini Indonesia bebas dari ancaman penjajah.";
 	system("clear");
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\t\t\t\t\t";
@@ -210,7 +245,6 @@ int main(int argc, char const *argv[])
 	Point view_topleft(200,200);
 	Point legend_topleft(1016,516);
 	Map Indonesia;
-	float legend_zoom = 1.00;
 
 	system("clear");
 	viewport.CreateRectangle(view_topleft, 200, 300);
@@ -240,7 +274,6 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
-				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
@@ -252,7 +285,6 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
-				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
@@ -264,7 +296,6 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
-				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
@@ -277,45 +308,54 @@ int main(int argc, char const *argv[])
 				map_canvas.drawRectangle(canvas_topleft,666,1266,warna_border,frame);
 				legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 				Indonesia.Draw(frame);
-				viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 				viewport.DrawLegend(frame);
 			}
 		}
-		else if((ch == 'z') && (legend_zoom<= pow(1.0*10/9, 10))) { // zoom-in legend
+		else if(ch == 'z') { // zoom-in legend
 			viewport.Hapus(frame);
-			viewport.Skala(1.0*9/10,1.0*9/10);
+			viewport.Skala(0.9,0.9);
 			viewport.Draw(frame);
 			viewport.HapusLegend(frame);
 			viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 			// viewport.SkalaLegend((viewport.GetKanan()-viewport.GetKiri())/200,(viewport.GetBawah()-viewport.GetAtas())/300);
-			legend_zoom = legend_zoom*10/9;
-			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
+			// viewport.SkalaLegend(1.111,1.111);
 			viewport.DrawLegend(frame);
-			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 			Indonesia.Draw(frame);
 		}
 		else if(ch == 'c') { // zoom-out legend
 			viewport.Hapus(frame);
-			viewport.Skala(1.0*10/9,1.0*10/9);
+			viewport.Skala(1.111,1.111);
 			if(!((viewport.GetKiri()>canvas_topleft.GetAbsis())&&(viewport.GetKanan()<canvas_topleft.GetAbsis()+1266-1)&&(viewport.GetBawah()<canvas_topleft.GetOrdinat()+666-1)&&(viewport.GetAtas()>canvas_topleft.GetOrdinat()))) {
-				viewport.Skala(1.0*9/10,1.0*9/10);
-			}
-			else{
-				legend_zoom = legend_zoom*9/10;	
+				viewport.Skala(0.9,0.9);
 			}
 			viewport.Draw(frame);
 			viewport.HapusLegend(frame);
 			viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 			Indonesia.Draw(frame);
-			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 			viewport.DrawLegend(frame);
-			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 		}
 		else if(ch == 'q') {
 			system("clear");
 			break;
 		}
 	}
+	
+	// text
+	string s2;
+	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia, dibangunlah sebuah institut teknologi.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s2.length(); i++) {
+		cout << s2[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
+	system("clear");
+
 
 	// buat 3D
 
