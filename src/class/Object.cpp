@@ -450,12 +450,12 @@ void Object::HapusLegend(FrameBuffer fBuff){
 	gambar.plotListOfPoint(TitikLegend,hitam,fBuff);
 	TitikLegend.clear();
 }
-void Object::SkalaLegend(float skalax, float skalay){
-	int xpusat = (x_kiri+x_kanan)/2;
-	int ypusat = (y_atas+y_bawah)/2;
+void Object::SkalaLegend(float skalax, float skalay, Point legend_topleft, int sizex, int sizey){
+	int xpusat = legend_topleft.GetAbsis();
+	int ypusat = legend_topleft.GetOrdinat();
 	float xbaru, ybaru;
 	int x,y, xbaruInt, ybaruInt;
-	for(int i=0; i<NTitik.size();i++){
+	for(int i=0; i<TitikLegend.size();i++){
 		x = TitikLegend.at(i).GetAbsis();
 		y = TitikLegend.at(i).GetOrdinat();
 		xbaru = xpusat + (x-xpusat)*skalax;
@@ -464,6 +464,7 @@ void Object::SkalaLegend(float skalax, float skalay){
 		ybaruInt = (int)(ybaru+0.5);
 		TitikLegend.at(i).SetAbsis(xbaruInt);
 		TitikLegend.at(i).SetOrdinat(ybaruInt);
+
 	}
 }
 void Object::Make3D(FrameBuffer fBuff) {
