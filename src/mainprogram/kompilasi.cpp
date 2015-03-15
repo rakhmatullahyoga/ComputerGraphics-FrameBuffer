@@ -20,7 +20,7 @@ int _getch();
 
 int main(int argc, char const *argv[])
 {
-
+	system("clear");
 	// SPLASHIE
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t\t\t\t"; cout << " __          ____          _______ " << endl;
@@ -291,6 +291,7 @@ int main(int argc, char const *argv[])
 			legend_zoom = legend_zoom*10/9;
 			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 			viewport.DrawLegend(frame);
+			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 			Indonesia.Draw(frame);
 		}
 		else if(ch == 'c') { // zoom-out legend
@@ -308,6 +309,7 @@ int main(int argc, char const *argv[])
 			Indonesia.Draw(frame);
 			viewport.SkalaLegend(legend_zoom,legend_zoom,legend_topleft,300,200);
 			viewport.DrawLegend(frame);
+			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 		}
 		else if(ch == 'q') {
 			system("clear");

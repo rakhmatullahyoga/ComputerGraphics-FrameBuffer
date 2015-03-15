@@ -98,6 +98,7 @@ int main(int argc, char const *argv[]) {
 			// viewport.SkalaLegend((viewport.GetKanan()-viewport.GetKiri())/200,(viewport.GetBawah()-viewport.GetAtas())/300);
 			//viewport.SkalaLegend(1.111,1.111);
 			viewport.DrawLegend(frame);
+			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 			Indonesia.Draw(frame);
 		}
 		else if(ch == 'c') { // zoom-out legend
@@ -111,6 +112,7 @@ int main(int argc, char const *argv[]) {
 			viewport.CreateClip(Indonesia.getPulau(),frame,viewport.GetKiriAtas(),legend_topleft);
 			Indonesia.Draw(frame);
 			viewport.DrawLegend(frame);
+			legend.drawRectangle(legend_topleft,200,300,warna_border,frame);
 		}
 		else if(ch == 'q') {
 			system("clear");

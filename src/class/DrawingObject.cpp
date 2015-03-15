@@ -61,21 +61,6 @@ void DrawingObject::moveRectangle(RGBcolor warna, FrameBuffer fBuff, int x_move,
 	top_left.SetAbsis(top_left.GetAbsis()+5*x_move);
 	top_left.SetOrdinat(top_left.GetOrdinat()+5*y_move);
 	drawRectangle(top_left, heightRectangle, widthRectangle, warna, fBuff);
-	/*for(int i=0; i<500; i++) {
-		if(x_move==1) {
-			top_left.SetAbsis(top_left.GetAbsis()+1);
-		}
-		else if(x_move==-1) {
-			top_left.SetAbsis(top_left.GetAbsis()-1);
-		}
-		if(y_move==1) {
-			top_left.SetOrdinat(top_left.GetOrdinat()+1);
-		}
-		else if(y_move==-1) {
-			top_left.SetOrdinat(top_left.GetOrdinat()-1);
-		}
-		drawRectangle(top_left, height, width, warna, fBuff);
-	}*/
 }
 Point DrawingObject::GetPoint() {
 	return topLeftRectangle;
