@@ -45,38 +45,38 @@ MapItb::~MapItb()
 
 void MapItb::Draw(FrameBuffer frame)
 {
-    albar->Draw(frame);
-    altim->Draw(frame);
-    ccbar->Draw(frame);
-    cctim->Draw(frame);
-    lab5->Draw(frame);
-    lab6->Draw(frame);
-    lab7->Draw(frame);
-    lab8->Draw(frame);
-    tvst->Draw(frame);
-    oktagon->Draw(frame);
-    comlabs->Draw(frame);
-    pln->Draw(frame);
     pau->Draw(frame);
     perpus->Draw(frame);
+    oktagon->Draw(frame);
+    comlabs->Draw(frame);
+    tvst->Draw(frame);
+    pln->Draw(frame);
+    lab6->Draw(frame);
+    lab7->Draw(frame);
+    lab5->Draw(frame);
+    lab8->Draw(frame);
+    ccbar->Draw(frame);
+    cctim->Draw(frame);
+    albar->Draw(frame);
+    altim->Draw(frame);
 }
 
 vector<Object> MapItb::getGedung()
 {
     vector<Object> gedung;
-    gedung.push_back(*albar);
-    gedung.push_back(*altim);
-    gedung.push_back(*ccbar);
-    gedung.push_back(*cctim);
-    gedung.push_back(*lab5);
-    gedung.push_back(*lab6);
-    gedung.push_back(*lab7);
-    gedung.push_back(*lab8);
-    gedung.push_back(*tvst);
-    gedung.push_back(*oktagon);
-    gedung.push_back(*comlabs);
-    gedung.push_back(*pln);
     gedung.push_back(*pau);
     gedung.push_back(*perpus);
+    gedung.push_back(*oktagon);
+    gedung.push_back(*comlabs);
+    gedung.push_back(*tvst);
+    gedung.push_back(*pln);
+    gedung.push_back(*lab6);
+    gedung.push_back(*lab7);
+    gedung.push_back(*lab5);
+    gedung.push_back(*lab8);
+    gedung.push_back(*ccbar);
+    gedung.push_back(*cctim);
+    gedung.push_back(*albar);
+    gedung.push_back(*altim);
     return gedung;
 }
