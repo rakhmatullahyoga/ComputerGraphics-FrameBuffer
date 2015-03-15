@@ -338,7 +338,7 @@ int main(int argc, char const *argv[])
 
 	// text
 	string s2;
-	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia, dibangunlah sebuah institut teknologi.";
+	s2 = "Beberapa tahun kemudian, setelah Indonesia merdeka dari penjajah, di Bandung, salah satu kota besar di Indonesia,\n\t\t\t\t\tdibangunlah sebuah institut teknologi.";
 	system("clear");
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "\t\t\t\t\t";
