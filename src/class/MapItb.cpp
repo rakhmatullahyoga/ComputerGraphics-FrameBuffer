@@ -45,37 +45,51 @@ MapItb::~MapItb()
 
 void MapItb::Draw(FrameBuffer frame)
 {
-    //cout << "cek1" << endl;
     pau->Make3D(frame);
-    //cout << "cek2" << endl;
-    pau->CreateAntiClip(getGedung(),frame);
-    //cout << "cek3" << endl;
+    //pau->CreateAntiClip(getGedung(),frame);
     perpus->Make3D(frame);
-    perpus->CreateAntiClip(getGedung(),frame);
+    //perpus->CreateAntiClip(getGedung(),frame);
     oktagon->Make3D(frame);
-    oktagon->CreateAntiClip(getGedung(),frame);
+    //oktagon->CreateAntiClip(getGedung(),frame);
     comlabs->Make3D(frame);
-    comlabs->CreateAntiClip(getGedung(),frame);
+    //comlabs->CreateAntiClip(getGedung(),frame);
     tvst->Make3D(frame);
-    tvst->CreateAntiClip(getGedung(),frame);
+    //tvst->CreateAntiClip(getGedung(),frame);
     pln->Make3D(frame);
-    pln->CreateAntiClip(getGedung(),frame);
+    //pln->CreateAntiClip(getGedung(),frame);
     lab6->Make3D(frame);
-    lab6->CreateAntiClip(getGedung(),frame);
+    //lab6->CreateAntiClip(getGedung(),frame);
     lab7->Make3D(frame);
-    lab7->CreateAntiClip(getGedung(),frame);
+    //lab7->CreateAntiClip(getGedung(),frame);
     lab5->Make3D(frame);
-    lab5->CreateAntiClip(getGedung(),frame);
+    //lab5->CreateAntiClip(getGedung(),frame);
     lab8->Make3D(frame);
-    lab8->CreateAntiClip(getGedung(),frame);
+    //lab8->CreateAntiClip(getGedung(),frame);
     ccbar->Make3D(frame);
-    ccbar->CreateAntiClip(getGedung(),frame);
+    //ccbar->CreateAntiClip(getGedung(),frame);
     cctim->Make3D(frame);
-    cctim->CreateAntiClip(getGedung(),frame);
+    //cctim->CreateAntiClip(getGedung(),frame);
     albar->Make3D(frame);
-    albar->CreateAntiClip(getGedung(),frame);
+    //albar->CreateAntiClip(getGedung(),frame);
     altim->Make3D(frame);
-    altim->CreateAntiClip(getGedung(),frame);
+    //altim->CreateAntiClip(getGedung(),frame);
+}
+
+void MapItb::Geser(int x, int y, FrameBuffer frame) {
+    pau->Geser(x,y,frame);
+    perpus->Geser(x,y,frame);
+    oktagon->Geser(x,y,frame);
+    comlabs->Geser(x,y,frame);
+    tvst->Geser(x,y,frame);
+    pln->Geser(x,y,frame);
+    lab6->Geser(x,y,frame);
+    lab7->Geser(x,y,frame);
+    lab5->Geser(x,y,frame);
+    lab8->Geser(x,y,frame);
+    ccbar->Geser(x,y,frame);
+    cctim->Geser(x,y,frame);
+    albar->Geser(x,y,frame);
+    altim->Geser(x,y,frame);
 }
 
 vector<Object> MapItb::getGedung()

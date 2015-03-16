@@ -3,6 +3,7 @@
 #include "RGBcolor.h"
 #include "Point.h"
 #include "Map.h"
+#include "MapItb.h"
 #include "Pattern.h"
 #include "Object.h"
 #include <iostream>
@@ -19,6 +20,7 @@ void antiLedak (int xpusat, int ypusat);
 void Perang2an();
 void Judul();
 void PetaIndonesia();
+void PetaITB();
 int _getch();
 
 int main(int argc, char const *argv[])
@@ -65,7 +67,7 @@ int main(int argc, char const *argv[])
 
 
 	// buat 3D
-
+	PetaITB();
 	return 0;
 }
 
@@ -400,4 +402,23 @@ void PetaIndonesia(){
 			break;
 		}
 	}
+}
+
+void PetaITB() {
+	MapItb Ganesha;
+	Ganesha.Draw(frame);
+
+	while(true) {
+		int ch = frame._getch();
+		if(ch == 0x41) // up
+			Ganesha.Geser(0,-5,frame);
+		else if(ch == 0x42) // down
+			Ganesha.Geser(0,5,frame);
+		else if(ch == 0x43) // right
+			Ganesha.Geser(5,0,frame);
+		else if(ch == 0x44) // left
+			Ganesha.Geser(-5,0,frame);
+		else if(ch == 'q')
+			break;
+	}	
 }

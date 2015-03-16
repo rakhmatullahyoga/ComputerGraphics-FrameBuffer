@@ -297,13 +297,13 @@ vector<Point> Object::GetNTitik(){
 }
 int Object::findRegion(int x, int y) {
 	int code=0;
-	if(y >= y_bawah)
+	if(y >= NTitik.at(2).GetOrdinat())
 		code |= 1; //bottom
-	else if(y < y_atas)
+	else if(y < NTitik.at(0).GetOrdinat())
 		code |= 2; //top
-	if(x >= x_kanan)
+	if(x >= NTitik.at(1).GetAbsis())
 		code |= 4; //right
-	else if(x < x_kiri)
+	else if(x < NTitik.at(0).GetAbsis())
 		code |= 8; //left
 	return(code);
 }
@@ -644,6 +644,22 @@ void Object::Make3D(FrameBuffer fBuff) {
 	NTitik.push_back(NTitik.at(2));
 	NTitik.push_back(NTitik.at(1));
 	NTitik.push_back(NTitik.at(6));
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();
+		}
+	}
 	gambar.plotListOfPoint(NTitik,warnaGaris,fBuff);
 }
 void Object::Hapus3D(FrameBuffer fBuff) {

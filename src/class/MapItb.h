@@ -12,6 +12,7 @@ class MapItb {
         MapItb();
         ~MapItb();
         void Draw(FrameBuffer frame);
+        void Geser(int x, int y, FrameBuffer frame);
         vector<Object> getGedung();
 
     private:
