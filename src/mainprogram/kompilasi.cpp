@@ -68,6 +68,21 @@ int main(int argc, char const *argv[])
 
 	// buat 3D
 	PetaITB();
+
+	// text
+	string s3;
+	s3 = "Pemuda Indonesia dapat menuntut ilmu dengan baik di kampus ITB dan dapat memajukan kesejahteraan\n\t\t\t\t\tmasyarakat Indonesia.";
+	system("clear");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\t\t\t\t\t";
+	for (int i=0; i<s3.length(); i++) {
+		cout << s3[i];
+		cout.flush();
+		usleep(30000);
+	}
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	sleep(1);
+
 	return 0;
 }
 
