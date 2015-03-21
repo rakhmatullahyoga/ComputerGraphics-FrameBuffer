@@ -74,6 +74,9 @@ void Object3D::Draw(FrameBuffer fBuff){
 	}
 }
 void Object3D::Make3D(){
+	if(!TitikProyeksi.empty()) {
+		TitikProyeksi.clear();
+	}
 	Skala(0.9,0.9);
 }
 void Object3D::Skala(float skalax, float skalay){
@@ -103,11 +106,19 @@ void Object3D::Geser(int x, int y, FrameBuffer fBuff){
 	x_kanan += x;
 	y_atas += y;
 	y_bawah += y;
+	Make3D();
+	Draw(fBuff);
+}
+void Object3D::GeserTitikHilang(int x, int y, FrameBuffer fBuff) {
+	Hapus(fBuff);
+	vanishingPoint1.SetAbsis(vanishingPoint1.GetAbsis()+x);
+	vanishingPoint1.SetOrdinat(vanishingPoint1.GetOrdinat()+y);
+	Make3D();
 	Draw(fBuff);
 }
 void Object3D::Hapus(FrameBuffer fBuff){
  	RGBcolor hitam;
- 	hitam.setRGB(1, 1, 1);
+ 	hitam.setRGB(1,1,1);
 	gambar.plotListOfPoint(NTitik,hitam,fBuff);
 	gambar.plotListOfPoint(TitikProyeksi,hitam,fBuff);
 	for(int i=0;i<NTitik.size();i++){

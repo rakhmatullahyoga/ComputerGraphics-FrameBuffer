@@ -15,17 +15,18 @@ class Object3D{
 		Object3D(string filename);
 		~Object3D();
 		void SetWarna(RGBcolor warna);
-		void Geser(int x, int y,FrameBuffer fBuff);
+		void Geser(int x, int y, FrameBuffer fBuff);
+		void GeserTitikHilang(int x, int y, FrameBuffer fBuff);
 		void Draw(FrameBuffer fBuff);
 		void Hapus(FrameBuffer fBuff);
+		void Make3D();
+		void Skala(float skalax, float skalay);
 		vector<Point> GetNTitik();
 		Point GetKiriAtas();
 		int GetKiri();
 		int GetKanan();
 		int GetAtas();
 		int GetBawah();
-		void Skala(float skalax, float skalay);
-		void Make3D();
 	private:
 		RGBcolor warnaGaris;
 		vector<Point> NTitik;

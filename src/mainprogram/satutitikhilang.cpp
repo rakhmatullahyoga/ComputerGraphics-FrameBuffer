@@ -34,68 +34,44 @@ int main(){
 	while(true) {
 		int ch = _getch();
 		if(ch == 0x41) { // up-arrow key
-			box1.Hapus(frame);
-			box1.Geser(0, 1, frame);
-			box1.Make3D();
-			box1.Draw(frame);
-
-			box2.Hapus(frame);
-			box2.Geser(0, 1, frame);
-			box2.Make3D();
-			box2.Draw(frame);
-
-			box3.Hapus(frame);
-			box3.Geser(0, 1, frame);
-			box3.Make3D();
-			box3.Draw(frame);
+			box1.Geser(0, 10, frame);
+			box2.Geser(0, 10, frame);
+			box3.Geser(0, 10, frame);
 		}
 		else if(ch == 0x42) { // down-arrow key
-			box1.Hapus(frame);
-			box1.Geser(0, -1, frame);
-			box1.Make3D();
-			box1.Draw(frame);
-
-			box2.Hapus(frame);
-			box2.Geser(0, -1, frame);
-			box2.Make3D();
-			box2.Draw(frame);
-
-			box3.Hapus(frame);
-			box3.Geser(0, -1, frame);
-			box3.Make3D();
-			box3.Draw(frame);
+			box1.Geser(0, -10, frame);
+			box2.Geser(0, -10, frame);
+			box3.Geser(0, -10, frame);
 		}
 		else if(ch == 0x43) { // right-arrow key
-			box1.Hapus(frame);
-			box1.Geser(-1, 0, frame);
-			box1.Make3D();
-			box1.Draw(frame);
-
-			box2.Hapus(frame);
-			box2.Geser(-1, 0, frame);
-			box2.Make3D();
-			box2.Draw(frame);
-
-			box3.Hapus(frame);
-			box3.Geser(-1, 0, frame);
-			box3.Make3D();
-			box3.Draw(frame);
+			box1.Geser(-10, 0, frame);
+			box2.Geser(-10, 0, frame);
+			box3.Geser(-10, 0, frame);
 		}
 		else if(ch == 0x44) { // left-arrow key
-			box1.Hapus(frame);
-			box1.Geser(1, 0, frame);
-			box1.Make3D();
-			box1.Draw(frame);
-
-			box2.Hapus(frame);
-			box2.Geser(1, 0, frame);
-			box2.Make3D();
-			box2.Draw(frame);
-
-			box3.Hapus(frame);
-			box3.Geser(1, 0, frame);
-			box3.Make3D();
-			box3.Draw(frame);
+			box1.Geser(10, 0, frame);
+			box2.Geser(10, 0, frame);
+			box3.Geser(10, 0, frame);
+		}
+		else if(ch == 'w') {
+			box1.GeserTitikHilang(0, -10, frame);
+			box2.GeserTitikHilang(0, -10, frame);
+			box3.GeserTitikHilang(0, -10, frame);
+		}
+		else if(ch == 's') {
+			box1.GeserTitikHilang(0, 10, frame);
+			box2.GeserTitikHilang(0, 10, frame);
+			box3.GeserTitikHilang(0, 10, frame);
+		}
+		else if(ch == 'a') {
+			box1.GeserTitikHilang(-10, 0, frame);
+			box2.GeserTitikHilang(-10, 0, frame);
+			box3.GeserTitikHilang(-10, 0, frame);
+		}
+		else if(ch == 'd') {
+			box1.GeserTitikHilang(10, 0, frame);
+			box2.GeserTitikHilang(10, 0, frame);
+			box3.GeserTitikHilang(10, 0, frame);
 		}
 		else if(ch == 'q') {
 			system("clear");
