@@ -24,6 +24,8 @@ class Object3D{
 		int GetKanan();
 		int GetAtas();
 		int GetBawah();
+		void Skala(float skalax, float skalay);
+		void Make3D();
 	private:
 		RGBcolor warnaGaris;
 		vector<Point> NTitik;
