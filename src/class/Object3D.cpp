@@ -47,7 +47,13 @@ Object3D::Object3D(string filename){
 			y_bawah = NTitik.at(i).GetOrdinat();
 		}
 	}
+	//set titik hilang
+	vanishingPoint1.SetAbsis(100);
+	vanishingPoint1.SetOrdinat(100);
 }
 Object3D::~Object3D(){
 
+}
+void Object3D::Draw(FrameBuffer fBuff){
+	gambar.plotListOfPoint(NTitik,warnaGaris,fBuff);
 }

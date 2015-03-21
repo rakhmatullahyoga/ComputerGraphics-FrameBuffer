@@ -4,6 +4,8 @@
 using namespace std;
 FrameBuffer frame;
 int main(){
+	system("clear");
 	Object3D box("objects/box.txt");
+	box.Draw(frame);
 	return 0;
 }
