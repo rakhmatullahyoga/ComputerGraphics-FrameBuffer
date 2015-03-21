@@ -1,5 +1,4 @@
 #include "Object.h"
-#include "Line.h"
 #include <fstream>
 #include <string>
 #include <iostream>

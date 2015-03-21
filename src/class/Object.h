@@ -6,6 +6,7 @@
 #include "RGBcolor.h"
 #include "Point.h"
 #include "Pattern.h"
+#include "Line.h"
 #include <string>
 #include <vector>
 using namespace std;
