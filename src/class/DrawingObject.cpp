@@ -65,7 +65,7 @@ void DrawingObject::moveRectangle(RGBcolor warna, FrameBuffer fBuff, int x_move,
 Point DrawingObject::GetPoint() {
 	return topLeftRectangle;
 }
-void DrawingObject::plotCircle (Point pusat, int r, RGBcolor warna, FrameBuffer fBuff){
+void DrawingObject::plotCircle(Point pusat, int r, RGBcolor warna, FrameBuffer fBuff){
 	int x, y, err, location;
 	x = -r; y = 0; err = 2-2*r; /* II. Quadrant */ 
 	   	do {

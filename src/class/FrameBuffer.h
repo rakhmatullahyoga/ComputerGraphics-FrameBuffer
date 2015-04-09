@@ -26,22 +26,25 @@ class FrameBuffer {
 		void clear();
 		RGBcolor drawColorPicker();
 		void drawColorPelangi();
+		void hapusColorPelangi();
 		void drawColorGradien(int inputx);
+		void hapusColorGradien();
 		void drawPointedColor(int *R, int *G, int *B, int inputx, int inputy);
 		bool isSameColor(RGBcolor oldCol, int x, int y);
 		bool isBlack(int x, int y);
 		int plus255 (int z);
+		RGBcolor getWarna(int x, int y);
 		struct fb_var_screeninfo vinfo;
 		struct fb_fix_screeninfo finfo;
 		char* fbp;					/* pointer to framebuffer */
-	private:
-		long int screensize;
-		int fbfd;
-		int location;					/* frame buffer file descriptor */
 		void drawColorPelangiPicker(int koord_x);
 		void hapusColorPelangiPicker(int koord_x);
 		void drawColorGradienPicker(int inputx, int inputy);
 		void hapusColorGradienPicker(int inputx, int inputy);
+	private:
+		long int screensize;
+		int fbfd;
+		int location;					/* frame buffer file descriptor */
 };
 
 #endif

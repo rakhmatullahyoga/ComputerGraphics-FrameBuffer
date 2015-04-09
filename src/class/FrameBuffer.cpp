@@ -65,6 +65,15 @@ bool FrameBuffer::isBlack(int x, int y){
 	int B = *(fbp+location);
 	return ((R == 1) && (G == 1) && (B == 1)) || ((R == 0) && (G == 0) && (B == 0));
 }
+RGBcolor FrameBuffer::getWarna(int x, int y) {
+	RGBcolor selected;
+	location = x * (vinfo.bits_per_pixel/8) + y * finfo.line_length;
+	int R = *(fbp+location+2);
+	int G = *(fbp+location+1);
+	int B = *(fbp+location);
+	selected.setRGB(R,G,B);
+	return selected;
+}
 int FrameBuffer::plus255 (int z){
 	while(z<0){
 		z+=256;
@@ -109,6 +118,17 @@ void FrameBuffer::drawColorPelangi(){
 	            *(fbp + location + 3) = 0; // No transparency
 	            } 
 	        }
+	    }
+	}
+}
+void FrameBuffer::hapusColorPelangi(){
+	int x,y;
+	for ( y = 0; y < 30; y++ ){
+	    for ( x = 0; x < 384; x++ ) { 
+	        location = (x+30) * (vinfo.bits_per_pixel/8) + (y+10) * finfo.line_length;
+            *(fbp + location) = 1; // Some blue 
+            *(fbp + location + 1) = 1; // A little green 
+            *(fbp + location + 2) = 1; // A lot of red
 	    }
 	}
 }
@@ -234,6 +254,17 @@ void FrameBuffer::drawColorGradien(int inputx){
 			*(fbp + location + 2) = r;
 			*(fbp + location + 3) = 0; 
 		    }
+	    }
+	}
+}
+void FrameBuffer::hapusColorGradien(){
+	int x,y;
+	for ( y = 0; y < 256; y++ ){
+	    for ( x = 0; x < 256; x++ ) { 
+		  location = (x+30) * (vinfo.bits_per_pixel/8) + (y+50) * finfo.line_length;
+		  *(fbp + location) = 1; // Some blue 
+          *(fbp + location + 1) = 1; // A little green 
+          *(fbp + location + 2) = 1; // A lot of red
 	    }
 	}
 }

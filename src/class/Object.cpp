@@ -10,6 +10,9 @@ using namespace std;
 Object::Object() {
 	point1_x=point1_y=point2_x=point2_y=0;
 }
+Object::Object(vector<Point> points) {
+	NTitik = points;
+}
 Object::Object(string filename){
 	point1_x=point1_y=point2_x=point2_y=0;
 	string line;

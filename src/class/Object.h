@@ -14,6 +14,7 @@ using namespace std;
 class Object{
 	public:
 		Object();
+		Object(vector<Point> points);
 		Object(string filename);
 		~Object();
 		void SetWarna(RGBcolor warna);

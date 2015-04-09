@@ -5,4 +5,4 @@ all:
 	# g++ -o ../../exe/kompilasi kompilasi.cpp ../class/DrawingObject.cpp ../class/FrameBuffer.cpp ../class/Point.cpp ../class/RGBcolor.cpp ../class/Pattern.cpp ../class/Object.cpp ../class/Line.cpp ../class/Map.cpp ../class/MapItb.cpp -I../class
 	# g++ -o ../../exe/petaitb petaitb.cpp ../class/DrawingObject.cpp ../class/FrameBuffer.cpp ../class/Point.cpp ../class/RGBcolor.cpp ../class/Pattern.cpp ../class/Object.cpp ../class/Line.cpp ../class/MapItb.cpp -I../class
 	# g++ -o ../../exe/satutitikhilang satutitikhilang.cpp ../class/DrawingObject.cpp ../class/FrameBuffer.cpp ../class/Point.cpp ../class/RGBcolor.cpp ../class/Object3D.cpp ../class/Line.cpp -I../class
-	g++ -o ../../exe/paint paint.cpp ../class/DrawingObject.cpp ../class/FrameBuffer.cpp ../class/RGBcolor.cpp ../class/Point.cpp -I../class
+	g++ -o ../../exe/paint paint.cpp ../class/DrawingObject.cpp ../class/FrameBuffer.cpp ../class/RGBcolor.cpp ../class/Point.cpp -I../class -pthread
