@@ -14,9 +14,10 @@ using namespace std;
 class Object{
 	public:
 		Object();
-		Object(vector<Point> points);
 		Object(string filename);
 		~Object();
+		void setUpObject(vector<Point> points);
+		void updateFillColor(FrameBuffer fBuff);
 		void SetWarna(RGBcolor warna);
 		void Geser(int x, int y,FrameBuffer fBuff);
 		void Draw(FrameBuffer fBuff);

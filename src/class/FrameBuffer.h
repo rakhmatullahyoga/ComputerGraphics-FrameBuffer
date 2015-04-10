@@ -30,6 +30,7 @@ class FrameBuffer {
 		void drawColorGradien(int inputx);
 		void hapusColorGradien();
 		void drawPointedColor(int *R, int *G, int *B, int inputx, int inputy);
+		void hapusPointedColor();
 		bool isSameColor(RGBcolor oldCol, int x, int y);
 		bool isBlack(int x, int y);
 		int plus255 (int z);

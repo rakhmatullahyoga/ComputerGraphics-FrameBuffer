@@ -2,6 +2,9 @@
 #include "DrawingObject.h"
 #include "RGBcolor.h"
 #include "Point.h"
+#include "Rectangle.h"
+#include "Circle.h"
+#include "Object.h"
 
 #include <cstdio>
 #include <iostream>
@@ -44,7 +47,32 @@ bool run;
 
 vector<Point> points;
 
+// Collection of objects
+vector<Rectangle> rectangles;
+vector<Circle> circles;
+vector<Object> objects;
+
 // GLOBAL FUNCTIONS
+void renderObjects() {
+        if(!rectangles.empty()) {
+                for(int i=0; i<rectangles.size(); i++) {
+                        rectangles.at(i).Draw(WHITE,frame);
+                        //rectangles.at(i).updateFillColor(frame);
+                }
+        }
+        if(!circles.empty()) {
+                for(int i=0; i<circles.size(); i++) {
+                        circles.at(i).Draw(WHITE,frame);
+                }
+        }
+        if(!objects.empty()) {
+                for(int i=0; i<objects.size(); i++) {
+                        objects.at(i).Draw(frame);
+                        //objects.at(i).updateFillColor(frame);
+                }
+        }
+}
+
 void* mouseListener(void* param) {
         //variables for handling mouse driver
         FILE *fmouse;
@@ -58,6 +86,7 @@ void* mouseListener(void* param) {
         canvas.drawRectangle(canvas_topleft,resY-4*margin,resX/2-2*margin,WHITE,frame);
         while(run){
                 //read from mouse driver
+                renderObjects();
                 fread(b,sizeof(char),3,fmouse);
                 draw.plotCircle(pointer, 3, BLACK, frame);
                 canvas.drawRectangle(canvas_topleft,resY-4*margin,resX/2-2*margin,WHITE,frame);
@@ -84,21 +113,13 @@ void* mouseListener(void* param) {
                 //system("clear");
 
                 pointer = Point(x, y);
-                draw.plotCircle(pointer, 3, WHITE, frame);
-
-                /*if((lb0==0) && (lb==1))
-                {
-                        ref1 = pointer;
+                
+                if(((rb0==0) && (mb==0) && (rb==0))) {
+                        draw.plotCircle(pointer, 3, WHITE, frame);
                 }
-                else if((lb0==1) && (lb==1))
-                {
-                        ref2 = pointer;
-                        Point top_left = Point(min(ref1.GetAbsis(), ref2.GetAbsis()), 
-                                                min(ref1.GetOrdinat(), ref2.GetOrdinat()));
-                        int height = abs(ref1.GetOrdinat() - ref2.GetOrdinat());
-                        int width = abs(ref1.GetAbsis() - ref2.GetAbsis());
-                        draw.drawRectangle(top_left, height, width, WHITE, frame);
-                }*/
+                else {
+                        draw.plotCircle(pointer, 3, BLACK, frame);
+                }
 
                 hs0=hs; vs0=vs; lb0=lb; rb0=rb; mb0 = mb; xo0=xo; yo0=yo; xd0=xd; yd0=yd;
         }
@@ -120,11 +141,17 @@ int _getch() {
 int main(){
         pthread_t listener;
         int input_option;
-        Point start;
         int x_length, y_length;
         int radius;
         RGBcolor fillcolor;
+        Point start;
+        Point firePoint;
 
+        // objek-objek gambar
+        Rectangle rectangle;
+        Circle circle;
+        Object object; //polygon
+        
         // variable pointer data
         xd=0; yd=0; //x/y movement delta
         xo=0; yo=0; //x/y overflow (out of range -255 to +255)
@@ -137,7 +164,7 @@ int main(){
 
         //variables for handle pointer
         resX = 1366; resY = 768; // monitor resolution
-        x=resX/2; y=resY/2; // center of monitor resolution
+        x=resX/2+margin+5; y=margin+5; // top-left of canvas
         margin = 10; // margin of bound
         
         WHITE.setRGB(255, 255, 255);
@@ -168,7 +195,8 @@ int main(){
                 cin >> input_option;
                 switch (input_option) {
                         case 1:
-                                cout << "klik untuk menentukan titik" << endl;
+                                cout << "klik kiri untuk menentukan titik" << endl;
+                                cout << "klik kanan untuk selesai" << endl;
                                 while(!rb){
                                         if(lb) {
                                                 Point P(x,y);
@@ -176,11 +204,16 @@ int main(){
                                                 draw.plotListOfPoint(points, WHITE, frame);
                                         }
                                 }
-                                start = points.at(0);
-                                points.push_back(start);
-                                draw.plotListOfPoint(points, WHITE, frame);
-                                cout << "input selesai" << endl;
-                                points.clear();
+                                if(!points.empty()) {
+                                        start = points.at(0);
+                                        points.push_back(start);
+                                        //x=resX/2+margin+5; y=margin+5; // top-left of canvas
+                                        //draw.plotListOfPoint(points, WHITE, frame);
+                                        object.setUpObject(points);
+                                        object.Draw(frame);
+                                        objects.push_back(object);
+                                        points.clear();
+                                }
                                 break;
                         case 2:
                                 cout << "klik kiri untuk menentukan top-left rectangle" << endl;
@@ -191,7 +224,10 @@ int main(){
                                 while(!rb);
                                 x_length = abs(x-start.GetAbsis());
                                 y_length = abs(y-start.GetOrdinat());
-                                draw.drawRectangle(start,y_length,x_length,WHITE,frame);
+                                //x=resX/2+margin+5; y=margin+5; // top-left of canvas
+                                rectangle.setUpRectangle(start,x_length,y_length);
+                                rectangle.Draw(WHITE,frame);
+                                rectangles.push_back(rectangle);
                                 break;
                         case 3:
                                 cout << "klik untuk menentukan titik tengah lingkaran" << endl;
@@ -200,7 +236,12 @@ int main(){
                                 start.SetOrdinat(y);
                                 cout << "masukkan jari-jari lingkaran: ";
                                 cin >> radius;
-                                draw.plotCircle(start,radius,WHITE,frame);
+                                //x=resX/2+margin+5; y=margin+5; // top-left of canvas
+                                circle.setUpCircle(start, radius);
+                                circle.Draw(WHITE,frame);
+                                circles.push_back(circle);
+                                //draw.plotCircle(start,radius,WHITE,frame);
+                                //firePoint = start;
                                 break;
                         case 4:
                                 fillcolor = frame.drawColorPicker();
@@ -208,15 +249,22 @@ int main(){
                                 cout << "klik kanan untuk selesai filling" << endl;
                                 while(!rb){
                                         if(lb) {
-                                                draw.FloodFill(x,y,frame.getWarna(x,y),fillcolor,frame);
+                                                start.SetAbsis(x);
+                                                start.SetOrdinat(y);
                                         }
                                 }
+                                draw.FloodFill(start.GetAbsis(),start.GetOrdinat(),frame.getWarna(start.GetAbsis(),start.GetOrdinat()),fillcolor,frame);
                                 frame.hapusColorPelangi();
                                 frame.hapusColorGradien();
+                                frame.hapusPointedColor();
+                                //x=resX/2+margin+5; y=margin+5; // top-left of canvas
                                 //frame.hapusColorPelangiPicker();
                                 //frame.hapusColorPelangiPicker();
                                 break;
                         case 5:
+                                rectangles.clear();
+                                objects.clear();
+                                circles.clear();
                                 system("clear");
                                 frame.clear();
                                 cout << "clearing canvas . . ." << endl;

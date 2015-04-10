@@ -10,9 +10,6 @@ using namespace std;
 Object::Object() {
 	point1_x=point1_y=point2_x=point2_y=0;
 }
-Object::Object(vector<Point> points) {
-	NTitik = points;
-}
 Object::Object(string filename){
 	point1_x=point1_y=point2_x=point2_y=0;
 	string line;
@@ -54,6 +51,31 @@ Object::Object(string filename){
 }
 Object::~Object(){
 
+}
+void Object::updateFillColor(FrameBuffer fBuff) {
+	fillColor = fBuff.getWarna(x_kanan-x_kiri, y_bawah-y_atas);
+	FloodFill(fillColor,fBuff);
+}
+void Object::setUpObject(vector<Point> points) {
+	NTitik = points;
+	warnaGaris.setRGB(255,255,255);
+	fillColor.setRGB(1,1,1);
+	x_kiri = x_kanan = NTitik.at(0).GetAbsis();
+	y_atas = y_bawah = NTitik.at(0).GetOrdinat();
+	for(int i=1; i<NTitik.size();i++){
+		if(x_kiri > NTitik.at(i).GetAbsis()){
+			x_kiri = NTitik.at(i).GetAbsis();
+		}
+		else if(x_kanan <NTitik.at(i).GetAbsis()){
+			x_kanan = NTitik.at(i).GetAbsis();
+		}
+		if(y_atas > NTitik.at(i).GetOrdinat()){
+			y_atas = NTitik.at(i).GetOrdinat();
+		}
+		else if(y_bawah < NTitik.at(i).GetOrdinat()){
+			y_bawah = NTitik.at(i).GetOrdinat();
+		}
+	}
 }
 void Object::SetWarna(RGBcolor warna){
 	warnaGaris.setRGB(warna.getRed(), warna.getGreen(), warna.getBlue());

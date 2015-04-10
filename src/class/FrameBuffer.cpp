@@ -397,10 +397,31 @@ RGBcolor FrameBuffer::drawColorPicker(){
 			drawPointedColor(&R, &G, &B, inputx, inputy);
 		}
 	}
-	
+	hapusColorGradienPicker(inputx,inputy);
+	hapusColorPelangiPicker(koord_x);
 	RGBcolor RGBterpilih;
 	RGBterpilih.setRGB(R,G,B);
 	return RGBterpilih;
+}
+void FrameBuffer::hapusPointedColor(){
+	int x,y;
+	for ( y = 0; y <27; y++ ){
+	    for ( x = 0; x < 27; x++ ) { 
+	        location = (x+310) * (vinfo.bits_per_pixel/8) + (y+50) * finfo.line_length;
+	        if ( vinfo.bits_per_pixel == 32 ) {
+	        	if((x==0)||(x==26)||(y==0)||(y==26)){
+	        		*(fbp + location) = 1; // Some blue 
+		            *(fbp + location + 1) = 1; // A little green 
+		            *(fbp + location + 2) = 1; // A lot of red
+	        	}
+	        	else{
+		            *(fbp + location) = 1; // Some blue 
+		            *(fbp + location + 1) = 1; // A little green 
+		            *(fbp + location + 2) = 1; // A lot of red
+		        }
+	        }
+	    }
+	}
 }
 void FrameBuffer::drawPointedColor(int *R, int *G, int *B, int inputx, int inputy){
 	location = (inputx+30) * (vinfo.bits_per_pixel/8) + (inputy+50) * finfo.line_length;
